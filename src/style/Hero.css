@@ -1,0 +1,75 @@
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  margin-top: 4rem;
+}
+
+.hero-container .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.hero-container .slide.active {
+  opacity: 1;
+}
+
+.wrapper {
+  text-align: center;
+  color: #fff;
+  padding: 0 1rem;
+  max-width: 1280px;
+
+  
+}
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fadeText 1s ease-in-out;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  animation: fadeText 1s ease-in-out;
+}
+
+.cta-btn {
+  padding: 0.75rem 2rem;
+  background-color: #151922;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #333;
+}
+
+@keyframes fadeText {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
