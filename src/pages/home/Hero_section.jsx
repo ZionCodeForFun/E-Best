@@ -1,10 +1,12 @@
 import "../../style/Hero.css";
 import { useState, useEffect } from "react";
+import hero_bg_car from "../../assets/hero-bg-car.png";
+import hero_bg_tracker from "../../assets/hero-bg-tracker.png";
 
 const slides = [
   {
     id: 1,
-    bg: "/src/assets/hero-bg-car.png",
+    bg: ` ${hero_bg_car}`,
     title: "Quality Cars You Can Trust",
     subtitle: "Buy, swap, or finance your next car easily",
     textColor: "#151922",
@@ -13,7 +15,7 @@ const slides = [
   },
   {
     id: 2,
-    bg: "/src/assets/hero-bg-tracker.png",
+    bg: ` ${hero_bg_tracker}`,
     title: "Track & Secure Your Vehicle",
     subtitle: "Real-time GPS tracking with professional installation",
     textColor: "#fff",
