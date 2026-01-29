@@ -139,7 +139,14 @@
   margin-bottom: 4rem;
   color: #111827;
 }
-
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: #111827;
+  }
+}
 /* Two-column layout */
 .two-columns {
   display: grid;
@@ -168,7 +175,11 @@
   color: #ffffff;
   margin-bottom: 2rem;
 }
-
+@media (max-width: 480px) {
+  .features-title {
+    font-size: 1rem;
+  }
+}
 .features-list {
   list-style: none;
   padding: 0;
@@ -265,7 +276,11 @@
   margin-bottom: 2.5rem;
   color: #111827;
 }
-
+@media (max-width: 480px) {
+  .additional-info h2 {
+    font-size: 1rem;
+  }
+}
 .info-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -335,7 +350,11 @@
   color: #1e3a70;
   margin-bottom: 1rem;
 }
-
+@media (max-width: 480px) {
+  .service-card h3 {
+    font-size: 1rem;
+  }
+}
 .service-card ul {
   list-style: none;
   padding: 0;
