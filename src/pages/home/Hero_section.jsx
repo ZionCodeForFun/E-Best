@@ -8,7 +8,7 @@ const slides = [
     id: 1,
     bg: ` ${hero_bg_car}`,
     title: "Quality Cars You Can Trust",
-    subtitle: "Buy, swap, or finance your next car easily",
+    subtitle: "Buy, swap, or finance your\nnext car easily",
     textColor: "#151922",
     btnBg: "#16447E",
     btnColor: "#fff",

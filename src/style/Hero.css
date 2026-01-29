@@ -81,3 +81,21 @@
     transform: translateY(0);
   }
 }
+@media screen and (max-width:768px) {
+  .hero-title {
+  font-size: 2rem;
+  white-space: pre-line;
+
+}
+.hero-container {
+
+  height: 50vh;
+
+}
+
+.hero-container .slide {
+  
+  background-position: -140px;
+
+}
+}

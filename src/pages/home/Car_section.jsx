@@ -99,7 +99,7 @@ export function CarsSection() {
   return (
     <section className="cars-section">
       <div className="cars-container">
-        <h1 className="section-title">Cars for Sale</h1>
+        <h2 className="section-title">Cars for Sale</h2>
         <div className="cars-grid">
           {carsData.map((car) => (
             <CarCard

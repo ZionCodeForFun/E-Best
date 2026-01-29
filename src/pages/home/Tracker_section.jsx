@@ -157,9 +157,9 @@ export function GPSTrackerSection() {
   return (
     <div className="gps-tracker-section">
       <div className="container">
-        <h1 className="section-title">
+        <h2 className="section-title">
           GPS Tracker Installation & Services
-        </h1>
+        </h2>
 
         <div className="two-columns">
           <div className="features-panel">
