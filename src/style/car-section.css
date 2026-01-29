@@ -1,0 +1,337 @@
+/* .car-section-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #f4f8fb;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.car-section-container .wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0 0 0;
+  gap: 20px;
+}
+.car-section-title h2 {
+  font-weight: 500;
+  font-size: 35px;
+  color: #151922;
+}
+.car-section-holder {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 15px;
+}
+.car-section-holder .card {
+  position: relative;
+  max-width: 300px;
+  min-height: 300px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: flex-start;
+  border-radius: 8px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.card .img-holder {
+  max-width: 100%;
+  min-height: 80%;
+}
+.img-holder img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.card .car-infor-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.car-infor-holder h5 {
+  color: #16447e;
+}
+.car-name-holder p {
+  color: #151922;
+  font-weight: 500;
+}
+.car-name-holder span {
+  color: #d31716;
+}
+.card .car-name-holder {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.car-name-holder button {
+  border-radius: 30px;
+  padding: 6px 14px;
+  color: #fff;
+  background-color: #16447e;
+  border: none;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.car-name-holder button:hover {
+  background-color: #071d36;
+  transform: scale(0.95);
+}
+.veiw-more-holder {
+  width: 100%;
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.veiw-more-holder button {
+  padding: 10px 9px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #151922;
+  color: #ffffff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.veiw-more-holder button:hover {
+  transform: scale(0.95);
+  background-color: #2e323a;
+} */
+/* Cars Section Styles */
+.cars-section {
+  width: 100%;
+  padding: 20px;
+  background-color: #f9fafb;
+}
+
+.cars-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+/* Cars Grid */
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+/* Car Card */
+.car-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.car-card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+}
+
+.car-card-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.car-card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.car-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.car-year {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.car-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 8px 0 16px 0;
+}
+
+.view-details-btn {
+  width: 100%;
+  padding: 12px 24px;
+  background-color:  #16447e;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: auto;
+}
+
+.view-details-btn:hover {
+  background-color: #0c256b;
+}
+
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.view-more-btn {
+  padding: 16px 48px;
+  background-color: #d31716;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #b01413;
+  transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+
+}
+
+/* Carousel Wrapper */
+.car-carousel-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Slick Carousel Custom Styles */
+.car-carousel-wrapper .slick-slider {
+  height: 100%;
+}
+
+.car-carousel-wrapper .slick-list {
+  height: 100%;
+}
+
+.car-carousel-wrapper .slick-track {
+  height: 100%;
+}
+
+.car-carousel-wrapper .slick-slide {
+  height: 250px;
+}
+
+.car-carousel-wrapper .slick-slide > div {
+  height: 100%;
+}
+
+/* Dots customization */
+.car-carousel-wrapper .slick-dots {
+  bottom: 12px;
+  z-index: 10;
+}
+
+.car-carousel-wrapper .slick-dots li button:before {
+  font-size: 10px;
+  color: #ffffff;
+  opacity: 0.6;
+}
+
+.car-carousel-wrapper .slick-dots li.slick-active button:before {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Tablet (2 columns) */
+@media (max-width: 1024px) {
+  .cars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* Mobile (1 column) */
+@media (max-width: 640px) {
+  .cars-section {
+    padding: 40px 16px;
+  }
+
+  .cars-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 24px;
+  }
+
+  .car-card-image {
+    height: 200px;
+  }
+
+  .carousel-slide {
+    height: 200px;
+  }
+
+  .car-carousel-wrapper .slick-slide {
+    height: 200px;
+  }
+
+  .view-more-btn {
+    padding: 14px 36px;
+    font-size: 1rem;
+  }
+}

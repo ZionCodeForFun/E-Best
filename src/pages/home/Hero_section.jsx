@@ -43,8 +43,10 @@ const Hero_section = () => {
           className={`slide ${index === current ? "active" : ""}`}
           style={{ backgroundImage: `url(${slide.bg})` }}
         >
-          <div className="wrapper" style={{ color: slide.textColor }}>
-            <h1 className="hero-title">{slide.title}</h1>
+          <article className="wrapper" style={{ color: slide.textColor }}>
+           <div  className="hero-title-holder">
+           {/* just a container, no css applied */}
+             <h1 className="hero-title">{slide.title}</h1>
             <p className="hero-subtitle">{slide.subtitle}</p>
             <button
               className="cta-btn"
@@ -55,7 +57,8 @@ const Hero_section = () => {
             >
               Explore Now
             </button>
-          </div>
+           </div>
+          </article>
         </div>
       ))}
     </div>

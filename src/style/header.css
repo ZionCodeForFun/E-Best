@@ -1,3 +1,4 @@
+/* Header container */
 .header-container {
   width: 100%;
   min-height: 4rem;
@@ -6,6 +7,8 @@
   top: 0;
   color: #151922;
   z-index: 9999;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
 }
 
 .header-wrapper {
@@ -39,17 +42,18 @@
   margin-left: auto;
 }
 
+/* Desktop nav */
 .nav-holder {
   display: flex;
   gap: 2rem;
 }
 
 .nav-holder p {
-  position: relative;       
+  position: relative;
   cursor: pointer;
-  font-weight: 500;         
+  font-weight: 500;
   transition: color 0.25s ease-in-out;
-  padding-bottom: 2px;     
+  padding-bottom: 2px;
 }
 
 .nav-holder p::after {
@@ -57,12 +61,86 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 2px;           
-  width: 0;                   
-  background-color: #151922;    
+  height: 2px;
+  width: 0;
+  background-color: #151922;
   transition: width 0.3s ease-in-out;
 }
 
 .nav-holder p:hover::after {
-  width: 100%;             
+  width: 100%;
 }
+
+/* Mobile menu icon */
+.mobile-menu-icon {
+  display: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  position: fixed;
+  top: 20px;
+  right: -100%;
+  width: 60%; 
+  height: 100%; 
+  background-color: #ffffff;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+  transition: right 0.3s ease-in-out;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  border-top-left-radius: 8px;
+}
+
+.mobile-menu.open {
+  right: 0;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-nav p {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.25rem;
+  position: relative;
+}
+
+.mobile-nav p::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0;
+  background-color: #151922;
+  transition: width 0.3s ease-in-out;
+}
+
+.mobile-nav p:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .nav-holder {
+    display: none;
+  }
+
+  .mobile-menu-icon {
+    display: block;
+  }
+}
+
