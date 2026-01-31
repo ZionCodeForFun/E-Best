@@ -1,0 +1,257 @@
+/* .carsPage-app {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  margin-top: 2rem;
+}
+
+.carsPage-header {
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.carsPage-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.carsPage-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #16447e;
+  margin-top: 1rem;
+}
+
+.carsPage-tagline {
+  color: #4b5563;
+  margin-top: 0.25rem;
+}
+
+.carsPage-main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.carsPage-intro {
+  margin-bottom: 2.5rem;
+}
+
+.carsPage-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.carsPage-subtitle {
+  color: #4b5563;
+  font-size: 1.125rem;
+}
+
+.carsPage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .carsPage-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .carsPage-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.carsPage-cta {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.carsPage-whatsapp-button {
+  width: 100%;
+  background-color: #16a34a;
+  color: #fff;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.carsPage-whatsapp-button:hover {
+  background-color: #15803d;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.carsPage-whatsapp-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.carsPage-footer {
+  background-color: #fff;
+  border-top: 1px solid #e5e7eb;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #4b5563;
+} */
+
+.carspage-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  font-family: sans-serif;
+
+}
+.goback2{
+   margin-top: 6rem !important ;
+}
+
+/* Header */
+.carspage-header {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.carspage-header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+.carspage-title {
+  font-size: 2rem;
+  color: #1e3a8a;
+  margin: 0;
+}
+.carspage-subtitle {
+  color: #4b5563;
+  margin-top: 4px;
+}
+
+/* Grid */
+.carspage-grid-wrapper {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+.carspage-section-title {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: #111827;
+}
+.carspage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .carspage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .carspage-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card */
+.carspage-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.carspage-card:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.carspage-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 ratio */
+  overflow: hidden;
+}
+.carspage-card-image {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.carspage-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: white;
+}
+.carspage-badge-brandnew { background-color: #16a34a; }
+.carspage-badge-foreign { background-color: #3b82f6; }
+.carspage-badge-nigerian { background-color: #f97316; }
+
+.carspage-card-content {
+  padding: 16px;
+}
+.carspage-card-name {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+.carspage-card-brand {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+}
+.carspage-card-price {
+  font-size: 1.5rem;
+  color: #1e3a8a;
+  margin-bottom: 16px;
+}
+
+/* Specs */
+.carspage-card-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 0.875rem;
+  color: #374151;
+}
+.carspage-spec {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.carspage-icon {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+/* Button */
+.carspage-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 0;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+.carspage-button:hover {
+  background-color: #1d4ed8;
+}

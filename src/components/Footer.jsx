@@ -3,13 +3,15 @@ import logo from '../assets/logo.png'
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { BsWhatsapp } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 const Footer = () => {
+  const nav = useNavigate()
   return (
     <footer className="footer-container">
       {/* Top CTA */}
       <div className="footer-cta">
         <h3>Drive Smart. Track Your Vehicle. Anywhere.</h3>
-        <button className="btn-red">View Cars</button>
+        <button className="btn-red" onClick={()=>nav('/car-page')}>View Cars</button>
       </div>
 
       <hr className="footer-divider" />

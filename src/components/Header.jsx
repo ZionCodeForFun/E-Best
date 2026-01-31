@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import "../style/header.css";
 import logo from "../assets/logo.png";
-import { HiOutlineMenuAlt3 } from "react-icons/hi"; // Hamburger icon
-import { IoMdClose } from "react-icons/io"; // Close icon
-
+import { HiOutlineMenuAlt3 } from "react-icons/hi"; 
+import { IoMdClose } from "react-icons/io"; 
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const nav = useNavigate();
   return (
     <div className="header-container">
       <article className="header-wrapper">
-        {/* Logo */}
         <aside className="header-left">
-          <img src={logo} alt="logo" />
+          <img onClick={() => nav("/")} src={logo} alt="logo" />
         </aside>
 
-        {/* Desktop Nav */}
         <aside className="header-right">
           <nav className="nav-holder">
             <p data-text="Home">Home</p>
@@ -24,14 +22,12 @@ const Header = () => {
             <p data-text="Contact Us">Contact Us</p>
           </nav>
 
-          {/* Mobile Hamburger */}
           <div className="mobile-menu-icon" onClick={() => setMenuOpen(true)}>
             <HiOutlineMenuAlt3 size={28} />
           </div>
         </aside>
       </article>
 
-      {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
         <div className="mobile-menu-header">
           <IoMdClose

@@ -1,0 +1,264 @@
+// import { useState } from "react";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import "../style/carPageCard.css";
+
+// export function CarPageCard({ car }) {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+
+//   const sliderSettings = {
+//     dots: true,
+//     infinite: true,
+//     speed: 500,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     arrows: true,
+//     autoplay: true,
+//     autoplaySpeed: 4000,
+//     beforeChange: (_current, next) => setCurrentSlide(next),
+//     customPaging: (i) => (
+//       <div
+//         className={`carsPage-dot ${
+//           i === currentSlide ? "carsPage-dot-active" : ""
+//         }`}
+//       />
+//     ),
+//     dotsClass: "slick-dots carsPage-dots",
+//   };
+
+//   return (
+//     <div className="carsPage-card">
+//       <div className="carsPage-slider-wrapper">
+//         <Slider {...sliderSettings}>
+//           {car.images.map((image, index) => (
+//             <div key={index} className="carsPage-slider-image-wrapper">
+//               <img
+//                 src={image}
+//                 alt={`${car.name} - Image ${index + 1}`}
+//                 className="carsPage-slider-image"
+//               />
+//             </div>
+//           ))}
+//         </Slider>
+//       </div>
+
+//       <div className="carsPage-card-content">
+//         <h3 className="carsPage-card-title">{car.name}</h3>
+
+//         <div className="carsPage-card-info">
+//           <div className="carsPage-card-info-row">
+//             <span className="carsPage-card-info-label">Year:</span>
+//             <span>{car.year}</span>
+//           </div>
+
+//           <div className="carsPage-card-info-row">
+//             <span className="carsPage-card-info-label">Mileage:</span>
+//             <span>{car.mileage}</span>
+//           </div>
+
+//           <div className="carsPage-card-info-row">
+//             <span className="carsPage-card-info-label">Condition:</span>
+//             <span className="carsPage-card-info-condition">
+//               {car.condition}
+//             </span>
+//           </div>
+//         </div>
+
+//         <button className="carsPage-card-button">View Details</button>
+//       </div>
+//     </div>
+//   );
+// }
+
+export const carsData = [
+  {
+    id: "1",
+    name: "Mercedes-Benz E-Class",
+    brand: "Mercedes-Benz",
+    model: "E-Class",
+    year: 2023,
+    price: 45000000,
+    mileage: "15,000 km",
+    condition: "Brand New",
+    transmission: "Automatic",
+    fuelType: "Petrol",
+    location: "Lagos, Nigeria",
+    description:
+      "Experience luxury and performance with this pristine Mercedes-Benz E-Class. This vehicle combines elegant design with cutting-edge technology. The powerful engine delivers smooth acceleration while maintaining excellent fuel efficiency. The interior features premium leather upholstery, advanced climate control, and state-of-the-art infotainment system. Regular maintenance has been performed at authorized service centers, ensuring optimal performance. The exterior is in immaculate condition with no scratches or dents. Perfect for executives and luxury car enthusiasts.",
+    images: [
+      "https://images.unsplash.com/photo-1764089859664-30aa6919ef0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzZWRhbiUyMGV4dGVyaW9yfGVufDF8fHx8MTc2OTg2NDEyNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1547731269-e4073e054f12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzZWRhbiUyMGNhciUyMGludGVyaW9yfGVufDF8fHx8MTc2OTg2NDEyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1648799833118-c989da6907d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjBkYXNoYm9hcmQlMjBpbnRlcmlvcnxlbnwxfHx8fDE3Njk4NjQxMjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1715598147171-12a86aad5b63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjByZWFyJTIwdmlld3xlbnwxfHx8fDE3Njk3ODUzNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    ],
+    features: [
+      { name: "Air Conditioning", icon: "air-vent", enabled: true },
+      { name: "Leather Seats", icon: "armchair", enabled: true },
+      { name: "Reverse Camera", icon: "camera", enabled: true },
+      { name: "Alloy Wheels", icon: "circle", enabled: true },
+      { name: "Push Start", icon: "power", enabled: true },
+      { name: "Bluetooth / CarPlay", icon: "bluetooth", enabled: true },
+      { name: "Sunroof", icon: "sun", enabled: true },
+      { name: "Heated Seats", icon: "flame", enabled: true },
+    ],
+    specifications: {
+      engineType: "2.0L Turbocharged Inline-4",
+      horsepower: "255 HP",
+      gearbox: "9-Speed Automatic",
+      driveType: "Rear-Wheel Drive",
+      fuelConsumption: "8.5 L/100km",
+      color: "Black Metallic",
+      vin: "WDD213056A123456",
+    },
+    safetyChecks: {
+      engineInspected: true,
+      gearboxTested: true,
+      noFloodDamage: true,
+      verifiedDocuments: true,
+    },
+  },
+  {
+    id: "2",
+    name: "BMW X5",
+    brand: "BMW",
+    model: "X5",
+    year: 2021,
+    price: 38000000,
+    mileage: "45,000 km",
+    condition: "Foreign Used",
+    transmission: "Automatic",
+    fuelType: "Diesel",
+    location: "Abuja, Nigeria",
+    description:
+      "This BMW X5 offers the perfect blend of luxury SUV comfort and dynamic performance. Imported from Europe with full service history, this vehicle has been meticulously maintained. The spacious interior accommodates up to seven passengers in supreme comfort. Features include a panoramic sunroof, ambient lighting, and a premium sound system. The powerful diesel engine provides excellent torque and fuel economy for long-distance travel. All systems have been thoroughly inspected and are in perfect working condition. The vehicle comes with comprehensive warranty coverage.",
+    images: [
+      "https://images.unsplash.com/photo-1769641156712-7a8044d19c3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzdXYlMjBleHRlcmlvcnxlbnwxfHx8fDE3Njk4NjQxMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1547731269-e4073e054f12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzZWRhbiUyMGNhciUyMGludGVyaW9yfGVufDF8fHx8MTc2OTg2NDEyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1648799833118-c989da6907d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjBkYXNoYm9hcmQlMjBpbnRlcmlvcnxlbnwxfHx8fDE3Njk4NjQxMjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1715598147171-12a86aad5b63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjByZWFyJTIwdmlld3xlbnwxfHx8fDE3Njk3ODUzNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    ],
+    features: [
+      { name: "Air Conditioning", icon: "air-vent", enabled: true },
+      { name: "Leather Seats", icon: "armchair", enabled: true },
+      { name: "Reverse Camera", icon: "camera", enabled: true },
+      { name: "Alloy Wheels", icon: "circle", enabled: true },
+      { name: "Push Start", icon: "power", enabled: true },
+      { name: "Bluetooth / CarPlay", icon: "bluetooth", enabled: true },
+      { name: "Sunroof", icon: "sun", enabled: true },
+      { name: "Heated Seats", icon: "flame", enabled: false },
+    ],
+    specifications: {
+      engineType: "3.0L Inline-6 Diesel",
+      horsepower: "265 HP",
+      gearbox: "8-Speed Automatic",
+      driveType: "All-Wheel Drive",
+      fuelConsumption: "7.8 L/100km",
+      color: "Alpine White",
+      vin: "WBAJW5109LWC12345",
+    },
+    safetyChecks: {
+      engineInspected: true,
+      gearboxTested: true,
+      noFloodDamage: true,
+      verifiedDocuments: true,
+    },
+  },
+ {
+    id: "3",
+    name: "Porsche 911 Carrera",
+    brand: "Porsche",
+    model: "911 Carrera",
+    year: 2022,
+    price: 75000000,
+    mileage: "8,500 km",
+    condition: "Brand New",
+    transmission: "Automatic",
+    fuelType: "Petrol",
+    location: "Lagos, Nigeria",
+    description: "An iconic sports car that needs no introduction. This Porsche 911 Carrera delivers exhilarating performance with its rear-engine layout and precision handling. The turbocharged flat-six engine produces incredible power while maintaining the distinctive Porsche sound. The interior showcases German engineering excellence with sport seats, a digital instrument cluster, and premium materials throughout. This vehicle has been carefully driven and maintained, with all service records available. The exterior finish is flawless, and the car drives like new. Perfect for enthusiasts seeking the ultimate driving experience.",
+    images: [
+      "https://images.unsplash.com/photo-1623564493136-711e0bf8df59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBjYXIlMjBleHRlcmlvcnxlbnwxfHx8fDE3Njk4NjQxMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1547731269-e4073e054f12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzZWRhbiUyMGNhciUyMGludGVyaW9yfGVufDF8fHx8MTc2OTg2NDEyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1648799833118-c989da6907d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjBkYXNoYm9hcmQlMjBpbnRlcmlvcnxlbnwxfHx8fDE3Njk4NjQxMjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1715598147171-12a86aad5b63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjByZWFyJTIwdmlld3xlbnwxfHx8fDE3Njk3ODUzNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    ],
+    features: [
+      { name: "Air Conditioning", icon: "air-vent", enabled: true },
+      { name: "Leather Seats", icon: "armchair", enabled: true },
+      { name: "Reverse Camera", icon: "camera", enabled: true },
+      { name: "Alloy Wheels", icon: "circle", enabled: true },
+      { name: "Push Start", icon: "power", enabled: true },
+      { name: "Bluetooth / CarPlay", icon: "bluetooth", enabled: true },
+      { name: "Sunroof", icon: "sun", enabled: false },
+      { name: "Heated Seats", icon: "flame", enabled: true },
+    ],
+    specifications: {
+      engineType: "3.0L Twin-Turbo Flat-6",
+      horsepower: "379 HP",
+      gearbox: "8-Speed PDK Automatic",
+      driveType: "Rear-Wheel Drive",
+      fuelConsumption: "9.1 L/100km",
+      color: "Guards Red",
+      vin: "WP0AB2A97NS123456",
+    },
+    safetyChecks: {
+      engineInspected: true,
+      gearboxTested: true,
+      noFloodDamage: true,
+      verifiedDocuments: true,
+    },
+  },
+  {
+    id: "4",
+    name: "Toyota Camry",
+    brand: "Toyota",
+    model: "Camry",
+    year: 2019,
+    price: 18500000,
+    mileage: "85,000 km",
+    condition: "Nigerian Used",
+    transmission: "Automatic",
+    fuelType: "Petrol",
+    location: "Port Harcourt, Nigeria",
+    description: "A reliable and well-maintained Toyota Camry, perfect for daily commuting and family use. This vehicle has been owned by a single careful driver and serviced regularly at authorized Toyota service centers. The engine runs smoothly with no issues, and the transmission shifts perfectly. The interior is clean and well-kept, with functioning air conditioning and all electrical systems working properly. The exterior shows normal wear for the mileage but remains in good condition. Recent maintenance includes new tires, brake pads, and battery. An excellent choice for those seeking reliability and value.",
+    images: [
+      "https://images.unsplash.com/photo-1764089859664-30aa6919ef0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzZWRhbiUyMGV4dGVyaW9yfGVufDF8fHx8MTc2OTg2NDEyNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1547731269-e4073e054f12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzZWRhbiUyMGNhciUyMGludGVyaW9yfGVufDF8fHx8MTc2OTg2NDEyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1648799833118-c989da6907d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjBkYXNoYm9hcmQlMjBpbnRlcmlvcnxlbnwxfHx8fDE3Njk4NjQxMjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://images.unsplash.com/photo-1715598147171-12a86aad5b63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjByZWFyJTIwdmlld3xlbnwxfHx8fDE3Njk3ODUzNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    ],
+    features: [
+      { name: "Air Conditioning", icon: "air-vent", enabled: true },
+      { name: "Leather Seats", icon: "armchair", enabled: false },
+      { name: "Reverse Camera", icon: "camera", enabled: true },
+      { name: "Alloy Wheels", icon: "circle", enabled: true },
+      { name: "Push Start", icon: "power", enabled: false },
+      { name: "Bluetooth / CarPlay", icon: "bluetooth", enabled: false },
+      { name: "Sunroof", icon: "sun", enabled: false },
+      { name: "Heated Seats", icon: "flame", enabled: false },
+    ],
+    specifications: {
+      engineType: "2.5L Inline-4",
+      horsepower: "203 HP",
+      gearbox: "8-Speed Automatic",
+      driveType: "Front-Wheel Drive",
+      fuelConsumption: "7.6 L/100km",
+      color: "Silver",
+    },
+    safetyChecks: {
+      engineInspected: true,
+      gearboxTested: true,
+      noFloodDamage: true,
+      verifiedDocuments: true,
+    },
+  },];
+
+/**
+ * Helper function to get a car by its ID
+ * @param {string} id
+ * @returns {object|undefined} car object
+ */
+export function getCarById(id) {
+  return carsData.find((car) => car.id === id);
+}

@@ -5,6 +5,9 @@ import Error from "./common/Error";
 import ScrollToTop from "./common/ScrollToTop";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import TrackerPage from "./pages/home/TrackerPage";
+import CarPage from "./pages/home/CarPage";
+import CarDetailsPage from "./pages/home/CarDetails";
 const App = () => {
   return (
     <BrowserRouter>
@@ -12,6 +15,10 @@ const App = () => {
       <Routes>
         <Route path="*" element={<Error />} />
         <Route path="/" element={<Landing />} />
+        <Route path="/tracker-page" element={<TrackerPage />} />
+        <Route path="/car-page" element={<CarPage />} />
+        <Route path="/cars/:carId" element={<CarDetailsPage />} />
+
       </Routes>
       <Footer />
       <ScrollToTop />

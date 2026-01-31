@@ -1,0 +1,216 @@
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  margin-top: 4rem;
+}
+
+/* Header */
+.car-header {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.car-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #1e3a8a;
+  gap: 4px;
+}
+.back-link:hover {
+  color: #2563eb;
+}
+.logo {
+  font-size: 1.5rem;
+  color: #1e3a8a;
+  font-weight: bold;
+}
+
+/* Slider */
+.car-slider {
+  position: relative;
+    width: 100%;
+  
+}
+.car-slider .slide img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.car-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 20;
+}
+.badge-brand-new { background-color: #22c55e; }
+.badge-foreign-used { background-color: #3b82f6; }
+.badge-nigerian-used { background-color: #f97316; }
+
+/* Slick Arrows */
+.slick-prev, .slick-next {
+  width: 48px;
+  height: 48px;
+  /* background: rgba(255,255,255,0.9); */
+  border-radius: 50%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+    position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+}
+.slick-prev:hover, .slick-next:hover { background: #fff; }
+.slick-prev { left: 8px; }
+.slick-next { right: 8px; }
+/* Main Grid */
+.grid-two-columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.price-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 24px;
+}
+.price-label { color: #6b7280; margin-bottom: 4px; }
+.price-value { font-size: 1.75rem; color: #1e3a8a; margin-bottom: 16px; }
+.card-buttons .btn { width: 100%; margin-bottom: 8px; }
+
+/* Specs Grid */
+.car-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.spec {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.spec-label { font-size: 0.75rem; color: #6b7280; }
+
+/* Card Sections */
+.card-section {
+  background: #fff;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.card-section h2 { font-size: 1.25rem; margin-bottom: 12px; }
+
+/* Features */
+.car-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 6px;
+  background: #f0f9ff;
+}
+.feature-card.disabled { opacity: 0.5; background: #f3f4f6; }
+.icon-check { color: #16a34a; margin-left: auto; }
+.icon-x { color: #6b7280; margin-left: auto; }
+
+/* Specs Table */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.spec-table td { padding: 8px 4px; border-bottom: 1px solid #e5e7eb; }
+.spec-table td:first-child { color: #6b7280; }
+
+/* Safety Grid */
+.safety-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+.safety-card { display: flex; align-items: center; gap: 8px; }
+.safety-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #d1fae5; }
+.safety-icon.unsafe { background: #fee2e2; }
+
+
+@media (max-width: 1024px) {
+  .grid-two-columns { grid-template-columns: 1fr; }
+  .mobile-cta {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    z-index: 30;
+  }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.btn-primary {
+  background: #16a34a;
+  color: #fff;
+}
+.btn-primary:hover { background: #15803d; }
+.btn-outline {
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+  background: #fff;
+}
+.btn-outline:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* Not Found */
+.not-found {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}

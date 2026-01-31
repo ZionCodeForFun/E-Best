@@ -1,166 +1,46 @@
-// import React, { useState, useEffect, useRef } from "react";
-// import "../../style/tracker-section.css";
-// import tracker1 from "../../assets/tracker1.jfif";
-// import tracker2 from "../../assets/tracker2.jfif";
-// import tracker3 from "../../assets/tracker3.jfif";
-// import tracker4 from "../../assets/tracker4.jfif";
-// import { GoDotFill } from "react-icons/go";
-
-// const trackerImages = [
-//   `${tracker1}`,
-//   `${tracker2}`,
-//   `${tracker3}`,
-//   `${tracker4}`,
-// ];
-
-// const Tracker_section = () => {
-//   const [currentIndex, setCurrentIndex] = useState(0);
-//   const [paused, setPaused] = useState(false);
-//   const touchStartX = useRef(0);
-//   const touchEndX = useRef(0);
-
-//   useEffect(() => {
-//     if (paused) return;
-
-//     const interval = setInterval(() => {
-//       setCurrentIndex((prev) =>
-//         prev === trackerImages.length - 1 ? 0 : prev + 1
-//       );
-//     }, 3000);
-
-//     return () => clearInterval(interval);
-//   }, [paused]);
-
-//   const handleTouchStart = (e) => {
-//     touchStartX.current = e.touches[0].clientX;
-//   };
-
-//   const handleTouchEnd = () => {
-//     if (touchStartX.current - touchEndX.current > 50) nextSlide();
-//     if (touchEndX.current - touchStartX.current > 50) prevSlide();
-//   };
-
-//   const nextSlide = () => {
-//     setCurrentIndex((prev) =>
-//       prev === trackerImages.length - 1 ? 0 : prev + 1
-//     );
-//   };
-
-//   const prevSlide = () => {
-//     setCurrentIndex((prev) =>
-//       prev === 0 ? trackerImages.length - 1 : prev - 1
-//     );
-//   };
-
-//   return (
-//     <div className="tracker-section-container">
-//       <article className="wrapper">
-//         <section className="tracker-section-title-holder">
-//           <h2>GPS Tracker Installation & Services</h2>
-//         </section>
-//         <p className="tracker-intro">
-//           Track, monitor, and secure your vehicle in real time with our
-//           professionally installed GPS tracking solutions.
-//         </p>
-//         <div className="tracker-content">
-//           <ul className="middle-holder">
-//             <li>
-//               <GoDotFill className="arrow-icon" /> Real-time tracking
-//             </li>
-//             <li>
-//               {" "}
-//               <GoDotFill className="arrow-icon" /> Theft alerts
-//             </li>
-//             <li>
-//               {" "}
-//               <GoDotFill className="arrow-icon" /> Mobile app access
-//             </li>
-//             <li>
-//               <GoDotFill className="arrow-icon" /> Speed monitoring
-//             </li>
-//             <li>
-//               <GoDotFill className="arrow-icon" /> Geo-fence alerts
-//             </li>
-//             <li>
-//               <GoDotFill className="arrow-icon" /> Engine cut-off
-//             </li>
-//             <li>
-//               <GoDotFill className="arrow-icon" /> Professional installation
-//             </li>
-//           </ul>
-//           <aside
-//             className="left-holder"
-//             onMouseEnter={() => setPaused(true)}
-//             onMouseLeave={() => setPaused(false)}
-//             onTouchStart={handleTouchStart}
-//             onTouchMove={(e) => (touchEndX.current = e.touches[0].clientX)}
-//             onTouchEnd={handleTouchEnd}
-//           >
-//             <div
-//               className="carousel"
-//               style={{
-//                 transform: `translateX(-${currentIndex * 100}%)`,
-//               }}
-//             >
-//               {trackerImages.map((img, index) => (
-//                 <img src={img} alt="GPS Tracker" key={index} />
-//               ))}
-//             </div>
-//           </aside>
-
-    
-//         </div>
-
-//         <div className="cta-holder">
-//           <button className="primary-btn">View Tracker Packages</button>
-//           <button className="secondary-btn">See How It Works</button>
-//         </div>
-//       </article>
-//     </div>
-//   );
-// };
-
-// export default Tracker_section;
-
- import "../../style/tracker-section.css";
-
+import "../../style/tracker-section.css";
+import { useNavigate } from "react-router-dom";
 export function GPSTrackerSection() {
+  const nav = useNavigate();
   const features = [
     "Real-time GPS tracking",
     "Theft & movement alerts",
     "Mobile app access",
-    "Speed monitoring",
     "Geo-fence alerts",
-    "Engine cut-off",
-    "Professional installation"
+    "Front & Rear Camera",
+    "HD Video Recording",
+    "Night vision & Loop Recording",
+    "Audio Recording",
   ];
 
   const images = [
     {
       url: "https://images.unsplash.com/photo-1754821305530-8e3c7b8deda2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxHUFMlMjB0cmFja2VyJTIwZGV2aWNlJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3Njk2ODY4MjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      alt: "GPS tracker device"
+      alt: "GPS tracker device",
     },
     {
       url: "https://images.unsplash.com/photo-1549047608-55b2fd4b8427?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjBpbnRlcmlvciUyMGluc3RhbGxhdGlvbiUyMG1lY2hhbmljfGVufDF8fHx8MTc2OTY4NjgyNXww&ixlib=rb-4.1.0&q=80&w=1080",
-      alt: "Vehicle tracker installation"
+      alt: "Vehicle tracker installation",
     },
     {
       url: "https://images.unsplash.com/photo-1764347923709-fc48487f2486?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWFydHBob25lJTIwR1BTJTIwbWFwJTIwbmF2aWdhdGlvbnxlbnwxfHx8fDE3Njk2ODY4MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      alt: "Live GPS map on mobile phone"
+      alt: "Live GPS map on mobile phone",
     },
     {
       url: "https://images.unsplash.com/photo-1744199770431-8048f20dedf8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZWhpY2xlJTIwdHJhY2tpbmclMjBkYXNoYm9hcmQlMjBjb21wdXRlcnxlbnwxfHx8fDE3Njk2ODY4MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      alt: "Vehicle tracking dashboard"
-    }
+      alt: "Vehicle tracking dashboard",
+    },
   ];
 
   return (
     <div className="gps-tracker-section">
       <div className="container">
         <h2 className="section-title">
-          GPS Tracker Installation & Services
+          GPS Tracker & Dash Cam Installation & Services
         </h2>
-
+        <p className="section-subtitle">
+          Real-time GPS tracking, dash cameras & professional installation
+        </p>
         <div className="two-columns">
           <div className="features-panel">
             <h2 className="features-title">Features & Benefits</h2>
@@ -168,7 +48,9 @@ export function GPSTrackerSection() {
               {features.map((feature, index) => (
                 <li key={index} className="feature-item">
                   <span className="feature-bullet"></span>
-                  <span className="feature-text" style={{color:"white"}}>{feature}</span>
+                  <span className="feature-text" style={{ color: "white" }}>
+                    {feature}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -189,7 +71,9 @@ export function GPSTrackerSection() {
         </div>
 
         <div className="cta-container">
-          <button className="cta-button">View Packages</button>
+          <button className="cta-button" onClick={() => nav("/tracker-page")}>
+            View Packages
+          </button>
         </div>
 
         <div className="additional-info">
@@ -200,21 +84,29 @@ export function GPSTrackerSection() {
                 <div className="inner-icon"></div>
               </div>
               <h3>24/7 Monitoring</h3>
-              <p>Round-the-clock tracking and instant alerts for complete peace of mind</p>
+              <p>
+                Round-the-clock tracking and instant alerts for complete peace
+                of mind
+              </p>
             </div>
             <div className="info-card">
               <div className="info-icon">
                 <div className="inner-icon"></div>
               </div>
               <h3>Professional Setup</h3>
-              <p>Expert installation by certified technicians ensures optimal performance</p>
+              <p>
+                Expert installation by certified technicians ensures optimal
+                performance
+              </p>
             </div>
             <div className="info-card">
               <div className="info-icon">
                 <div className="inner-icon"></div>
               </div>
               <h3>Mobile Control</h3>
-              <p>Manage your vehicle from anywhere using our intuitive mobile app</p>
+              <p>
+                Manage your vehicle from anywhere using our intuitive mobile app
+              </p>
             </div>
           </div>
         </div>
