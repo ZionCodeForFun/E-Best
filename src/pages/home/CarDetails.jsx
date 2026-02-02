@@ -1,5 +1,5 @@
-import { useParams, Link, useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router";
+import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -42,7 +42,6 @@ export default function CarDetailsPage() {
   const { carId } = useParams();
   const car = carId ? getCarById(carId) : undefined;
   const [currentSlide, setCurrentSlide] = useState(0);
-  const nav = useNavigate();
 
   if (!car) {
     return (
@@ -149,9 +148,11 @@ export default function CarDetailsPage() {
               >
                 <MessageCircle className="icon" /> Contact on WhatsApp
               </a>
+             <Link to={('/contact')}>
               <button className="btn btn-outline">
-                <ClipboardCheck className="icon" onClick={()=>nav('/contact')} /> Book Inspection
+                <ClipboardCheck className="icon"  /> Book Inspection
               </button>
+             </Link>
             </div>
           </div>
         </div>
