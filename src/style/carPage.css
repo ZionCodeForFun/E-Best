@@ -113,16 +113,15 @@
   min-height: 100vh;
   background-color: #f9fafb;
   font-family: sans-serif;
-
 }
-.goback2{
-   margin-top: 6rem !important ;
+.goback2 {
+  margin-top: 6rem !important ;
 }
 
 /* Header */
 .carspage-header {
   background-color: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .carspage-header-inner {
   max-width: 1120px;
@@ -174,7 +173,7 @@
   transition: box-shadow 0.3s;
 }
 .carspage-card:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 .carspage-card-image-wrapper {
   position: relative;
@@ -184,7 +183,8 @@
 }
 .carspage-card-image {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -198,9 +198,15 @@
   font-size: 0.75rem;
   color: white;
 }
-.carspage-badge-brandnew { background-color: #16a34a; }
-.carspage-badge-foreign { background-color: #3b82f6; }
-.carspage-badge-nigerian { background-color: #f97316; }
+.carspage-badge-brandnew {
+  background-color: #16a34a;
+}
+.carspage-badge-foreign {
+  background-color: #3b82f6;
+}
+.carspage-badge-nigerian {
+  background-color: #f97316;
+}
 
 .carspage-card-content {
   padding: 16px;
@@ -245,13 +251,15 @@
   display: block;
   width: 100%;
   text-align: center;
-  background-color: #2563eb;
+  background-color: #16447e;
   color: white;
   padding: 8px 0;
-  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
   text-decoration: none;
   transition: background-color 0.3s;
 }
 .carspage-button:hover {
-  background-color: #1d4ed8;
+  background-color: #0834ac;
 }

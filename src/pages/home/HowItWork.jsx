@@ -1,6 +1,6 @@
 import { Radio, Wrench, Smartphone, ArrowRight } from 'lucide-react';
 import '../../style/howItWork.css'
-
+import { useNavigate } from 'react-router-dom';
 const steps = [
   {
     id: 1,
@@ -23,6 +23,7 @@ const steps = [
 ];
 
 export function HowItWorks() {
+  const nav = useNavigate()
   return (
     <section className="how-it-works-section">
       <div className="how-it-works-container">
@@ -121,7 +122,7 @@ export function HowItWorks() {
 
         {/* CTA Button Section */}
         <div className="cta-section">
-          <button className="cta-button">
+          <button className="cta-button" onClick={()=>nav('/contact')}>
             Get Started Today
           </button>
           <p className="cta-subtitle">

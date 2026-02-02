@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { ArrowLeft, Shield, CarFront, Calendar } from "lucide-react";
+import { ChevronLeft, Shield, CarFront, Calendar } from "lucide-react";
 import "../../style/TrackerPage.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function TrackerPage() {
-  const navigate = useNavigate();
+  const nav = useNavigate()
   useEffect(() => {
     const slider = document.querySelector(".image-slider");
     const slides = document.querySelectorAll(".slider-image");
@@ -82,27 +83,28 @@ function TrackerPage() {
   }, []);
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/2348000000000", "_blank");
+    window.open("https://wa.me/8133369509", "_blank");
   };
 
   return (
     <div className="ebest-page">
-      <header className="page-header">
-        <div className="brand-name">E-BEST</div>
-        <h1 className="page-title">Tracker Packages</h1>
-        <p className="page-subtitle">
-          Choose the right GPS tracking plan for your vehicle
+      <div className="back-home-track">
+        <Link to="/" className="back-link">
+          <ChevronLeft className="icon" />
+        <p className="back-home-track-p">Back to Home</p>
+        </Link>
+      </div>
+      <header className="pricing-header">
+        <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
+        <h1>Exclusive Tracker & Dashcam Packages</h1>
+        <p className="pricing-tagline">
+          Choose the solution that fits your vehicle or fleet needs. Each
+          package comes with optional dashcam add-ons for enhanced monitoring
+          and security.
         </p>
       </header>
 
       <section className="slider-section">
-        <div className="back-home">
-          <button className="back-home-btn" onClick={() => navigate("/")}>
-            <ArrowLeft size={20} />
-            <span>Back to Home</span>
-          </button>
-        </div>
-
         <div className="slider-container">
           <div className="image-slider">
             <div className="slider-image">
@@ -159,90 +161,178 @@ function TrackerPage() {
           </div>
         </div>
       </section>
+      <div className="pricing-container">
+        <header className="pricing-header">
+          <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
+          <h1>Exclusive Tracker & Dashcam Packages</h1>
+          <p className="pricing-tagline">
+            Choose the solution that fits your vehicle or fleet needs. Each
+            package comes with optional dashcam add-ons for enhanced monitoring
+            and security.
+          </p>
+        </header>
 
-      <section className="packages-section">
-        <div className="package-card">
-          <div className="package-header">
-            <h3 className="package-name">Advanced Package</h3>
-            <p className="package-label">For individual vehicle owners</p>
-          </div>
-          <div className="package-price">₦100,000</div>
-          <ul className="package-features">
-            <li>✓ Self-Tracking</li>
-            <li>✓ 24/7 Support</li>
-            <li>✓ Mobile Tracking</li>
-            <li>✓ 100% Compatibility</li>
-            <li>✓ Live Location with Map</li>
-            <li>✓ Voice Monitoring (Optional)</li>
-            <li>✓ SMS Engine Shutdown / Resume</li>
-            <li>✓ SOS Emergency System (Optional)</li>
-          </ul>
-          <button className="package-btn package-btn-blue">
-            Choose Advanced
-          </button>
-        </div>
+        <main className="pricing-content">
+          {/* EXCLUSIVE PACKAGE */}
+          <div className="pricing-card exclusive">
+            <div className="pricing-badge">EXCLUSIVE PACKAGE</div>
+            <div className="package-options">
+              <div className="option-row">
+                <div className="option-header">
+                  <h2>Tracker Only</h2>
+                  <div className="pricing-amount">
+                    <span className="currency">₦</span>
+                    <span className="price">150,000</span>
+                  </div>
+                </div>
+                <div className="features-list">
+                  <ul>
+                    <li>• Self-Tracking (User-controlled access)</li>
+                    <li>• 24/7 Support</li>
+                    <li>• Mobile & Web/PC Tracking</li>
+                    <li>• 100% Vehicle Compatibility</li>
+                    <li>• Voice Monitoring (Optional)</li>
+                    <li>• SMS Engine Shutdown/Resume</li>
+                    <li>• SOS Emergency System (Optional)</li>
+                    <li>• ACC Ignition Detection</li>
+                    <li>• Fleet Management Dashboard</li>
+                    <li>• Over Speed Alert</li>
+                    <li>• Trip History Records</li>
+                    <li>• Accident Alert System</li>
+                  </ul>
+                </div>
+              </div>
 
-        <div className="package-card package-card-popular">
-          <div className="popular-badge">Most Popular</div>
-          <div className="package-header">
-            <h3 className="package-name">Premium Package</h3>
-            <p className="package-label">Best value for money</p>
-          </div>
-          <div className="package-price">₦120,000</div>
-          <ul className="package-features">
-            <li>✓ Self-Tracking</li>
-            <li>✓ 24/7 Support</li>
-            <li>✓ Mobile Tracking</li>
-            <li>✓ 100% Compatibility</li>
-            <li>✓ Live Location with Map</li>
-            <li>✓ Voice Monitoring (Optional)</li>
-            <li>✓ SMS Engine Shutdown / Resume</li>
-            <li>✓ SOS Emergency System (Optional)</li>
-            <li>✓ ACC Ignition Detection</li>
-            <li>✓ Fleet Management (Max 5 vehicles)</li>
-            <li>✓ Mobile App Tracking</li>
-            <li>✓ Web / PC Tracking</li>
-            <li>✓ Over-Speed Alert</li>
-            <li>✓ History Record</li>
-            <li>✓ Geo-Fencing</li>
-            <li>✓ Accident Alert</li>
-          </ul>
-          <button className="package-btn package-btn-red">
-            Choose Premium
-          </button>
-        </div>
+              <div className="divider"></div>
 
-        <div className="package-card">
-          <div className="package-header">
-            <h3 className="package-name">Exclusive Package</h3>
-            <p className="package-label">For fleets & trucks</p>
+              <div className="option-row">
+                <div className="option-header">
+                  <h2>Tracker + Dashcam</h2>
+                  <div className="pricing-amount">
+                    <span className="currency">₦</span>
+                    <span className="price">400,000</span>
+                  </div>
+                </div>
+                <div className="features-list">
+                  <ul>
+                    <li>• Diral Lens FOV (Front/Cabin/Rear)</li>
+                    <li>• Night Vision</li>
+                    <li>• Loop Recording</li>
+                    <li>• Motion Detection</li>
+                    <li>• Built-In Mic for Audio + Recording</li>
+                    <li>• SOS Engine Shutdown (Optional)</li>
+                    <li>• ACC Emergency Button (Optional)</li>
+                    <li>• Fleet Management</li>
+                    <li>• Over Speed Notification</li>
+                    <li>• Travel History Records</li>
+                    <li>• Geo-Fencing System</li>
+                  </ul>
+                  <p className="addon-note">Dashcam Add-ons (If selected)</p>
+                </div>
+              </div>
+            </div>
+            <button className="cta-button-service" onClick={()=>nav('/contact')}>Get Exclusive Package</button>
           </div>
-          <div className="package-price">₦150,000</div>
-          <ul className="package-features">
-            <li>✓ Self-Tracking</li>
-            <li>✓ 24/7 Support</li>
-            <li>✓ Mobile Tracking</li>
-            <li>✓ 100% Compatibility</li>
-            <li>✓ Live Location with Map</li>
-            <li>✓ Voice Monitoring (Optional)</li>
-            <li>✓ SMS Engine Shutdown / Resume</li>
-            <li>✓ SOS Emergency System (Optional)</li>
-            <li>✓ ACC Ignition Detection</li>
-            <li>✓ Fleet Management (Unlimited)</li>
-            <li>✓ Mobile App Tracking</li>
-            <li>✓ Web / PC Tracking</li>
-            <li>✓ Over-Speed Alert</li>
-            <li>✓ History Record</li>
-            <li>✓ Geo-Fencing</li>
-            <li>✓ Accident Alert</li>
-            <li>✓ Fuel Gauge Monitoring (Trucks only)</li>
-            <li>✓ Trip Fuel Consumption Summary</li>
-          </ul>
-          <button className="package-btn package-btn-dark">
-            Contact Sales
-          </button>
-        </div>
-      </section>
+
+          {/* PREMIUM PACKAGE */}
+          <div className="pricing-card premium">
+            <div className="pricing-badge">PREMIUM PACKAGE</div>
+            <div className="package-options">
+              <div className="option-row">
+                <div className="option-header">
+                  <h2>Tracker Only</h2>
+                  <div className="pricing-amount">
+                    <span className="currency">₦</span>
+                    <span className="price">120,000</span>
+                  </div>
+                </div>
+                <div className="features-list">
+                  <ul>
+                    <li>• Self-Tracking</li>
+                    <li>• 24/7 Support</li>
+                    <li>• Mobile & Web/PC Tracking</li>
+                    <li>• 100% Compatibility</li>
+                    <li>• Voice Monitoring (Optional)</li>
+                    <li>• SMS Engine Shutdown/Resume</li>
+                    <li>• SOS Emergency Function (Optional)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="divider"></div>
+
+              <div className="option-row">
+                <div className="option-header">
+                  <h2>Tracker + Dashcam</h2>
+                  <div className="pricing-amount">
+                    <span className="currency">₦</span>
+                    <span className="price">370,000</span>
+                  </div>
+                </div>
+                <div className="features-list">
+                  <p className="same-features">
+                    Same features as above, plus dashcam installation and
+                    recording functionality
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button className="cta-button-service secondary-service" onClick={()=>nav('/contact')}>
+              Get Premium Package
+            </button>
+          </div>
+
+          {/* ADVANCED PACKAGE */}
+          <div className="pricing-card advanced">
+            <div className="pricing-badge">ADVANCED PACKAGE</div>
+            <div className="package-options">
+              <div className="option-row">
+                <div className="option-header">
+                  <h2>Tracker Only</h2>
+                  <div className="pricing-amount">
+                    <span className="currency">₦</span>
+                    <span className="price">100,000</span>
+                  </div>
+                </div>
+                <div className="features-list">
+                  <ul>
+                    <li>• Self-Tracking</li>
+                    <li>• 24/7 Support</li>
+                    <li>• Mobile Tracking App</li>
+                    <li>• Real-time Map Location</li>
+                    <li>• Voice Monitoring (Optional)</li>
+                    <li>• SOS Engine Function (Optional)</li>
+                    <li>• 100% Compatibility with Most Vehicles</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="divider"></div>
+
+              <div className="option-row">
+                <div className="option-header">
+                  <h2>Tracker + Dashcam</h2>
+                  <div className="pricing-amount">
+                    <span className="currency">₦</span>
+                    <span className="price">350,000</span>
+                  </div>
+                </div>
+                <div className="features-list">
+                  <p className="same-features">
+                    Same features as above, plus dashcam installation and
+                    recording functionality
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button className="cta-button-service secondary-service" onClick={()=>nav('/contact')}>
+              Get Advanced Package
+            </button>
+          </div>
+        </main>
+
+   
+      </div>
 
       <section className="notes-section">
         <div className="notes-box">

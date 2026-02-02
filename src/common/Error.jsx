@@ -1,9 +1,14 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
-const Error = () => {
+export function NotFound() {
   return (
-    <div>404</div>
-  )
-}
+    <div style={{ padding: "4rem", textAlign: "center" }}>
+      <h1>404</h1>
+      <p>Page not found</p>
 
-export default Error
+      <Link to="/" style={{ color: "#16447e" }}>
+        Go back home
+      </Link>
+    </div>
+  );
+}

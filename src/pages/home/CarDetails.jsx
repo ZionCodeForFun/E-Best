@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router";
-import { useState } from "react";
+import { useParams, Link, useNavigate } from "react-router";
+import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,7 +24,7 @@ import {
   Sun,
   Flame,
 } from "lucide-react";
-import { getCarById } from '../../components/CarPageCard';
+import { getCarById } from "../../components/CarPageCard";
 import "../../style/carDetails.css";
 
 const iconMap = {
@@ -42,12 +42,15 @@ export default function CarDetailsPage() {
   const { carId } = useParams();
   const car = carId ? getCarById(carId) : undefined;
   const [currentSlide, setCurrentSlide] = useState(0);
+  const nav = useNavigate();
 
   if (!car) {
     return (
       <div className="not-found">
         <h1>Car Not Found</h1>
-        <Link to="/car-page" className="btn btn-primary">Back to Cars</Link>
+        <Link to="/car-page" className="btn btn-primary">
+          Back to Cars
+        </Link>
       </div>
     );
   }
@@ -72,11 +75,15 @@ export default function CarDetailsPage() {
   };
 
   const whatsappLink = `https://wa.me/2348133369509?text=${encodeURIComponent(
-    `Hello, I'm interested in the ${car.name} (ID: ${car.id}).`
+    `Hello, I'm interested in the ${car.name} (ID: ${car.id}).`,
   )}`;
 
   const formatPrice = (price) =>
-    new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", minimumFractionDigits: 0 }).format(price);
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
 
   return (
     <div className="car-details-page">
@@ -99,7 +106,9 @@ export default function CarDetailsPage() {
             </div>
           ))}
         </Slider>
-        <span className={`car-badge ${conditionClasses[car.condition]}`}>{car.condition}</span>
+        <span className={`car-badge ${conditionClasses[car.condition]}`}>
+          {car.condition}
+        </span>
       </section>
 
       {/* Main Content */}
@@ -108,13 +117,19 @@ export default function CarDetailsPage() {
           {/* Left Column */}
           <div>
             <h1 className="car-name">{car.name}</h1>
-            <p className="car-brand">{car.brand} • {car.model}</p>
+            <p className="car-brand">
+              {car.brand} • {car.model}
+            </p>
 
             {/* Quick Specs */}
             <div className="car-specs-grid">
               <Spec icon={<Calendar />} label="Year" value={car.year} />
               <Spec icon={<Gauge />} label="Mileage" value={car.mileage} />
-              <Spec icon={<Settings />} label="Transmission" value={car.transmission} />
+              <Spec
+                icon={<Settings />}
+                label="Transmission"
+                value={car.transmission}
+              />
               <Spec icon={<Fuel />} label="Fuel Type" value={car.fuelType} />
               <Spec icon={<MapPin />} label="Location" value={car.location} />
             </div>
@@ -126,11 +141,16 @@ export default function CarDetailsPage() {
             <p className="price-value">{formatPrice(car.price)}</p>
 
             <div className="card-buttons">
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
                 <MessageCircle className="icon" /> Contact on WhatsApp
               </a>
               <button className="btn btn-outline">
-                <ClipboardCheck className="icon" /> Book Inspection
+                <ClipboardCheck className="icon" onClick={()=>nav('/contact')} /> Book Inspection
               </button>
             </div>
           </div>
@@ -149,10 +169,19 @@ export default function CarDetailsPage() {
             {car.features.map((f, i) => {
               const Icon = iconMap[f.icon];
               return (
-                <div key={i} className={`feature-card ${f.enabled ? "enabled" : "disabled"}`}>
+                <div
+                  key={i}
+                  className={`feature-card ${
+                    f.enabled ? "enabled" : "disabled"
+                  }`}
+                >
                   {Icon && <Icon className="icon" />}
                   <span>{f.name}</span>
-                  {f.enabled ? <Check className="icon-check" /> : <X className="icon-x" />}
+                  {f.enabled ? (
+                    <Check className="icon-check" />
+                  ) : (
+                    <X className="icon-x" />
+                  )}
                 </div>
               );
             })}
@@ -164,12 +193,15 @@ export default function CarDetailsPage() {
           <h2>Specifications</h2>
           <table className="spec-table">
             <tbody>
-              {Object.entries(car.specifications).map(([key, value], i) => value && (
-                <tr key={i}>
-                  <td>{formatKey(key)}</td>
-                  <td>{value}</td>
-                </tr>
-              ))}
+              {Object.entries(car.specifications).map(
+                ([key, value], i) =>
+                  value && (
+                    <tr key={i}>
+                      <td>{formatKey(key)}</td>
+                      <td>{value}</td>
+                    </tr>
+                  ),
+              )}
             </tbody>
           </table>
         </section>
@@ -189,8 +221,6 @@ export default function CarDetailsPage() {
           </div>
         </section>
       </div>
-
-
     </div>
   );
 }
@@ -228,4 +258,3 @@ function CustomNextArrow({ onClick }) {
     </button>
   );
 }
-

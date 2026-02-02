@@ -1,6 +1,4 @@
-/* E-BEST Tracker Packages Page Styles */
 
-/* Brand Colors */
 :root {
   --ebest-deep-blue: #1e3a8a;
   --ebest-red: #dc2626;
@@ -8,13 +6,15 @@
   --ebest-light-gray: #f3f4f6;
   --ebest-white: #ffffff;
 }
-.back-home {
+.back-home-track {
   max-width: 1200px;
-  margin: 1.5rem auto 0;
+  margin: 5rem 0  1.5rem 0 ;
   padding: 0 1rem;
+  color: #1e3a8a;
+
 }
 
-.back-home-btn {
+.back-home-track-p, .icon {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;

@@ -25,15 +25,15 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #1e3a8a;
+  color:  #16447e;
   gap: 4px;
 }
 .back-link:hover {
-  color: #2563eb;
+  color:  #16447e;
 }
 .logo {
   font-size: 1.5rem;
-  color: #1e3a8a;
+  color:  #16447e;
   font-weight: bold;
 }
 

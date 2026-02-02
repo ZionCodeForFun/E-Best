@@ -88,14 +88,14 @@
   line-height: 1.4;
 }
 
-.cta-buttons {
+.cta-btn-holder {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-top: 8px;
 }
 
-.cta-button {
+.cta-button-app  {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,31 +112,31 @@
   width: 100%;
 }
 
-.cta-primary {
+.cta-primary-app {
   background: #d31716;
   color: #ffffff;
   box-shadow: 0 4px 16px rgba(211, 23, 22, 0.25);
 }
 
-.cta-primary:hover {
+.cta-primary-app:hover {
   background: #b91514;
   box-shadow: 0 6px 20px rgba(211, 23, 22, 0.35);
   transform: translateY(-2px);
 }
 
-.cta-primary:active {
+.cta-primary-app:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(211, 23, 22, 0.2);
 }
 
-.cta-secondary {
+.cta-secondary-app {
   background: #ffffff;
   color: #1a1a1a;
   border: 2px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.cta-secondary:hover {
+.cta-secondary-app:hover {
   background: #f8f9fa;
   border-color: #d31716;
   color: #d31716;
@@ -144,7 +144,7 @@
   transform: translateY(-2px);
 }
 
-.cta-secondary:active {
+.cta-secondary-app:active {
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
@@ -156,7 +156,7 @@
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .cta-button {
+  .cta-button-app  {
     min-height: 60px;
     padding: 18px 24px;
   }
@@ -198,12 +198,12 @@
     font-size: 18px;
   }
   
-  .cta-buttons {
+  .cta-btn-holder {
     flex-direction: row;
     gap: 16px;
   }
   
-  .cta-button {
+  .cta-button-app  {
     flex: 0 0 auto;
     width: auto;
     min-width: 200px;
@@ -228,12 +228,12 @@
     order: 2;
     max-width: 400px;
   }
-    .cta-buttons {
+    .cta-btn-holder {
     flex-direction: column;
     gap: 16px;
   }
   
-  .cta-button {
+  .cta-button-app  {
     flex: 0 0 auto;
     width: auto;
     min-width: 200px;

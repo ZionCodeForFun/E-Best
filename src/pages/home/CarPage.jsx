@@ -173,7 +173,9 @@ import { Link } from "react-router";
 import { carsData } from "../../components/CarPageCard";
 import { Calendar, Gauge, Settings, Fuel, ChevronLeft } from "lucide-react";
 import "../../style/carPage.css";
+
 export default function CarPage() {
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
@@ -195,7 +197,7 @@ export default function CarPage() {
         <div className="container goback2">
           <Link to="/" className="back-link">
             <ChevronLeft className="icon" />
-            Back to Cars
+            Back to Home
           </Link>
         </div>
         <div className="carspage-header-inner">
@@ -247,7 +249,6 @@ export default function CarPage() {
                     <span>{car.fuelType}</span>
                   </div>
                 </div>
-
                 <Link to={`/cars/${car.id}`} className="carspage-button">
                   View Details
                 </Link>
