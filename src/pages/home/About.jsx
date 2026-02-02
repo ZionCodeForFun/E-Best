@@ -87,9 +87,9 @@ export default function About() {
             </div>
 
             {/* Car Sales */}
-            <div className="service-card">
+            <div className="service-card-about">
               <div className="service-icon-wrapper">
-                <Car className="service-icon" />
+                <Car className="service-icon-about" />
               </div>
               <h3 className="service-title">Car Sales</h3>
               <p className="service-description">
@@ -99,9 +99,9 @@ export default function About() {
             </div>
 
             {/* Car Swap Services */}
-            <div className="service-card">
+            <div className="service-card-about">
               <div className="service-icon-wrapper">
-                <RefreshCw className="service-icon" />
+                <RefreshCw className="service-icon-about" />
               </div>
               <h3 className="service-title">Car Swap Services</h3>
               <p className="service-description">
@@ -111,9 +111,9 @@ export default function About() {
             </div>
 
             {/* Dash Cam Installation */}
-            <div className="service-card">
+            <div className="service-card-about">
               <div className="service-icon-wrapper">
-                <Camera className="service-icon" />
+                <Camera className="service-icon-about" />
               </div>
               <h3 className="service-title">Dash Cam Installation</h3>
               <p className="service-description">
