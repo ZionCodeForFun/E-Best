@@ -12,11 +12,13 @@ import Services from "./pages/ServicePage";
 import Pricing from "./pages/home/Pricing";
 import About from "./pages/home/About";
 import ContactPage from "./pages/contact/Contactpage";
+import Layout from "./components/Layout";
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route element={<Layout />} >
         <Route path="/" element={<Landing />} />
         <Route path="/tracker-page" element={<TrackerPage />} />
         <Route path="/car-page" element={<CarPage />} />
@@ -26,7 +28,7 @@ const App = () => {
         <Route path="/contact" element={<ContactPage/>} />
 
         <Route path="/cars/:carId" element={<CarDetailsPage />} />
-
+          </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
