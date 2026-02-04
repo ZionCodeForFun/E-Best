@@ -3,9 +3,22 @@ import logo from "../assets/logo.png";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BsWhatsapp } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const nav = useNavigate();
+  const handleWhatsApp = () => {
+    window.open("https://wa.me/8133369509", "_blank");
+  };
+  const handlefaceBook = () => {
+    window.open("https://www.facebook.com/share/17aaAP7Tis/", "_blank");
+  };
+  const handleInsta = () => {
+    window.open("https://wa.me/8133369509", "_blank");
+  };
+  const handleEmaiL = () => {
+    window.open("mailto:ebestglobalresourcesltd@gmail.com", "_blank");
+  };
+
   return (
     <footer className="footer-container">
       {/* Top CTA */}
@@ -56,16 +69,18 @@ const Footer = () => {
           </p>
           <p>+234 8133369509</p>
           <div className="social-icons">
-            <a>
+            <a
+          onClick={handlefaceBook}
+            >
               <FaFacebook />
             </a>{" "}
             <a>
               <FaInstagram />
             </a>{" "}
-            <a>
+            <a onClick={handleEmaiL}>
               <MdEmail />
             </a>
-            <a>
+            <a onClick={handleWhatsApp}>
               <BsWhatsapp />
             </a>
           </div>
