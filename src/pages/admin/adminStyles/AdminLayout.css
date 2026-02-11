@@ -1,0 +1,31 @@
+.admin-layout {
+  display: flex;
+  background: #ffffff;
+}
+
+.admin-layout__main {
+  flex: 1;
+  min-height: 100vh;
+}
+
+.admin-layout__content {
+  padding: 1.5rem;
+}
+
+/* Desktop: sidebar always visible */
+@media (min-width: 769px) {
+  .admin-layout {
+    flex-direction: row;
+  }
+}
+
+/* Mobile: full width main content */
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-layout__main {
+    width: 100%;
+  }
+}

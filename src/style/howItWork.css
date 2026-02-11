@@ -1,22 +1,30 @@
 /* Section Container */
 .how-it-works-section {
   width: 100%;
-  padding: 80px 16px;
+  padding: 40px 16px;
   background: linear-gradient(to bottom, #ffffff, #f9fafb);
 }
 
 .how-it-works-container {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 16px;
 }
+@media  (min-width: 768px){
+  .how-it-works-container {
+
+  padding: 0 40px;
+}
+} 
+  
 
 .how-it-works-headline {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 44px;
 }
 
 .how-it-works-title {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 35px;
   color: #151922;
 
@@ -27,6 +35,7 @@
   font-size: 1.125rem;
   color: #4b5563;
   max-width: 672px;
+  font-weight: 500 !important;
   margin: 0 auto;
   line-height: 1.6;
 }
@@ -264,24 +273,24 @@
 }
 
 .cta-button {
-  background-color: #d31716;
-  color: white;
-  font-weight: 600;
-  padding: 24px 32px;
-  font-size: 1.125rem;
-  border-radius: 9999px;
+  padding: 16px 48px;
+  background-color: #B72B30;
+  color: #ffffff;
   border: none;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #b01312;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transform: translateY(-2px);
+    background-color: #b01413;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 .cta-button:active {
@@ -289,7 +298,7 @@
 }
 
 .cta-subtitle {
-  margin-top: 16px;
+  margin-top: 18px;
   font-size: 0.875rem;
   color: #6b7280;
 }

@@ -126,7 +126,7 @@ export function HowItWorks() {
             Get Started Today
           </button>
           <p className="cta-subtitle">
-            No credit card required • Free consultation
+            No payment required • Free consultation
           </p>
         </div>
       </div>

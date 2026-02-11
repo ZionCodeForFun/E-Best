@@ -62,6 +62,10 @@
 .badge-brand-new { background-color: #22c55e; }
 .badge-foreign-used { background-color: #3b82f6; }
 .badge-nigerian-used { background-color: #f97316; }
+.carspage-badge-default {
+  background: #64748b;
+  color: white;
+}
 
 /* Slick Arrows */
 .slick-prev, .slick-next {

@@ -1,0 +1,382 @@
+/* Home Accessories Section Styles */
+
+.home-accessories {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.home-accessories__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.home-accessories__title {
+  font-size: 36px !important;
+  font-weight: 600 !important;
+  color: #151922;
+  margin: 0 0 12px 0;
+}
+
+.home-accessories__subtitle {
+  font-size: 18px;
+  color: #4b5563;
+  margin: 0;
+  font-weight: 500 !important;
+}
+
+.home-accessories__slider-container {
+  position: relative;
+  padding: 0 40px;
+}
+
+.home-accessories__slider {
+  margin: 0 -10px;
+}
+
+.home-accessories__card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 0 10px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.home-accessories__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.home-accessories__card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.home-accessories__card-image {
+  width: 100%;
+  height: 250px !important;
+  object-fit: cover;
+}
+.home-accessories__card-image-wrapper img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.home-accessories__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff0000;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.home-accessories__card-content {
+  text-align: left;
+}
+
+.home-accessories__card-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.home-accessories__card-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+  /* allow wrapping on small screens */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.home-accessories__card-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+.home-accessories-cart-cta-holder {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
+.home-accessories-cta-btn-primary {
+  background: #154883;
+  color: #ffffff;
+  border: none;
+  height: 100%;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 50%;
+}
+.home-accessories__button {
+  padding: 16px 48px;
+  background-color: #B72B30;
+  color: #ffffff ; 
+  border: none;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.home-accessories-cta-btn-primary:hover {
+  background: #07366e;
+}
+.home-accessories__button:hover {
+  background-color: #b01413;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+.home-accessories-cta-secondary {
+  background: #ffffff;
+  color:#16447e;
+  border: 2px solid #16447e;
+  height: 100%;
+  width: 50%;
+   border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.home-accessories-cta-secondary:hover {
+  background: #f0f7ff;
+}
+
+
+
+/* Slick Slider Custom Styles */
+.home-accessories__slider-container .slick-prev,
+.home-accessories__slider-container .slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+
+.home-accessories__slider-container .slick-prev:before,
+.home-accessories__slider-container .slick-next:before {
+  font-size: 40px;
+  color: #0066ff;
+  opacity: 1;
+}
+
+.home-accessories__slider-container .slick-prev:hover:before,
+.home-accessories__slider-container .slick-next:hover:before {
+  color: #0052cc;
+}
+
+.home-accessories__slider-container .slick-dots {
+  bottom: 20px;
+}
+
+.home-accessories__slider-container .slick-dots li button:before {
+  font-size: 12px;
+  opacity: 0.3;
+}
+
+.home-accessories__slider-container .slick-dots li.slick-active button:before {
+  color: #ffffff;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .home-accessories {
+    padding: 30px 16px;
+  }
+
+  .home-accessories__slider-container {
+    padding: 0;
+  }
+
+  .home-accessories__slider {
+    margin: 0 -10px;
+  }
+
+  .home-accessories__slider {
+    margin: 0 -10px;
+    display: block; /* ensure slider doesn't use flex layout on small screens */
+  }
+
+  /* Make each slick slide take full width on mobile so cards stack vertically */
+  .home-accessories__slider .slick-slide {
+    display: block !important;
+    width: 100% !important;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+
+  .home-accessories__card {
+    margin: 0 10px 16px; /* add bottom spacing between stacked cards */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .home-accessories__card-image-wrapper {
+    height: 200px;
+  }
+
+  .home-accessories__card-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+
+  .home-accessories__title {
+    font-size: 24px;
+  }
+
+  .home-accessories__subtitle {
+    font-size: 14px;
+  }
+
+  /* Hide previous/next arrows on mobile, use dots instead */
+  .home-accessories__slider-container .slick-prev,
+  .home-accessories__slider-container .slick-next {
+    display: none;
+  }
+}
+.home-accessories__card-image-wrapper {
+  width: 100%;
+  height: 250px; /* adjust height */
+  overflow: hidden;
+}
+.home-accessories__card-image-wrapper .slick-slide {
+  display: flex !important;
+  justify-content: center;
+}
+.home-accessories__card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-image-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.home-accessories__card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.25s ease;
+}
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.carousel-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.carousel-dots .dot.active {
+  background: #fff;
+}
+.prev-btn,
+.next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prev-btn {
+  left: 8px;
+}
+
+.next-btn {
+  right: 8px;
+}
+/* Image carousel inside card */
+
+.card-image-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dots */
+.carousel-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.carousel-dots .dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-dots .dot.active {
+  background: #ffffff;
+}

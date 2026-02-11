@@ -9,13 +9,11 @@ import { RiSwapLine } from "react-icons/ri";
 export default function Services() {
   return (
     <div className="services-container">
-      <div>
+      <header className="services-header">
         <Link to="/" className="back-link">
           <ChevronLeft className="icon2" />
-          <p className="service-p"> Back to Home</p>
         </Link>
-      </div>
-      <header className="services-header">
+
         <h1>OUR SERVICES</h1>
         <p className="services-tagline">
           Smart automotive solutions built for security, performance, and peace

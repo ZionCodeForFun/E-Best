@@ -112,6 +112,7 @@ export function ContactForm() {
                 <option value="">Select a service</option>
                 <option value="GPS Tracking">GPS Tracking</option>
                 <option value="Car Sales">Car Sales</option>
+                <option value="Car Swap">Car Accessories</option>
                 <option value="Car Swap">Car Swap</option>
                 <option value="Dash Cam">Dash Cam</option>
               </select>

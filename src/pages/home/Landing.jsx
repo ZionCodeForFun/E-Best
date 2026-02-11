@@ -4,7 +4,7 @@ import {CarsSection} from "./Car_section";
 import {GPSTrackerSection} from "./Tracker_section";
 import {HowItWorks} from "./HowItWork";
 import {MobileAppSection} from "./MobileAppSection";
-// import CarDetailsPage from "./CarDetails";
+import CarAccessories from './CarAccessories'
 const Landing = () => {
   return (
     <div>
@@ -12,8 +12,8 @@ const Landing = () => {
       <CarsSection />
       <GPSTrackerSection />
       <HowItWorks />
+      <CarAccessories />
       <MobileAppSection />
-      {/* <CarDetailsPage /> */}
     </div>
   );
 };

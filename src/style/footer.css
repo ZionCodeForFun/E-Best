@@ -19,7 +19,7 @@
   border-radius: 8px;
 }
 .btn-red {
-  background-color: #d31716;
+  background-color: #B72B30;
   color: white;
   border: none;
   padding: 12px 28px;
@@ -30,7 +30,7 @@
 }
 
 .btn-red:hover {
-  background-color: #b01312;
+  background-color:#d12a30;
   transform: translateY(-2px);
 }
 
@@ -63,7 +63,7 @@
     font-size: 26px;
 }
 .footer-col a:hover {
-  color: #d31716;
+  color: #B72B30;
   text-decoration: underline;
 }
 

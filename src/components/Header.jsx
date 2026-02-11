@@ -22,6 +22,15 @@ const Header = () => {
             <p data-text="About Us" onClick={() => nav("/about")}>
               About Us
             </p>
+            <p data-text="Cars" onClick={() => nav("/car-page")}>
+              Cars
+            </p>
+            <p data-text="Trackers" onClick={() => nav("/tracker-page")}>
+              Trackers
+            </p>
+            <p data-text="Accessories" onClick={() => nav("/car-accessories")}>
+              Accessories
+            </p>
             <p data-text="Service" onClick={() => nav("/service")}>
               Service
             </p>
@@ -50,6 +59,9 @@ const Header = () => {
         <nav className="mobile-nav">
           <p onClick={() =>{ nav("/"); setMenuOpen(false)}}>Home</p>
           <p onClick={() =>{nav("/about"); setMenuOpen(false)}}>About Us</p>
+          <p onClick={() =>{nav("/car-page"); setMenuOpen(false)}}>Cars</p>
+          <p onClick={() =>{nav("/tracker-page"); setMenuOpen(false)}}>Trackers</p>
+          <p onClick={() =>{nav("/car-accessories"); setMenuOpen(false)}}>Car Accessories</p>
           <p onClick={() =>{ nav("/service");setMenuOpen(false)}}>Service</p>
           <p onClick={() =>{ nav("/pricing");setMenuOpen(false)}}>Pricing</p>
           <p onClick={() => {nav("/contact");setMenuOpen(false)}}>Contact Us</p>

@@ -1,0 +1,78 @@
+:root {
+  --btn-primary-color: #16447e;
+  --btn-radius: 8px;
+  --btn-padding-vertical: 5px;
+  --btn-padding-horizontal: 10px;
+  --btn-font-size: 0.9rem;
+}
+
+.cta-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  /* justify-content: flex-start; */
+  flex-wrap: nowrap;
+  
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-color) !important;
+  color: #ffffff !important;
+  border: none !important;
+  /* padding: var(--btn-padding-vertical) var(--btn-padding-horizontal) !important; */
+  border-radius: var(--btn-radius) !important;
+  font-size: var(--btn-font-size) !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background-color 0.2s ease !important;
+  height: 100%;
+  /* flex: 1; */
+  /* flex: 1 1 0% !important; */
+  /* min-width: 120px !important; */
+}
+
+.btn-primary:hover {
+  background-color: #0c256b;
+}
+
+.btn-outline {
+  background: transparent !important;
+  color: var(--btn-primary-color) !important;
+  border: 2px solid var(--btn-primary-color) !important;
+  /* padding: var(--btn-padding-vertical) var(--btn-padding-horizontal) !important; */
+  border-radius: var(--btn-radius) !important;
+  font-size: var(--btn-font-size) !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background-color 0.15s ease !important;
+  height: 100%;
+  width: 50%;
+
+}
+
+.btn-outline:hover {
+  background-color: rgba(22, 68, 126, 0.06);
+}
+
+/* Keep existing specific classes intact by allowing them to be combined */
+.cta-row .view-details-btn,
+.cta-row .home-accessories__button,
+.cta-row .accessories-page__button,
+.cta-row .carspage-button {
+  width: auto; /* ensure default widths are not forced */
+}
+
+/* On very small screens allow proportional shrink but keep side-by-side */
+@media (max-width: 420px) {
+  .btn-primary,
+  .btn-outline {
+    min-width: 100px;
+    padding: 10px 16px;
+  }
+}

@@ -1,15 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, Shield, CarFront, Calendar } from "lucide-react";
 import "../../style/TrackerPage.css";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import '../../style/pricing.css'
+import { useNavigate, Link } from "react-router-dom";
+import { superbase } from "../../SuperbaseClient";
 
 function TrackerPage() {
-  const nav = useNavigate()
+  const [plans, setPlans] = useState([]);
+  const [loadingPlans, setLoadingPlans] = useState(true);
+
+  const nav = useNavigate();
+
+  // ================= FETCH PLANS =================
+  useEffect(() => {
+    const fetchPlans = async () => {
+      const { data, error } = await superbase
+        .from("trackers_plans")
+        .select("*")
+        .eq("active", true)
+        .order("created_at", { ascending: true });
+
+      if (!error) {
+        setPlans(data || []);
+      } else {
+        console.error("Error fetching plans:", error);
+      }
+      setLoadingPlans(false);
+    };
+
+    fetchPlans();
+  }, []);
+
+  // ================= SLIDER =================
   useEffect(() => {
     const slider = document.querySelector(".image-slider");
     const slides = document.querySelectorAll(".slider-image");
     const dots = document.querySelectorAll(".slider-dot");
+    if (!slider || slides.length === 0) return;
+
     let currentSlide = 0;
     let autoSlideInterval;
 
@@ -17,93 +45,58 @@ function TrackerPage() {
       currentSlide = n;
       const offset = -currentSlide * 100;
       slider.style.transform = `translateX(${offset}%)`;
-
       dots.forEach((dot, index) => {
-        if (index === currentSlide) {
-          dot.classList.add("active");
-        } else {
-          dot.classList.remove("active");
-        }
+        dot.classList.toggle("active", index === currentSlide);
       });
     }
 
     function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      goToSlide(currentSlide);
+      goToSlide((currentSlide + 1) % slides.length);
     }
 
-    function startAutoSlide() {
-      autoSlideInterval = window.setInterval(nextSlide, 4000);
-    }
-
-    function stopAutoSlide() {
-      clearInterval(autoSlideInterval);
-    }
+    autoSlideInterval = setInterval(nextSlide, 4000);
 
     dots.forEach((dot, index) => {
       dot.addEventListener("click", () => {
-        stopAutoSlide();
+        clearInterval(autoSlideInterval);
         goToSlide(index);
-        startAutoSlide();
+        autoSlideInterval = setInterval(nextSlide, 4000);
       });
     });
 
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    const sliderContainer = document.querySelector(".slider-container");
-
-    sliderContainer.addEventListener("touchstart", (e) => {
-      touchStartX = e.touches[0].clientX;
-    });
-
-    sliderContainer.addEventListener("touchend", (e) => {
-      touchEndX = e.changedTouches[0].clientX;
-      handleSwipe();
-    });
-
-    function handleSwipe() {
-      if (touchStartX - touchEndX > 50) {
-        stopAutoSlide();
-        nextSlide();
-        startAutoSlide();
-      } else if (touchEndX - touchStartX > 50) {
-        stopAutoSlide();
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        goToSlide(currentSlide);
-        startAutoSlide();
-      }
-    }
-
-    startAutoSlide();
-
-    return () => {
-      stopAutoSlide();
-    };
+    return () => clearInterval(autoSlideInterval);
   }, []);
+
+  // ================= HELPERS =================
+  const getFinalPrice = (price, discount) => {
+    if (!discount || discount <= 0) return price;
+    return Math.round(price - (price * discount) / 100);
+  };
 
   const handleWhatsApp = () => {
     window.open("https://wa.me/8133369509", "_blank");
   };
 
+  // ================= PLAN LOOKUPS =================
+  const exclusive = plans.find((p) => p.plan_name === "Exclusive");
+  const premium = plans.find((p) => p.plan_name === "Premium");
+  const advanced = plans.find((p) => p.plan_name === "Advanced");
+
   return (
-    <div className="ebest-page">
-      <div className="back-home-track">
-        <Link to="/" className="back-link">
+    <div className="pricing-container">
+        <Link to="/" >
           <ChevronLeft className="icon" />
-        <p className="back-home-track-p">Back to Home</p>
         </Link>
-      </div>
+
       <header className="pricing-header">
         <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
         <h1>Exclusive Tracker & Dashcam Packages</h1>
         <p className="pricing-tagline">
-          Choose the solution that fits your vehicle or fleet needs. Each
-          package comes with optional dashcam add-ons for enhanced monitoring
-          and security.
+          Choose the solution that fits your vehicle or fleet needs. Each package comes with optional dashcam add-ons for enhanced monitoring and security.
         </p>
       </header>
 
+      {/* SLIDER */}
       <section className="slider-section">
         <div className="slider-container">
           <div className="image-slider">
@@ -134,6 +127,7 @@ function TrackerPage() {
         </div>
       </section>
 
+      {/* STATS */}
       <section className="stats-section">
         <div className="stats-container">
           <div className="stat-card">
@@ -143,7 +137,6 @@ function TrackerPage() {
             <div className="stat-number">1,200+</div>
             <div className="stat-label">Protected Vehicles</div>
           </div>
-
           <div className="stat-card">
             <div className="stat-icon">
               <CarFront size={32} strokeWidth={2} />
@@ -151,7 +144,6 @@ function TrackerPage() {
             <div className="stat-number">320+</div>
             <div className="stat-label">Recovered Vehicles</div>
           </div>
-
           <div className="stat-card">
             <div className="stat-icon">
               <Calendar size={32} strokeWidth={2} />
@@ -161,44 +153,34 @@ function TrackerPage() {
           </div>
         </div>
       </section>
-      <div className="pricing-container">
-        <header className="pricing-header">
-          <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
-          <h1>Exclusive Tracker & Dashcam Packages</h1>
-          <p className="pricing-tagline">
-            Choose the solution that fits your vehicle or fleet needs. Each
-            package comes with optional dashcam add-ons for enhanced monitoring
-            and security.
-          </p>
-        </header>
+
 
         <main className="pricing-content">
           {/* EXCLUSIVE PACKAGE */}
-          <div className="pricing-card exclusive">
-            <div className="pricing-badge">EXCLUSIVE PACKAGE</div>
-            <div className="package-options">
+          {exclusive && (
+            <div className="pricing-card exclusive">
+              {exclusive.promo_badge && (
+                <div className="limited-offer-badge">
+                  {exclusive.promo_badge} • {exclusive.discount_percent}%
+                </div>
+              )}
+              <div className="pricing-badge">EXCLUSIVE PACKAGE</div>
+
               <div className="option-row">
                 <div className="option-header">
                   <h2>Tracker Only</h2>
                   <div className="pricing-amount">
                     <span className="currency">₦</span>
-                    <span className="price">150,000</span>
+                    <span className="price">
+                      {getFinalPrice(exclusive.tracker_price, exclusive.discount_percent)}
+                    </span>
                   </div>
                 </div>
                 <div className="features-list">
                   <ul>
-                    <li>• Self-Tracking (User-controlled access)</li>
-                    <li>• 24/7 Support</li>
-                    <li>• Mobile & Web/PC Tracking</li>
-                    <li>• 100% Vehicle Compatibility</li>
-                    <li>• Voice Monitoring (Optional)</li>
-                    <li>• SMS Engine Shutdown/Resume</li>
-                    <li>• SOS Emergency System (Optional)</li>
-                    <li>• ACC Ignition Detection</li>
-                    <li>• Fleet Management Dashboard</li>
-                    <li>• Over Speed Alert</li>
-                    <li>• Trip History Records</li>
-                    <li>• Accident Alert System</li>
+                    {exclusive.tracker_features?.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -210,51 +192,43 @@ function TrackerPage() {
                   <h2>Tracker + Dashcam</h2>
                   <div className="pricing-amount">
                     <span className="currency">₦</span>
-                    <span className="price">400,000</span>
+                    <span className="price">{exclusive.dashcam_price}</span>
                   </div>
                 </div>
                 <div className="features-list">
                   <ul>
-                    <li>• Diral Lens FOV (Front/Cabin/Rear)</li>
-                    <li>• Night Vision</li>
-                    <li>• Loop Recording</li>
-                    <li>• Motion Detection</li>
-                    <li>• Built-In Mic for Audio + Recording</li>
-                    <li>• SOS Engine Shutdown (Optional)</li>
-                    <li>• ACC Emergency Button (Optional)</li>
-                    <li>• Fleet Management</li>
-                    <li>• Over Speed Notification</li>
-                    <li>• Travel History Records</li>
-                    <li>• Geo-Fencing System</li>
+                    {exclusive.dashcam_features?.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
                   </ul>
                   <p className="addon-note">Dashcam Add-ons (If selected)</p>
                 </div>
               </div>
+
+              <button className="cta-button-service" onClick={() => nav("/contact")}>
+                Get Exclusive Package
+              </button>
             </div>
-            <button className="cta-button-service" onClick={()=>nav('/contact')}>Get Exclusive Package</button>
-          </div>
+          )}
 
           {/* PREMIUM PACKAGE */}
-          <div className="pricing-card premium">
-            <div className="pricing-badge">PREMIUM PACKAGE</div>
-            <div className="package-options">
+          {premium && (
+            <div className="pricing-card premium">
+              <div className="pricing-badge">PREMIUM PACKAGE</div>
+
               <div className="option-row">
                 <div className="option-header">
                   <h2>Tracker Only</h2>
                   <div className="pricing-amount">
                     <span className="currency">₦</span>
-                    <span className="price">120,000</span>
+                    <span className="price">{getFinalPrice(premium.tracker_price, premium.discount_percent)}</span>
                   </div>
                 </div>
                 <div className="features-list">
                   <ul>
-                    <li>• Self-Tracking</li>
-                    <li>• 24/7 Support</li>
-                    <li>• Mobile & Web/PC Tracking</li>
-                    <li>• 100% Compatibility</li>
-                    <li>• Voice Monitoring (Optional)</li>
-                    <li>• SMS Engine Shutdown/Resume</li>
-                    <li>• SOS Emergency Function (Optional)</li>
+                    {premium.tracker_features?.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -266,43 +240,43 @@ function TrackerPage() {
                   <h2>Tracker + Dashcam</h2>
                   <div className="pricing-amount">
                     <span className="currency">₦</span>
-                    <span className="price">370,000</span>
+                    <span className="price">{premium.dashcam_price}</span>
                   </div>
                 </div>
                 <div className="features-list">
-                  <p className="same-features">
-                    Same features as above, plus dashcam installation and
-                    recording functionality
-                  </p>
+                  <ul>
+                    {premium.dashcam_features?.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
+                  </ul>
+                  <p className="same-features"> Same features as above, plus dashcam installation and recording functionality </p>
                 </div>
               </div>
+
+              <button className="cta-button-service secondary-service" onClick={() => nav("/contact")}>
+                Get Premium Package
+              </button>
             </div>
-            <button className="cta-button-service secondary-service" onClick={()=>nav('/contact')}>
-              Get Premium Package
-            </button>
-          </div>
+          )}
 
           {/* ADVANCED PACKAGE */}
-          <div className="pricing-card advanced">
-            <div className="pricing-badge">ADVANCED PACKAGE</div>
-            <div className="package-options">
+          {advanced && (
+            <div className="pricing-card advanced">
+              <div className="pricing-badge">ADVANCED PACKAGE</div>
+
               <div className="option-row">
                 <div className="option-header">
                   <h2>Tracker Only</h2>
                   <div className="pricing-amount">
                     <span className="currency">₦</span>
-                    <span className="price">100,000</span>
+                    <span className="price">{getFinalPrice(advanced.tracker_price, advanced.discount_percent)}</span>
                   </div>
                 </div>
                 <div className="features-list">
                   <ul>
-                    <li>• Self-Tracking</li>
-                    <li>• 24/7 Support</li>
-                    <li>• Mobile Tracking App</li>
-                    <li>• Real-time Map Location</li>
-                    <li>• Voice Monitoring (Optional)</li>
-                    <li>• SOS Engine Function (Optional)</li>
-                    <li>• 100% Compatibility with Most Vehicles</li>
+                    {advanced.tracker_features?.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -314,25 +288,26 @@ function TrackerPage() {
                   <h2>Tracker + Dashcam</h2>
                   <div className="pricing-amount">
                     <span className="currency">₦</span>
-                    <span className="price">350,000</span>
+                    <span className="price">{advanced.dashcam_price}</span>
                   </div>
                 </div>
                 <div className="features-list">
-                  <p className="same-features">
-                    Same features as above, plus dashcam installation and
-                    recording functionality
-                  </p>
+                  <ul>
+                    {advanced.dashcam_features?.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
+                  </ul>
+                  <p className="same-features"> Same features as above, plus dashcam installation and recording functionality </p>
                 </div>
               </div>
-            </div>
-            <button className="cta-button-service secondary-service" onClick={()=>nav('/contact')}>
-              Get Advanced Package
-            </button>
-          </div>
-        </main>
 
-   
-      </div>
+              <button className="cta-button-service secondary-service" onClick={() => nav("/contact")}>
+                Get Advanced Package
+              </button>
+            </div>
+          )}
+        </main>
+  
 
       <section className="notes-section">
         <div className="notes-box">
@@ -342,6 +317,7 @@ function TrackerPage() {
         </div>
       </section>
 
+      {/* PAYMENT TERMS */}
       <section className="payment-terms">
         <h3 className="payment-title">Payment Terms</h3>
         <div className="payment-grid">
@@ -351,13 +327,12 @@ function TrackerPage() {
           </div>
           <div className="payment-item">
             <div className="payment-percent">50%</div>
-            <div className="payment-label">
-              After installation & test running
-            </div>
+            <div className="payment-label">After installation & test running</div>
           </div>
         </div>
       </section>
 
+      {/* BOTTOM CTA */}
       <div className="bottom-cta">
         <button className="cta-wbutton" onClick={handleWhatsApp}>
           Contact Us on WhatsApp
@@ -366,4 +341,5 @@ function TrackerPage() {
     </div>
   );
 }
+
 export default TrackerPage;

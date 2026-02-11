@@ -1,0 +1,90 @@
+/* Sidebar */
+.admin-sidebar {
+  width: 250px;
+  background: #0a1f44; /* deep blue */
+  color: #fff;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Sidebar Logo */
+.admin-sidebar__logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+/* Nav Links */
+.admin-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-sidebar__link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+  display: block;
+}
+
+.admin-sidebar__link:hover,
+.admin-sidebar__link.active {
+  background: #c1121f; /* accent red */
+}
+
+/* Overlay - hidden by default */
+.admin-sidebar__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.admin-sidebar__overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Desktop: sidebar always visible, no overlay */
+@media (min-width: 769px) {
+  .admin-sidebar {
+    position: relative;
+    top: auto;
+    left: auto;
+    height: auto;
+    transform: translateX(0) !important;
+    z-index: auto;
+  }
+
+  .admin-sidebar__overlay {
+    display: none !important;
+  }
+}
+
+/* Mobile: hidden by default, slides in from left */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    transform: translateX(-100%);
+    z-index: 1001;
+    overflow-y: auto;
+  }
+
+  .admin-sidebar.active {
+    transform: translateX(0);
+  }
+}

@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { superbase } from "../../SuperbaseClient";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -23,9 +24,10 @@ import {
   Bluetooth,
   Sun,
   Flame,
+
 } from "lucide-react";
-import { getCarById } from "../../components/CarPageCard";
 import "../../style/carDetails.css";
+import { IoColorPaletteOutline} from "react-icons/io5";
 
 const iconMap = {
   "air-vent": AirVent,
@@ -40,8 +42,39 @@ const iconMap = {
 
 export default function CarDetailsPage() {
   const { carId } = useParams();
-  const car = carId ? getCarById(carId) : undefined;
+  const [car, setCar] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+  useEffect(() => {
+    if (carId) fetchCar();
+  }, [carId]);
+
+  const fetchCar = async () => {
+    try {
+      const { data, error } = await superbase
+        .from("cars")
+        .select("*")
+        .eq("id", parseInt(carId))
+        .single(); // .single() because we want one row
+
+      if (error) throw error;
+
+      // Make sure images is an array
+      const parsedCar = {
+        ...data,
+        images: Array.isArray(data.images)
+          ? data.images
+          : JSON.parse(data.images || "[]"),
+      };
+
+      setCar(parsedCar);
+    } catch (err) {
+      console.error("Error fetching car:", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  if (loading) return <p>Loading car details...</p>;
 
   if (!car) {
     return (
@@ -105,7 +138,7 @@ export default function CarDetailsPage() {
             </div>
           ))}
         </Slider>
-        <span className={`car-badge ${conditionClasses[car.condition]}`}>
+        <span className="car-badge" >
           {car.condition}
         </span>
       </section>
@@ -129,8 +162,9 @@ export default function CarDetailsPage() {
                 label="Transmission"
                 value={car.transmission}
               />
-              <Spec icon={<Fuel />} label="Fuel Type" value={car.fuelType} />
+              <Spec icon={<Fuel />} label="Fuel Type" value={car.fuel} />
               <Spec icon={<MapPin />} label="Location" value={car.location} />
+              <Spec icon={<IoColorPaletteOutline style={{fontSize:25}} />} label="color" value={car.color} />
             </div>
           </div>
 
@@ -148,11 +182,11 @@ export default function CarDetailsPage() {
               >
                 <MessageCircle className="icon" /> Contact on WhatsApp
               </a>
-             <Link to={('/contact')}>
-              <button className="btn btn-outline">
-                <ClipboardCheck className="icon"  /> Book Inspection
-              </button>
-             </Link>
+              <Link to={"/contact"}>
+                <button className="btn btn-outline">
+                  <ClipboardCheck className="icon" /> Book Inspection
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -160,11 +194,10 @@ export default function CarDetailsPage() {
         {/* Description */}
         <section className="card-section">
           <h2>Vehicle Description</h2>
-          <p>{car.description}</p>
+          <p>{car.features}</p>
         </section>
 
-        {/* Key Features */}
-        <section className="card-section">
+        {/* <section className="card-section">
           <h2>Key Features</h2>
           <div className="car-features">
             {car.features.map((f, i) => {
@@ -187,10 +220,9 @@ export default function CarDetailsPage() {
               );
             })}
           </div>
-        </section>
+        </section> */}
 
-        {/* Specifications Table */}
-        <section className="card-section">
+        {/* <section className="card-section">
           <h2>Specifications</h2>
           <table className="spec-table">
             <tbody>
@@ -205,10 +237,10 @@ export default function CarDetailsPage() {
               )}
             </tbody>
           </table>
-        </section>
+        </section> */}
 
         {/* Safety Checks */}
-        <section className="card-section">
+        {/* <section className="card-section">
           <h2>Safety & Condition Report</h2>
           <div className="safety-grid">
             {Object.entries(car.safetyChecks).map(([key, value], i) => (
@@ -220,7 +252,7 @@ export default function CarDetailsPage() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

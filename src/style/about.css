@@ -4,14 +4,15 @@
 .about-page {
   min-height: 100vh;
   background-color: #ffffff;
+  margin-top: 4rem;
 }
 
 /* Hero Section */
 .hero-section {
   position: relative;
-  background-color: #1e3a8a;
+  background-color:#154883;
   color: white;
-  padding: 5rem 1.5rem;
+  padding: 2rem 1.5rem;
   overflow: hidden;
 }
 
@@ -61,7 +62,7 @@
 .hero-divider {
   width: 8rem;
   height: 0.25rem;
-  background-color: #ef4444;
+  background-color: #b72b30;
   margin: 0 auto 1.5rem;
 }
 .service-card
@@ -81,7 +82,7 @@
 }
 
 .hero-button {
-  background-color: #ef4444;
+  background-color: #b72b30;
   color: white;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
@@ -91,11 +92,15 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   border: none;
   cursor: pointer;
+  margin-top: 2rem;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .hero-button:hover {
-  background-color: #dc2626;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  background-color: #b01413;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Who We Are Section */
@@ -199,13 +204,13 @@
 }
 
 .service-card-about:hover .service-icon-wrapper {
-  background-color: #ef4444;
+  background-color: #b72b30;
 }
 
 .service-icon-about {
   width: 2rem;
   height: 2rem;
-  color: #ef4444;
+  color: #b72b30;
   transition: all 0.3s;
 }
 
@@ -272,7 +277,7 @@
   flex-shrink: 0;
   width: 1.5rem;
   height: 1.5rem;
-  color: #ef4444;
+  color: #e02e34;
 }
 
 .why-choose-text {
@@ -300,7 +305,7 @@
   border-radius: 0.75rem;
   padding: 2rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #ef4444;
+  border-left: 4px solid #b72b30;
 }
 
 .mission-vision-header {
@@ -323,7 +328,7 @@
 .mission-vision-icon {
   width: 1.75rem;
   height: 1.75rem;
-  color: #ef4444;
+  color:#b72b30;
 }
 
 .mission-vision-title {
@@ -383,7 +388,7 @@
 .stat-number {
   font-size: 3rem;
   font-weight: bold;
-  color: #ef4444;
+  color: #b72b30;
   margin-bottom: 0.5rem;
 }
 
@@ -431,7 +436,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background-color: #ef4444;
+  background-color: #b72b30;
   color: white;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
@@ -447,7 +452,7 @@
   }
 }
 .cta-button:hover {
-  background-color: #dc2626;
+  background-color: #b72b30;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 

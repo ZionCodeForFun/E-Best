@@ -5,12 +5,9 @@ export default function Pricing() {
   const nav = useNavigate();
   return (
     <div className="pricing-container">
-      <div className="back-home-price">
-        <Link to="/" className="back-link">
-          <ChevronLeft className="icon" />
-          <p className="back-home-track-p">Back to Home</p>
-        </Link>
-      </div>
+      <Link to="/">
+        <ChevronLeft className="icon" />
+      </Link>
       <header className="pricing-header">
         <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
         <h1>Exclusive Tracker & Dashcam Packages</h1>

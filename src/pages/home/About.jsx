@@ -11,6 +11,7 @@ import {
   Eye,
   TrendingUp,
   Calendar,
+  RemoveFormattingIcon,
 } from "lucide-react";
 import "../../style/about.css";
 
@@ -59,7 +60,7 @@ export default function About() {
             <div className="image-wrapper">
               <div className="image-card">
                 <img
-                  src="https://images.unsplash.com/photo-1759256243611-502772ac391b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhdXRvbW90aXZlJTIwdGVjaG5vbG9neSUyMGRpZ2l0YWwlMjBtYXB8ZW58MXx8fHwxNzcwMDI1ODY3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp3JBqCUFmSdlGqgmHPdonRBlf8B9FbphqA&s"
                   alt="Automotive Technology"
                 />
               </div>
@@ -107,6 +108,16 @@ export default function About() {
               <p className="service-description">
                 Flexible car swap options to upgrade or change vehicles with
                 ease.
+              </p>
+            </div>
+            {/* Car Swap Services */}
+            <div className="service-card-about">
+              <div className="service-icon-wrapper">
+                <RemoveFormattingIcon className="service-icon-about" />
+              </div>
+              <h3 className="service-title">Car Accessories</h3>
+              <p className="service-description">
+               Our car accessories collection is designed to enhance the comfort, safety, and appearance of your automobile. From interior upgrades to exterior enhancements, we provide high-quality products that combine durability, style, and performance to meet your everyday driving needs.
               </p>
             </div>
 
@@ -210,7 +221,7 @@ export default function About() {
               <div className="stat-icon-wrapper">
                 <CheckCircle className="stat-icon" />
               </div>
-              <div className="stat-number">300+</div>
+              <div className="stat-number">320+</div>
               <p className="stat-label">Recovered Vehicles</p>
             </div>
 
