@@ -279,7 +279,7 @@ const Cars = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Saving..." : editingId ? "Update Car" : "Add Car"}
           </button>
-          <button type="button" className="cancel-btn" onClick={handleCancel}>
+          <button type="button" className="posting-cancel-btn" onClick={handleCancel}>
             Cancel
           </button>
         </div>
@@ -321,7 +321,7 @@ const Cars = () => {
             <h3>Delete Car?</h3>
             <p>This cannot be undone.</p>
             <div className="modal-actions">
-              <button className="btn-danger" onClick={handleDelete}>
+              <button className="modal-danger" onClick={handleDelete}>
                 Delete
               </button>
               <button

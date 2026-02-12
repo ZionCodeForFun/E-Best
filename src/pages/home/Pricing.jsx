@@ -1,13 +1,109 @@
+import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import "../../style/pricing.css";
-import { useNavigate, Link } from "react-router";
+import "../../style/skeleton.css";
+import { useNavigate, Link } from "react-router-dom";
+import { superbase } from "../../SuperbaseClient";
+
 export default function Pricing() {
   const nav = useNavigate();
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      const { data, error } = await superbase
+        .from("trackers_plans")
+        .select("*")
+        .eq("active", true)
+        .order("created_at", { ascending: true });
+
+      if (!error) {
+        setPlans(data || []);
+      } else {
+        console.error("Error fetching plans:", error);
+      }
+
+      setLoading(false);
+    };
+
+    fetchPlans();
+  }, []);
+
+  const getFinalPrice = (price, discount) => {
+    if (!discount || discount <= 0) return price;
+    return Math.round(price - (price * discount) / 100);
+  };
+
+  if (loading) {
+    return (
+      <div className="pricing-container">
+        <Link to="/">
+          <ChevronLeft className="icon" />
+        </Link>
+
+        {/* HEADER SKELETON */}
+        <div className="pricing-header-skeleton">
+          <div className="skeleton-company-name"></div>
+          <div className="skeleton-title"></div>
+          <div className="skeleton-tagline"></div>
+          <div className="skeleton-tagline"></div>
+        </div>
+
+        {/* PRICING CARDS SKELETON */}
+        <div className="pricing-skeleton-container">
+          {[1, 2, 3].map((idx) => (
+            <div
+              key={idx}
+              className={`pricing-card-skeleton ${["exclusive", "premium", "advanced"][idx - 1]}`}
+            >
+              {/* Promo Badge Skeleton */}
+              <div className="skeleton-badge"></div>
+
+              {/* TRACKER ONLY SECTION */}
+              <div className="skeleton-option-row">
+                <div className="skeleton-option-header">
+                  <div className="skeleton-heading"></div>
+                  <div className="skeleton-price"></div>
+                </div>
+                <div className="skeleton-features-list">
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="skeleton-divider"></div>
+
+              {/* TRACKER + DASHCAM SECTION */}
+              <div className="skeleton-option-row">
+                <div className="skeleton-option-header">
+                  <div className="skeleton-heading"></div>
+                  <div className="skeleton-price"></div>
+                </div>
+                <div className="skeleton-features-list">
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                </div>
+              </div>
+
+              {/* Button Skeleton */}
+              <div className="skeleton-button"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pricing-container">
       <Link to="/">
         <ChevronLeft className="icon" />
       </Link>
+
       <header className="pricing-header">
         <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
         <h1>Exclusive Tracker & Dashcam Packages</h1>
@@ -19,173 +115,101 @@ export default function Pricing() {
       </header>
 
       <main className="pricing-content">
-        {/* EXCLUSIVE PACKAGE */}
-        <div className="pricing-card exclusive">
-          <div className="pricing-badge">EXCLUSIVE PACKAGE</div>
-          <div className="package-options">
-            <div className="option-row">
-              <div className="option-header">
-                <h2>Tracker Only</h2>
-                <div className="pricing-amount">
-                  <span className="currency">₦</span>
-                  <span className="price">150,000</span>
+        {plans.map((plan) => {
+          const discountedTrackerPrice = getFinalPrice(
+            plan.tracker_price,
+            plan.discount_percent,
+          );
+          const discountedDashcamPrice = getFinalPrice(
+            plan.dashcam_price,
+            plan.discount_percent,
+          );
+
+          return (
+            <div
+              key={plan.id}
+              className={`pricing-card ${plan.plan_name?.toLowerCase()}`}
+            >
+              {/* PROMO BADGE */}
+              {plan.promo_badge && (
+                <div className="promo-badge">
+                  {plan.promo_badge}
+                  {plan.discount_percent > 0 && (
+                    <span> • {plan.discount_percent}% OFF</span>
+                  )}
+                </div>
+              )}
+
+              <div className="pricing-badge">
+                {plan.plan_name?.toUpperCase()} PACKAGE
+              </div>
+
+              <div className="package-options">
+                {/* TRACKER ONLY */}
+                <div className="option-row">
+                  <div className="option-header">
+                    <h2>Tracker Only</h2>
+                    <div className="pricing-amount">
+                      {plan.discount_percent > 0 && (
+                        <span className="original-price">
+                          ₦{plan.tracker_price}
+                        </span>
+                      )}
+                      <span className="currency">₦</span>
+                      <span className="price">{discountedTrackerPrice}</span>
+                    </div>
+                  </div>
+                  <div className="features-list">
+                    <ul>
+                      {plan.tracker_features?.map((feature, i) => (
+                        <li key={i}>• {feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="divider"></div>
+
+                {/* TRACKER + DASHCAM */}
+                <div className="option-row">
+                  <div className="option-header">
+                    <h2>Tracker + Dashcam</h2>
+                    <div className="pricing-amount">
+                      {plan.discount_percent > 0 && (
+                        <span className="original-price">
+                          ₦{plan.dashcam_price}
+                        </span>
+                      )}
+                      <span className="currency">₦</span>
+                      <span className="price">{discountedDashcamPrice}</span>
+                    </div>
+                  </div>
+                  <div className="features-list">
+                    {plan.dashcam_features?.length > 0 ? (
+                      <ul>
+                        {plan.dashcam_features.map((feature, i) => (
+                          <li key={i}>• {feature}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="same-features">
+                        Same features as above, plus dashcam installation and
+                        recording functionality
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="features-list">
-                <ul>
-                  <li>• Self-Tracking (User-controlled access)</li>
-                  <li>• 24/7 Support</li>
-                  <li>• Mobile & Web/PC Tracking</li>
-                  <li>• 100% Vehicle Compatibility</li>
-                  <li>• Voice Monitoring (Optional)</li>
-                  <li>• SMS Engine Shutdown/Resume</li>
-                  <li>• SOS Emergency System (Optional)</li>
-                  <li>• ACC Ignition Detection</li>
-                  <li>• Fleet Management Dashboard</li>
-                  <li>• Over Speed Alert</li>
-                  <li>• Trip History Records</li>
-                  <li>• Accident Alert System</li>
-                </ul>
-              </div>
+
+              <button
+                className="cta-button-service"
+                onClick={() => nav("/contact")}
+              >
+                Get {plan.plan_name} Package
+              </button>
             </div>
-
-            <div className="divider"></div>
-
-            <div className="option-row">
-              <div className="option-header">
-                <h2>Tracker + Dashcam</h2>
-                <div className="pricing-amount">
-                  <span className="currency">₦</span>
-                  <span className="price">400,000</span>
-                </div>
-              </div>
-              <div className="features-list">
-                <ul>
-                  <li>• Diral Lens FOV (Front/Cabin/Rear)</li>
-                  <li>• Night Vision</li>
-                  <li>• Loop Recording</li>
-                  <li>• Motion Detection</li>
-                  <li>• Built-In Mic for Audio + Recording</li>
-                  <li>• SOS Engine Shutdown (Optional)</li>
-                  <li>• ACC Emergency Button (Optional)</li>
-                  <li>• Fleet Management</li>
-                  <li>• Over Speed Notification</li>
-                  <li>• Travel History Records</li>
-                  <li>• Geo-Fencing System</li>
-                </ul>
-                <p className="addon-note">Dashcam Add-ons (If selected)</p>
-              </div>
-            </div>
-          </div>
-          <button
-            className="cta-button-service"
-            onClick={() => nav("/contact")}
-          >
-            Get Exclusive Package
-          </button>
-        </div>
-
-        {/* PREMIUM PACKAGE */}
-        <div className="pricing-card premium">
-          <div className="pricing-badge">PREMIUM PACKAGE</div>
-          <div className="package-options">
-            <div className="option-row">
-              <div className="option-header">
-                <h2>Tracker Only</h2>
-                <div className="pricing-amount">
-                  <span className="currency">₦</span>
-                  <span className="price">120,000</span>
-                </div>
-              </div>
-              <div className="features-list">
-                <ul>
-                  <li>• Self-Tracking</li>
-                  <li>• 24/7 Support</li>
-                  <li>• Mobile & Web/PC Tracking</li>
-                  <li>• 100% Compatibility</li>
-                  <li>• Voice Monitoring (Optional)</li>
-                  <li>• SMS Engine Shutdown/Resume</li>
-                  <li>• SOS Emergency Function (Optional)</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="divider"></div>
-
-            <div className="option-row">
-              <div className="option-header">
-                <h2>Tracker + Dashcam</h2>
-                <div className="pricing-amount">
-                  <span className="currency">₦</span>
-                  <span className="price">370,000</span>
-                </div>
-              </div>
-              <div className="features-list">
-                <p className="same-features">
-                  Same features as above, plus dashcam installation and
-                  recording functionality
-                </p>
-              </div>
-            </div>
-          </div>
-          <button
-            className="cta-button-service secondary-service"
-            onClick={() => nav("/contact")}
-          >
-            Get Premium Package
-          </button>
-        </div>
-
-        {/* ADVANCED PACKAGE */}
-        <div className="pricing-card advanced">
-          <div className="pricing-badge">ADVANCED PACKAGE</div>
-          <div className="package-options">
-            <div className="option-row">
-              <div className="option-header">
-                <h2>Tracker Only</h2>
-                <div className="pricing-amount">
-                  <span className="currency">₦</span>
-                  <span className="price">100,000</span>
-                </div>
-              </div>
-              <div className="features-list">
-                <ul>
-                  <li>• Self-Tracking</li>
-                  <li>• 24/7 Support</li>
-                  <li>• Mobile Tracking App</li>
-                  <li>• Real-time Map Location</li>
-                  <li>• Voice Monitoring (Optional)</li>
-                  <li>• SOS Engine Function (Optional)</li>
-                  <li>• 100% Compatibility with Most Vehicles</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="divider"></div>
-
-            <div className="option-row">
-              <div className="option-header">
-                <h2>Tracker + Dashcam</h2>
-                <div className="pricing-amount">
-                  <span className="currency">₦</span>
-                  <span className="price">350,000</span>
-                </div>
-              </div>
-              <div className="features-list">
-                <p className="same-features">
-                  Same features as above, plus dashcam installation and
-                  recording functionality
-                </p>
-              </div>
-            </div>
-          </div>
-          <button
-            className="cta-button-service secondary-service"
-            onClick={() => nav("/contact")}
-          >
-            Get Advanced Package
-          </button>
-        </div>
+          );
+        })}
       </main>
 
       <div className="pricing-footer">

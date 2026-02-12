@@ -221,6 +221,22 @@
 .back-link-service:hover {
   background: #fee2e2; /* very light red on hover */
 }
+.pricing-card {
+  position: relative;
+}
+
+.promo-badge {
+  position: absolute;
+  top: -12px;
+  right: 0;
+  background: linear-gradient(135deg, #ff3b3b, #d60000);
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50px;
+  z-index: 5;
+}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -232,6 +248,18 @@
 @media (max-width: 768px) {
   .pricing-container {
     padding: 2rem 1rem;
+    .promo-badge {
+  position: absolute;
+  top: 12px;
+  right: 27%;
+  background: linear-gradient(135deg, #ff3b3b, #d60000);
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50px;
+  z-index: 5;
+}
   }
 
   .company-name {
@@ -272,4 +300,10 @@
     font-size: 0.75rem;
     padding: 0.375rem 1rem;
   }
+}
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 6px;
+  font-size: 0.85rem;
 }

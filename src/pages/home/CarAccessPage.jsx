@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router";
 import "../../style/GlobalCarousel.css";
 import "../../style/CarAccessPage.css";
 import "../../style/cta.css";
+import "../../style/skeleton.css";
 import { ChevronLeft } from "lucide-react";
 import { superbase } from "../../SuperbaseClient";
 import CustomSelectAccess from "../../common/CustomSelectAccess";
@@ -81,6 +82,43 @@ export default function AccessoriesListing() {
 
     return pages;
   };
+
+  if (loading) {
+    return (
+      <div className="accessories-page">
+        <div className="accessories-page__container">
+          <Link to="/">
+            <ChevronLeft className="icon" />
+          </Link>
+          <div className="accessories-page__header">
+            <div
+              className="skeleton-title"
+              style={{ width: "300px", height: "36px", margin: "0 auto" }}
+            ></div>
+          </div>
+
+          <div className="product-cards-skeleton" style={{ marginTop: "2rem" }}>
+            {[1, 2, 3, 4, 5, 6].map((idx) => (
+              <div key={idx} className="product-card-skeleton">
+                <div className="skeleton-image-wrapper">
+                  <div className="skeleton-badge-product"></div>
+                </div>
+                <div className="skeleton-card-content">
+                  <div className="skeleton-card-title"></div>
+                  <div className="skeleton-card-subtitle"></div>
+                  <div className="skeleton-card-price"></div>
+                  <div className="skeleton-card-buttons">
+                    <div className="skeleton-btn"></div>
+                    <div className="skeleton-btn"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="accessories-page">

@@ -6,6 +6,7 @@ import ImageCarouselAccess from "../../components/ImageCarouselAccess";
 import { superbase } from "../../SuperbaseClient";
 import "../../style/CarAsseccories.css";
 import "../../style/cta.css";
+import "../../style/skeleton.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -80,6 +81,61 @@ export default function CarAccessories() {
   // Show first 4 accessories in the slider
   const featuredAccessories = accessories.slice(0, 4);
 
+  if (loading) {
+    return (
+      <div className="home-accessories">
+        <div className="home-accessories__header">
+          <div
+            className="skeleton-heading"
+            style={{ width: "250px", height: "28px", margin: "0 auto 12px" }}
+          ></div>
+          <div
+            className="skeleton-tagline"
+            style={{ width: "400px", margin: "0 auto" }}
+          ></div>
+        </div>
+
+        <div className="home-accessories__slider-container">
+          <div className="slider-skeleton">
+            {[1, 2, 3, 4].map((idx) => (
+              <div key={idx} className="product-card-skeleton">
+                <div
+                  className="skeleton-image-wrapper"
+                  style={{ height: "220px" }}
+                ></div>
+                <div className="skeleton-card-content">
+                  <div
+                    className="skeleton-card-title"
+                    style={{ marginBottom: "8px" }}
+                  ></div>
+                  <div
+                    className="skeleton-card-subtitle"
+                    style={{ marginBottom: "12px" }}
+                  ></div>
+                  <div
+                    className="skeleton-card-price"
+                    style={{ marginBottom: "12px" }}
+                  ></div>
+                  <div className="skeleton-card-buttons">
+                    <div className="skeleton-btn"></div>
+                    <div className="skeleton-btn"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: "50px" }}>
+          <div
+            className="skeleton-btn"
+            style={{ maxWidth: "300px", margin: "0 auto", height: "44px" }}
+          ></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="home-accessories">
       <div className="home-accessories__header">
@@ -150,7 +206,7 @@ export default function CarAccessories() {
           onClick={handleViewAllClick}
           style={{ maxWidth: "300px", margin: "0 auto" }}
         >
-          View All Accessories <MdKeyboardDoubleArrowRight  />
+          View All Accessories <MdKeyboardDoubleArrowRight />
         </button>
       </div>
     </div>

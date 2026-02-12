@@ -4,6 +4,7 @@ import { Calendar, Gauge, Settings, Fuel, ChevronLeft } from "lucide-react";
 import "../../style/GlobalCarousel.css";
 import "../../style/carPage.css";
 import "../../style/cta.css";
+import "../../style/skeleton.css";
 import { GetCars } from "../../components/api/Cars";
 import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
 import { useState, useEffect } from "react";
@@ -81,6 +82,61 @@ export default function CarPage() {
     return pages;
   };
 
+  if (loading) {
+    return (
+      <div className="carspage-container">
+        <header className="carspage-header">
+          <div className="carspage-header-inner">
+            <Link to="/">
+              <ChevronLeft className="icon" />
+            </Link>
+            <div className="carpage-title-holder">
+              <div
+                className="skeleton-title"
+                style={{
+                  width: "400px",
+                  height: "40px",
+                  margin: "0 auto 1rem",
+                }}
+              ></div>
+              <div
+                className="skeleton-tagline"
+                style={{ width: "600px", margin: "0 auto" }}
+              ></div>
+            </div>
+          </div>
+        </header>
+
+        <div className="carspage-grid-wrapper">
+          <div className="product-cards-skeleton">
+            {[1, 2, 3, 4, 5, 6].map((idx) => (
+              <div key={idx} className="product-card-skeleton">
+                <div className="skeleton-image-wrapper">
+                  <div className="skeleton-badge-product"></div>
+                </div>
+                <div className="skeleton-card-content">
+                  <div className="skeleton-card-title"></div>
+                  <div className="skeleton-card-subtitle"></div>
+                  <div className="skeleton-card-price"></div>
+                  <div className="skeleton-spec-row">
+                    <div className="skeleton-spec-item"></div>
+                  </div>
+                  <div className="skeleton-spec-row">
+                    <div className="skeleton-spec-item"></div>
+                  </div>
+                  <div className="skeleton-card-buttons">
+                    <div className="skeleton-btn"></div>
+                    <div className="skeleton-btn"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="carspage-container">
       {/* Header */}
@@ -89,8 +145,13 @@ export default function CarPage() {
           <Link to="/">
             <ChevronLeft className="icon" />
           </Link>
-          <h1 className="carspage-title">E-BEST</h1>
-          <p className="carspage-subtitle">Premium Automotive Collection</p>
+          <div className="carpage-title-holder">
+            <h1 className="carspage-title">Premium Cars Collection</h1>
+            <p className="carspage-subtitle">
+              Browse top quality cars with verified details, competitive
+              pricing, and trusted performance, all in one place.
+            </p>
+          </div>
         </div>
       </header>
 

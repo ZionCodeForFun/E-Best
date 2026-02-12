@@ -229,10 +229,10 @@ const Accessories = () => {
             Add
           </button>
         </div>
-        <div className="features-list">
+        <div className="admin-features-list">
           {Array.isArray(form.features) &&
             form.features.map((f, i) => (
-              <span key={i} className="feature-item">
+              <span key={i} className="admin-feature-item">
                 {f}{" "}
                 <button type="button" onClick={() => removeFeature(i)}>
                   ×
@@ -286,7 +286,7 @@ const Accessories = () => {
                 ? "Update Accessory"
                 : "Add Accessory"}
           </button>
-          <button type="button" className="cancel-btn" onClick={handleCancel}>
+          <button type="button" className="posting-cancel-btn" onClick={handleCancel}>
             Cancel
           </button>
         </div>
@@ -337,7 +337,7 @@ const Accessories = () => {
             <h3>Delete Accessory?</h3>
             <p>This action cannot be undone.</p>
             <div className="modal-actions">
-              <button className="btn-danger" onClick={confirmDelete}>
+              <button className="modal-danger" onClick={confirmDelete}>
                 Delete
               </button>
               <button className="btn-cancel" onClick={() => setDeleteId(null)}>

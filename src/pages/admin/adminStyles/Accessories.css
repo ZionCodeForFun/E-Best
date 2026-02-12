@@ -21,7 +21,7 @@
 }
 
 .admin-accessories__form button {
-  background: #0a1f44;
+  background: #154883;
   color: white;
   border: none;
   padding: 0.6rem;
@@ -86,7 +86,7 @@
 .admin-accessories__card .type {
   font-size: 12px;
   font-weight: 500;
-  color: #2563eb;
+  color: #154883;
   background: #eff6ff;
   width: fit-content;
   padding: 4px 10px;
@@ -111,12 +111,12 @@
 }
 
 .admin-accessories__card .edit-btn {
-  background: #2563eb;
+  background:#154883;
   color: #ffffff;
 }
 
 .admin-accessories__card .edit-btn:hover {
-  background: #1e40af;
+  background: #154883;
   transform: translateY(-1px);
 }
 
@@ -154,20 +154,20 @@
   margin-bottom: 0.5rem;
 }
 
-.features-list {
+.admin-features-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.feature-item {
+.admin-feature-item {
   background: #eee;
   padding: 0.3rem 0.5rem;
   border-radius: 4px;
 }
 
-.feature-item button {
+.admin-feature-item button {
   margin-left: 0.3rem;
   background: red;
   color: white;
@@ -207,6 +207,9 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .admin-accessories__list {
@@ -228,7 +231,7 @@
   flex-wrap: wrap;
 }
 
-.cancel-btn {
+.posting-cancel-btn {
   background: #999;
   color: white;
   border: none;

@@ -18,9 +18,12 @@
   margin: 0 auto;
   padding: 0px 16px;
 }
+.carpage-title-holder{
+  text-align: center;
+}
 .carspage-title {
   font-size: 2rem;
-  color: #1e3a8a;
+  color: #151922;
   margin: 0;
 }
 .carspage-subtitle {

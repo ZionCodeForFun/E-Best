@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, Shield, CarFront, Calendar } from "lucide-react";
 import "../../style/TrackerPage.css";
-import '../../style/pricing.css'
+import "../../style/pricing.css";
+import "../../style/skeleton.css";
 import { useNavigate, Link } from "react-router-dom";
 import { superbase } from "../../SuperbaseClient";
 
@@ -11,7 +12,6 @@ function TrackerPage() {
 
   const nav = useNavigate();
 
-  // ================= FETCH PLANS =================
   useEffect(() => {
     const fetchPlans = async () => {
       const { data, error } = await superbase
@@ -31,42 +31,6 @@ function TrackerPage() {
     fetchPlans();
   }, []);
 
-  // ================= SLIDER =================
-  useEffect(() => {
-    const slider = document.querySelector(".image-slider");
-    const slides = document.querySelectorAll(".slider-image");
-    const dots = document.querySelectorAll(".slider-dot");
-    if (!slider || slides.length === 0) return;
-
-    let currentSlide = 0;
-    let autoSlideInterval;
-
-    function goToSlide(n) {
-      currentSlide = n;
-      const offset = -currentSlide * 100;
-      slider.style.transform = `translateX(${offset}%)`;
-      dots.forEach((dot, index) => {
-        dot.classList.toggle("active", index === currentSlide);
-      });
-    }
-
-    function nextSlide() {
-      goToSlide((currentSlide + 1) % slides.length);
-    }
-
-    autoSlideInterval = setInterval(nextSlide, 4000);
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => {
-        clearInterval(autoSlideInterval);
-        goToSlide(index);
-        autoSlideInterval = setInterval(nextSlide, 4000);
-      });
-    });
-
-    return () => clearInterval(autoSlideInterval);
-  }, []);
-
   // ================= HELPERS =================
   const getFinalPrice = (price, discount) => {
     if (!discount || discount <= 0) return price;
@@ -77,6 +41,69 @@ function TrackerPage() {
     window.open("https://wa.me/8133369509", "_blank");
   };
 
+  if (loadingPlans) {
+    return (
+      <div className="pricing-container">
+        <Link to="/">
+          <ChevronLeft className="icon" />
+        </Link>
+
+        {/* HEADER SKELETON */}
+        <div className="pricing-header-skeleton">
+          <div className="skeleton-company-name"></div>
+          <div className="skeleton-title"></div>
+          <div className="skeleton-tagline"></div>
+          <div className="skeleton-tagline"></div>
+        </div>
+
+        {/* PRICING CARDS SKELETON */}
+        <div className="pricing-skeleton-container">
+          {[1, 2, 3].map((idx) => (
+            <div
+              key={idx}
+              className={`pricing-card-skeleton ${["exclusive", "premium", "advanced"][idx - 1]}`}
+            >
+              {/* Promo Badge Skeleton */}
+              <div className="skeleton-badge"></div>
+
+              {/* TRACKER ONLY SECTION */}
+              <div className="skeleton-option-row">
+                <div className="skeleton-option-header">
+                  <div className="skeleton-heading"></div>
+                  <div className="skeleton-price"></div>
+                </div>
+                <div className="skeleton-features-list">
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="skeleton-divider"></div>
+
+              {/* TRACKER + DASHCAM SECTION */}
+              <div className="skeleton-option-row">
+                <div className="skeleton-option-header">
+                  <div className="skeleton-heading"></div>
+                  <div className="skeleton-price"></div>
+                </div>
+                <div className="skeleton-features-list">
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                  <div className="skeleton-feature-item"></div>
+                </div>
+              </div>
+
+              {/* Button Skeleton */}
+              <div className="skeleton-button"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   // ================= PLAN LOOKUPS =================
   const exclusive = plans.find((p) => p.plan_name === "Exclusive");
   const premium = plans.find((p) => p.plan_name === "Premium");
@@ -84,15 +111,17 @@ function TrackerPage() {
 
   return (
     <div className="pricing-container">
-        <Link to="/" >
-          <ChevronLeft className="icon" />
-        </Link>
+      <Link to="/">
+        <ChevronLeft className="icon" />
+      </Link>
 
       <header className="pricing-header">
         <div className="company-name">E-BEST GLOBAL RESOURCES LTD.</div>
         <h1>Exclusive Tracker & Dashcam Packages</h1>
         <p className="pricing-tagline">
-          Choose the solution that fits your vehicle or fleet needs. Each package comes with optional dashcam add-ons for enhanced monitoring and security.
+          Choose the solution that fits your vehicle or fleet needs. Each
+          package comes with optional dashcam add-ons for enhanced monitoring
+          and security.
         </p>
       </header>
 
@@ -154,160 +183,265 @@ function TrackerPage() {
         </div>
       </section>
 
+      <main className="pricing-content">
+        {/* EXCLUSIVE PACKAGE */}
+        {exclusive && (
+          <div className="pricing-card exclusive">
+            {exclusive.promo_badge && (
+              <div className="promo-badge">
+                {exclusive.promo_badge}
+                {exclusive.discount_percent > 0 && (
+                  <span> • {exclusive.discount_percent}% OFF</span>
+                )}
+              </div>
+            )}
+            <div className="pricing-badge">EXCLUSIVE PACKAGE</div>
 
-        <main className="pricing-content">
-          {/* EXCLUSIVE PACKAGE */}
-          {exclusive && (
-            <div className="pricing-card exclusive">
-              {exclusive.promo_badge && (
-                <div className="limited-offer-badge">
-                  {exclusive.promo_badge} • {exclusive.discount_percent}%
-                </div>
-              )}
-              <div className="pricing-badge">EXCLUSIVE PACKAGE</div>
-
-              <div className="option-row">
-                <div className="option-header">
-                  <h2>Tracker Only</h2>
-                  <div className="pricing-amount">
-                    <span className="currency">₦</span>
-                    <span className="price">
-                      {getFinalPrice(exclusive.tracker_price, exclusive.discount_percent)}
+            {/* TRACKER ONLY */}
+            <div className="option-row">
+              <div className="option-header">
+                <h2>Tracker Only</h2>
+                <div className="pricing-amount">
+                  {exclusive.discount_percent > 0 && (
+                    <span className="original-price">
+                      ₦{exclusive.tracker_price}
                     </span>
-                  </div>
-                </div>
-                <div className="features-list">
-                  <ul>
-                    {exclusive.tracker_features?.map((f, i) => (
-                      <li key={i}>• {f}</li>
-                    ))}
-                  </ul>
+                  )}
+                  <span className="currency">₦</span>
+                  <span className="price">
+                    {getFinalPrice(
+                      exclusive.tracker_price,
+                      exclusive.discount_percent,
+                    )}
+                  </span>
                 </div>
               </div>
+              <div className="features-list">
+                <ul>
+                  {exclusive.tracker_features?.map((f, i) => (
+                    <li key={i}>• {f}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
-              <div className="divider"></div>
+            <div className="divider"></div>
 
-              <div className="option-row">
-                <div className="option-header">
-                  <h2>Tracker + Dashcam</h2>
-                  <div className="pricing-amount">
-                    <span className="currency">₦</span>
-                    <span className="price">{exclusive.dashcam_price}</span>
-                  </div>
+            {/* TRACKER + DASHCAM */}
+            <div className="option-row">
+              <div className="option-header">
+                <h2>Tracker + Dashcam</h2>
+                <div className="pricing-amount">
+                  {exclusive.discount_percent > 0 && (
+                    <span className="original-price">
+                      ₦{exclusive.dashcam_price}
+                    </span>
+                  )}
+                  <span className="currency">₦</span>
+                  <span className="price">
+                    {getFinalPrice(
+                      exclusive.dashcam_price,
+                      exclusive.discount_percent,
+                    )}
+                  </span>
                 </div>
-                <div className="features-list">
+              </div>
+              <div className="features-list">
+                {exclusive.dashcam_features?.length > 0 ? (
                   <ul>
-                    {exclusive.dashcam_features?.map((f, i) => (
+                    {exclusive.dashcam_features.map((f, i) => (
                       <li key={i}>• {f}</li>
                     ))}
                   </ul>
+                ) : (
                   <p className="addon-note">Dashcam Add-ons (If selected)</p>
-                </div>
+                )}
               </div>
-
-              <button className="cta-button-service" onClick={() => nav("/contact")}>
-                Get Exclusive Package
-              </button>
             </div>
-          )}
 
-          {/* PREMIUM PACKAGE */}
-          {premium && (
-            <div className="pricing-card premium">
-              <div className="pricing-badge">PREMIUM PACKAGE</div>
+            <button
+              className="cta-button-service"
+              onClick={() => nav("/contact")}
+            >
+              Get Exclusive Package
+            </button>
+          </div>
+        )}
 
-              <div className="option-row">
-                <div className="option-header">
-                  <h2>Tracker Only</h2>
-                  <div className="pricing-amount">
-                    <span className="currency">₦</span>
-                    <span className="price">{getFinalPrice(premium.tracker_price, premium.discount_percent)}</span>
-                  </div>
-                </div>
-                <div className="features-list">
-                  <ul>
-                    {premium.tracker_features?.map((f, i) => (
-                      <li key={i}>• {f}</li>
-                    ))}
-                  </ul>
+        {/* PREMIUM PACKAGE */}
+        {premium && (
+          <div className="pricing-card premium">
+            {premium.promo_badge && (
+              <div className="promo-badge">
+                {premium.promo_badge}
+                {premium.discount_percent > 0 && (
+                  <span> • {premium.discount_percent}% OFF</span>
+                )}
+              </div>
+            )}
+            <div className="pricing-badge">PREMIUM PACKAGE</div>
+
+            {/* TRACKER ONLY */}
+            <div className="option-row">
+              <div className="option-header">
+                <h2>Tracker Only</h2>
+                <div className="pricing-amount">
+                  {premium.discount_percent > 0 && (
+                    <span className="original-price">
+                      ₦{premium.tracker_price}
+                    </span>
+                  )}
+                  <span className="currency">₦</span>
+                  <span className="price">
+                    {getFinalPrice(
+                      premium.tracker_price,
+                      premium.discount_percent,
+                    )}
+                  </span>
                 </div>
               </div>
-
-              <div className="divider"></div>
-
-              <div className="option-row">
-                <div className="option-header">
-                  <h2>Tracker + Dashcam</h2>
-                  <div className="pricing-amount">
-                    <span className="currency">₦</span>
-                    <span className="price">{premium.dashcam_price}</span>
-                  </div>
-                </div>
-                <div className="features-list">
-                  <ul>
-                    {premium.dashcam_features?.map((f, i) => (
-                      <li key={i}>• {f}</li>
-                    ))}
-                  </ul>
-                  <p className="same-features"> Same features as above, plus dashcam installation and recording functionality </p>
-                </div>
+              <div className="features-list">
+                <ul>
+                  {premium.tracker_features?.map((f, i) => (
+                    <li key={i}>• {f}</li>
+                  ))}
+                </ul>
               </div>
-
-              <button className="cta-button-service secondary-service" onClick={() => nav("/contact")}>
-                Get Premium Package
-              </button>
             </div>
-          )}
 
-          {/* ADVANCED PACKAGE */}
-          {advanced && (
-            <div className="pricing-card advanced">
-              <div className="pricing-badge">ADVANCED PACKAGE</div>
+            <div className="divider"></div>
 
-              <div className="option-row">
-                <div className="option-header">
-                  <h2>Tracker Only</h2>
-                  <div className="pricing-amount">
-                    <span className="currency">₦</span>
-                    <span className="price">{getFinalPrice(advanced.tracker_price, advanced.discount_percent)}</span>
-                  </div>
+            {/* TRACKER + DASHCAM */}
+            <div className="option-row">
+              <div className="option-header">
+                <h2>Tracker + Dashcam</h2>
+                <div className="pricing-amount">
+                  {premium.discount_percent > 0 && (
+                    <span className="original-price">
+                      ₦{premium.dashcam_price}
+                    </span>
+                  )}
+                  <span className="currency">₦</span>
+                  <span className="price">
+                    {getFinalPrice(
+                      premium.dashcam_price,
+                      premium.discount_percent,
+                    )}
+                  </span>
                 </div>
-                <div className="features-list">
+              </div>
+              <div className="features-list">
+                {premium.dashcam_features?.length > 0 ? (
                   <ul>
-                    {advanced.tracker_features?.map((f, i) => (
+                    {premium.dashcam_features.map((f, i) => (
                       <li key={i}>• {f}</li>
                     ))}
                   </ul>
-                </div>
+                ) : (
+                  <p className="same-features">
+                    Same features as above, plus dashcam installation and
+                    recording functionality
+                  </p>
+                )}
               </div>
-
-              <div className="divider"></div>
-
-              <div className="option-row">
-                <div className="option-header">
-                  <h2>Tracker + Dashcam</h2>
-                  <div className="pricing-amount">
-                    <span className="currency">₦</span>
-                    <span className="price">{advanced.dashcam_price}</span>
-                  </div>
-                </div>
-                <div className="features-list">
-                  <ul>
-                    {advanced.dashcam_features?.map((f, i) => (
-                      <li key={i}>• {f}</li>
-                    ))}
-                  </ul>
-                  <p className="same-features"> Same features as above, plus dashcam installation and recording functionality </p>
-                </div>
-              </div>
-
-              <button className="cta-button-service secondary-service" onClick={() => nav("/contact")}>
-                Get Advanced Package
-              </button>
             </div>
-          )}
-        </main>
-  
+
+            <button
+              className="cta-button-service secondary-service"
+              onClick={() => nav("/contact")}
+            >
+              Get Premium Package
+            </button>
+          </div>
+        )}
+
+        {/* ADVANCED PACKAGE */}
+        {advanced && (
+          <div className="pricing-card advanced">
+            {advanced.promo_badge && (
+              <div className="promo-badge">
+                {advanced.promo_badge}
+                {advanced.discount_percent > 0 && (
+                  <span> • {advanced.discount_percent}% OFF</span>
+                )}
+              </div>
+            )}
+            <div className="pricing-badge">ADVANCED PACKAGE</div>
+
+            {/* TRACKER ONLY */}
+            <div className="option-row">
+              <div className="option-header">
+                <h2>Tracker Only</h2>
+                <div className="pricing-amount">
+                  {advanced.discount_percent > 0 && (
+                    <span className="original-price">
+                      ₦{advanced.tracker_price}
+                    </span>
+                  )}
+                  <span className="currency">₦</span>
+                  <span className="price">
+                    {getFinalPrice(
+                      advanced.tracker_price,
+                      advanced.discount_percent,
+                    )}
+                  </span>
+                </div>
+              </div>
+              <div className="features-list">
+                <ul>
+                  {advanced.tracker_features?.map((f, i) => (
+                    <li key={i}>• {f}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="divider"></div>
+
+            {/* TRACKER + DASHCAM */}
+            <div className="option-row">
+              <div className="option-header">
+                <h2>Tracker + Dashcam</h2>
+                <div className="pricing-amount">
+                  {advanced.discount_percent > 0 && (
+                    <span className="original-price">
+                      ₦{advanced.dashcam_price}
+                    </span>
+                  )}
+                  <span className="currency">₦</span>
+                  <span className="price">
+                    {getFinalPrice(
+                      advanced.dashcam_price,
+                      advanced.discount_percent,
+                    )}
+                  </span>
+                </div>
+              </div>
+              <div className="features-list">
+                {advanced.dashcam_features?.length > 0 ? (
+                  <ul>
+                    {advanced.dashcam_features.map((f, i) => (
+                      <li key={i}>• {f}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="same-features">
+                    Same features as above, plus dashcam installation and
+                    recording functionality
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <button
+              className="cta-button-service secondary-service"
+              onClick={() => nav("/contact")}
+            >
+              Get Advanced Package
+            </button>
+          </div>
+        )}
+      </main>
 
       <section className="notes-section">
         <div className="notes-box">
@@ -327,7 +461,9 @@ function TrackerPage() {
           </div>
           <div className="payment-item">
             <div className="payment-percent">50%</div>
-            <div className="payment-label">After installation & test running</div>
+            <div className="payment-label">
+              After installation & test running
+            </div>
           </div>
         </div>
       </section>

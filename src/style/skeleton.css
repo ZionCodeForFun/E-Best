@@ -1,0 +1,316 @@
+/* ===== SKELETON LOADING STYLES ===== */
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+}
+
+/* Skeleton placeholders for pricing cards */
+.pricing-skeleton-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.pricing-card-skeleton {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 3rem 2.5rem 2.5rem;
+  position: relative;
+}
+
+.pricing-card-skeleton.exclusive {
+  border-color: #b72b30;
+}
+
+.pricing-card-skeleton.premium {
+  border-color: #0f172a;
+}
+
+.pricing-card-skeleton.advanced {
+  border-color: #0f172a;
+}
+
+/* Skeleton badge placeholder */
+.skeleton-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 32px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 20px;
+}
+
+/* Skeleton for option rows */
+.skeleton-option-row {
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-option-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Skeleton option header */
+.skeleton-option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.skeleton-heading {
+  width: 120px;
+  height: 24px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-price {
+  width: 180px;
+  height: 32px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+}
+
+/* Skeleton features list */
+.skeleton-features-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.skeleton-feature-item {
+  width: 100%;
+  height: 18px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-feature-item:nth-child(2) {
+  width: 85%;
+}
+
+.skeleton-feature-item:nth-child(3) {
+  width: 90%;
+}
+
+/* Skeleton divider */
+.skeleton-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 2rem 0;
+}
+
+/* Skeleton button */
+.skeleton-button {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* Header skeleton */
+.pricing-header-skeleton {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+}
+
+.skeleton-company-name {
+  width: 400px;
+  height: 20px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+  margin: 0 auto 1.5rem;
+}
+
+.skeleton-title {
+  width: 600px;
+  height: 44px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+  margin: 0 auto 1rem;
+}
+
+.skeleton-tagline {
+  width: 800px;
+  height: 24px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+  margin: 0 auto 0.5rem;
+}
+
+.skeleton-tagline:last-child {
+  width: 700px;
+  margin-bottom: 0;
+}
+
+/* ===== PRODUCT CARD SKELETON (Cars & Accessories) ===== */
+
+.product-cards-skeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.product-card-skeleton {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Image skeleton */
+.skeleton-image-wrapper {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 0;
+  position: relative;
+}
+
+.skeleton-badge-product {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 80px;
+  height: 24px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-card-content {
+  padding: 20px;
+}
+
+.skeleton-card-title {
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-card-subtitle {
+  width: 80%;
+  height: 16px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-card-price {
+  width: 60%;
+  height: 24px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.skeleton-spec-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.skeleton-spec-item {
+  width: 100%;
+  height: 16px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-spec-item:nth-child(2) {
+  width: 85%;
+}
+
+.skeleton-card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.skeleton-btn {
+  flex: 1;
+  height: 40px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 8px;
+}
+
+/* Slider skeleton (for carousel) */
+.slider-skeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .product-cards-skeleton {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .slider-skeleton {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-cards-skeleton {
+    grid-template-columns: 1fr;
+  }
+
+  .slider-skeleton {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,11 +5,10 @@
 }
 
 .admin-cars h1 {
-  color: #0a1f44;
+  color: #154883;
   margin-bottom: 1.5rem;
 }
 
-/* FORM */
 .car-form {
   display: grid;
   gap: 1rem;
@@ -38,7 +37,7 @@
   padding: 0.75rem;
   border-radius: 5px;
   border: none;
-  background: #0a1f44;
+  background: #154883;
   color: #fff;
   cursor: pointer;
   font-weight: bold;
@@ -48,7 +47,6 @@
   opacity: 0.6;
 }
 
-/* LIST */
 .car-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -71,7 +69,7 @@
 
 .car-card h3 {
   margin: 0.5rem 0 0.25rem;
-  color: #0a1f44;
+  color: #154883;
 }
 
 .car-card .price {
@@ -112,7 +110,6 @@
   object-fit: cover;
   border-radius: 4px;
 }
-/* ===== MODAL OVERLAY ===== */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -123,10 +120,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* above everything */
+  z-index: 1000; 
 }
 
-/* ===== MODAL CONTENT ===== */
 .modal-content {
   background-color: #fff;
   padding: 2rem;
@@ -150,53 +146,62 @@
   }
 }
 
-/* ===== MODAL TITLES ===== */
 .modal-content h3 {
   margin-bottom: 1rem;
   font-size: 1.4rem;
 }
 
 .modal-content h3.success {
-  color: #28a745; /* green for success */
+  color: #28a745; 
 }
 
 .modal-content h3.error {
-  color: #dc3545; /* red for error */
+  color: #dc3545;
 }
 
-/* ===== MODAL TEXT ===== */
 .modal-content p {
   margin-bottom: 1.5rem;
   font-size: 1rem;
   color: #333;
 }
 
-/* ===== MODAL BUTTONS ===== */
 .modal-actions {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  flex-wrap: wrap;
+  align-items: center ;
+  flex-wrap: nowrap;
+
+
 }
 
-.modal-actions button,
-.modal-content .btn-cancel {
-  padding: 0.6rem 1.2rem;
+
+.modal-actions .btn-cancel {
+  padding: 0.6rem 1.2rem ;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.2s ease;
-}
+  margin-bottom: 13px;
 
-.modal-actions .btn-danger,
-.modal-content .btn-danger {
-  background-color: #dc3545;
+}
+.modal-actions .modal-danger
+ {
+padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #8b101d;
   color: #fff;
+
 }
 
-.modal-actions .btn-danger:hover,
-.modal-content .btn-danger:hover {
+
+.modal-actions .modal-danger:hover,
+.modal-content .modal-danger:hover {
   background-color: #b02a37;
 }
 
@@ -264,6 +269,9 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .car-list {
@@ -295,7 +303,7 @@
   flex-wrap: wrap;
 }
 
-.cancel-btn {
+.posting-cancel-btn {
   background: #999;
   color: white;
   border: none;
