@@ -43,7 +43,7 @@ export function PhoneMockup() {
                   <MapPin size={16} className="stat-icon" />
                   <div className="stat-content">
                     <p className="stat-label">Current Location</p>
-                    <p className="stat-value">Downtown, Main St</p>
+                    <p className="stat-value">Lekki, phase1</p>
                   </div>
                 </div>
                 <div className="stat-divider"></div>

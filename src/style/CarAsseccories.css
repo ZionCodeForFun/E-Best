@@ -134,13 +134,15 @@
 }
 .home-accessories__button {
   padding: 16px 48px;
-  background-color: #B72B30;
-  color: #ffffff ; 
+  background-color: #b72b30;
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   font-size: 1.125rem;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
@@ -154,14 +156,13 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-
 .home-accessories-cta-secondary {
   background: #ffffff;
-  color:#16447e;
+  color: #16447e;
   border: 2px solid #16447e;
   height: 100%;
   width: 50%;
-   border-radius: 8px;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -171,8 +172,6 @@
   background: #f0f7ff;
 }
 
-
-
 /* Slick Slider Custom Styles */
 .home-accessories__slider-container .slick-prev,
 .home-accessories__slider-container .slick-next {
@@ -180,7 +179,6 @@
   height: 40px;
   z-index: 10;
 }
-
 
 .home-accessories__slider-container .slick-prev:before,
 .home-accessories__slider-container .slick-next:before {
@@ -248,7 +246,6 @@
     display: flex;
     gap: 8px;
   }
-
 
   .home-accessories__title {
     font-size: 24px;

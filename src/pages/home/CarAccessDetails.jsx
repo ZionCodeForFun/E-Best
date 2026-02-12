@@ -101,7 +101,7 @@ export default function AccessoryDetail() {
             <h1 className="accessory-detail__name">{accessory.name}</h1>
 
             <p className="accessory-detail__price">
-              ${accessory.price.toFixed(2)}
+              ₦{accessory.price.toFixed(2)}
             </p>
 
             <p className="accessory-detail__availability">

@@ -8,6 +8,7 @@ import "../../style/CarAsseccories.css";
 import "../../style/cta.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 export default function CarAccessories() {
   const [accessories, setAccessories] = useState([]);
@@ -149,7 +150,7 @@ export default function CarAccessories() {
           onClick={handleViewAllClick}
           style={{ maxWidth: "300px", margin: "0 auto" }}
         >
-          View All Accessories
+          View All Accessories <MdKeyboardDoubleArrowRight  />
         </button>
       </div>
     </div>

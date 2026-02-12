@@ -1,36 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "./adminStyles/car.css";
 
 const Cars = () => {
+  const fileInputRef = useRef(null);
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [deleteCarId, setDeleteCarId] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [existingImages, setExistingImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
+
+  const emptyForm = {
+    name: "",
+    price: "",
+    year: "",
+    mileage: "",
+    brand: "",
+    color: "",
+    transmission: "",
+    fuel: "",
+    condition: "",
+    location: "",
+    features: "",
+    images: [],
+  };
 
   const [form, setForm] = useState(() => {
     const saved = localStorage.getItem("adminCarForm");
-    return saved
-      ? JSON.parse(saved)
-      : {
-          name: "",
-          price: "",
-          year: "",
-          mileage: "",
-          brand: "",
-          color: "",
-          transmission: "",
-          fuel: "",
-          condition: "",
-          location: "",
-          features: "",
-          images: [],
-        };
+    return saved ? JSON.parse(saved) : emptyForm;
   });
 
-  const [editingId, setEditingId] = useState(null);
-  const [deleteCarId, setDeleteCarId] = useState(null);
-  const [message, setMessage] = useState(null); // {type: 'success'|'error', text: ''}
-
-  // Persist form while typing
+  // Persist form unless canceled
   useEffect(() => {
     localStorage.setItem("adminCarForm", JSON.stringify(form));
   }, [form]);
@@ -44,55 +46,44 @@ const Cars = () => {
       .from("cars")
       .select("*")
       .order("created_at", { ascending: false });
-
-    if (error) console.error(error.message);
-    else setCars(data);
+    if (!error) setCars(data || []);
   };
 
   const uploadImages = async (files) => {
-    const uploadedUrls = [];
-    for (let i = 0; i < Math.min(files.length, 5); i++) {
+    const urls = [];
+    for (let i = 0; i < Math.min(files.length, 10); i++) {
       const file = files[i];
       const fileName = `${Date.now()}-${file.name}`;
       const filePath = `cars/${fileName}`;
-
       const { error } = await superbase.storage
         .from("cars-images")
         .upload(filePath, file, { upsert: false });
-
-      if (error) {
-        console.error("Upload error:", error.message);
-        continue;
-      }
-
+      if (error) continue;
       const { data } = superbase.storage
         .from("cars-images")
         .getPublicUrl(filePath);
-
-      uploadedUrls.push(data.publicUrl);
+      if (data && data.publicUrl) urls.push(data.publicUrl);
     }
-    return uploadedUrls;
+    return urls;
   };
 
-  // Add / Update handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
-      const imageUrls = form.images.length ? await uploadImages(form.images) : null;
+      let imageUrls = form.images.length
+        ? await uploadImages(form.images)
+        : null;
 
       if (editingId) {
+        let finalImages = existingImages;
+        if (form.images.length) finalImages = await uploadImages(form.images);
+
         const { error } = await superbase
           .from("cars")
-          .update({
-            ...form,
-            ...(imageUrls && { images: imageUrls }),
-          })
+          .update({ ...form, images: finalImages })
           .eq("id", editingId);
-
         if (error) throw new Error(error.message);
-
         setMessage({ type: "success", text: "Car updated successfully!" });
       } else {
         const { error } = await superbase.from("cars").insert([
@@ -101,30 +92,17 @@ const Cars = () => {
             images: imageUrls || [],
           },
         ]);
-
         if (error) throw new Error(error.message);
-
         setMessage({ type: "success", text: "Car added successfully!" });
       }
 
       // Reset form
-      const emptyForm = {
-        name: "",
-        price: "",
-        year: "",
-        mileage: "",
-        brand: "",
-        color: "",
-        transmission: "",
-        fuel: "",
-        condition: "",
-        location: "",
-        features: "",
-        images: [],
-      };
       setForm(emptyForm);
-      localStorage.removeItem("adminCarForm");
       setEditingId(null);
+      setExistingImages([]);
+      setPreviewImages([]);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      localStorage.removeItem("adminCarForm");
       await fetchCars();
     } catch (err) {
       setMessage({ type: "error", text: err.message });
@@ -133,45 +111,44 @@ const Cars = () => {
     }
   };
 
-  // Edit handler
   const handleEdit = (car) => {
     setEditingId(car.id);
-    setForm({
-      name: car.name,
-      price: car.price,
-      year: car.year,
-      mileage: car.mileage,
-      brand: car.brand,
-      color: car.color,
-      transmission: car.transmission,
-      fuel: car.fuel,
-      condition: car.condition,
-      location: car.location,
-      features: car.features,
-      images: [],
-    });
+    setForm({ ...car, images: [] });
+    setExistingImages(car.images || []);
+    setPreviewImages([]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Delete handler
   const handleDelete = async () => {
     if (!deleteCarId) return;
     try {
-      const { error } = await superbase.from("cars").delete().eq("id", deleteCarId);
+      const { error } = await superbase
+        .from("cars")
+        .delete()
+        .eq("id", deleteCarId);
       if (error) throw new Error(error.message);
-
       setMessage({ type: "success", text: "Car deleted successfully!" });
       setDeleteCarId(null);
-      await fetchCars();
+      fetchCars();
     } catch (err) {
       setMessage({ type: "error", text: err.message });
     }
+  };
+
+  // Cancel / Reset Form
+  const handleCancel = () => {
+    setForm(emptyForm);
+    setEditingId(null);
+    setExistingImages([]);
+    setPreviewImages([]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    localStorage.removeItem("adminCarForm");
   };
 
   return (
     <div className="admin-cars">
       <h1>Cars Management</h1>
 
-      {/* FORM */}
       <form className="car-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -260,20 +237,52 @@ const Cars = () => {
           onChange={(e) => setForm({ ...form, features: e.target.value })}
         />
 
+        {/* IMAGE UPLOAD */}
         <input
           type="file"
-          accept="image/*"
+          ref={fileInputRef}
           multiple
-          onChange={(e) =>
-            setForm({
-              ...form,
-              images: [...form.images, ...Array.from(e.target.files)].slice(0, 5),
-            })
-          }
+          accept="image/*"
+          onChange={(e) => {
+            const newFiles = Array.from(e.target.files);
+            const totalFiles = [...form.images, ...newFiles].slice(0, 10);
+            setForm({ ...form, images: totalFiles });
+            setPreviewImages(totalFiles.map((f) => URL.createObjectURL(f)));
+          }}
         />
-        <small>Select up to 5 images</small>
+        <small>{form.images.length} image(s) selected (max 10)</small>
 
-        <button disabled={loading}>{loading? "Saving..." :editingId ? "Update Car" : "Add Car"}</button>
+        {/* PREVIEW */}
+        <div className="image-previews">
+          {previewImages.map((src, idx) => (
+            <div key={idx} className="preview-wrapper">
+              <img src={src} alt={`preview-${idx}`} />
+              <button
+                type="button"
+                onClick={() => {
+                  const newFiles = [...form.images];
+                  newFiles.splice(idx, 1);
+                  setForm({ ...form, images: newFiles });
+
+                  const newPreviews = [...previewImages];
+                  newPreviews.splice(idx, 1);
+                  setPreviewImages(newPreviews);
+                }}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="form-actions">
+          <button type="submit" disabled={loading}>
+            {loading ? "Saving..." : editingId ? "Update Car" : "Add Car"}
+          </button>
+          <button type="button" className="cancel-btn" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
       </form>
 
       {/* LIST */}
@@ -295,7 +304,6 @@ const Cars = () => {
               {car.fuel}
             </p>
             <p>{car.features}</p>
-
             <div className="actions">
               <button onClick={() => handleEdit(car)}>Edit</button>
               <button className="danger" onClick={() => setDeleteCarId(car.id)}>
@@ -306,20 +314,20 @@ const Cars = () => {
         ))}
       </div>
 
-      {/* DELETE CONFIRMATION MODAL */}
+      {/* DELETE CONFIRM */}
       {deleteCarId && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h3>Delete Car?</h3>
-            <p>
-              Are you sure you want to delete this car? This action cannot be
-              undone.
-            </p>
+            <p>This cannot be undone.</p>
             <div className="modal-actions">
               <button className="btn-danger" onClick={handleDelete}>
                 Delete
               </button>
-              <button className="btn-cancel" onClick={() => setDeleteCarId(null)}>
+              <button
+                className="btn-cancel"
+                onClick={() => setDeleteCarId(null)}
+              >
                 Cancel
               </button>
             </div>
@@ -327,16 +335,14 @@ const Cars = () => {
         </div>
       )}
 
-      {/* SUCCESS / ERROR MODAL */}
+      {/* MESSAGE MODAL */}
       {message && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3 className={message.type === "success" ? "success" : "error"}>
-              {message.type === "success" ? "Success" : "Error"}
-            </h3>
+            <h3 className={message.type}>{message.type.toUpperCase()}</h3>
             <p>{message.text}</p>
             <button className="btn-cancel" onClick={() => setMessage(null)}>
-              OK
+              Close
             </button>
           </div>
         </div>

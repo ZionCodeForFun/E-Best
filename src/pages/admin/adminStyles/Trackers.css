@@ -1,39 +1,50 @@
+/* ===== RESET & CONTAINER ===== */
 .admin-trackers {
-  padding: 2rem;
+  padding: 1rem;
   background: #ffffff;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .admin-trackers h1 {
   color: #0a1f44;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-/* FORM */
+/* ===== TRACKER SECTION WRAPPER ===== */
+.tracker-section {
+  display: flex;
+  flex-direction: column; /* stacked on mobile */
+  gap: 2rem;
+}
+
+/* ===== FORM ===== */
 .tracker-form {
-  max-width: 500px;
+  width: 100%;
+  padding: 1rem;
   background: #f9fafb;
-  padding: 1.5rem;
   border-radius: 8px;
   display: grid;
   gap: 1rem;
-  margin-bottom: 2.5rem;
+  box-sizing: border-box;
 }
 
 .tracker-form input,
 .tracker-form textarea,
-.tracker-form select {
+.tracker-form select,
+.tracker-form button {
+ 
   padding: 0.75rem;
   border-radius: 5px;
   border: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
 .tracker-form button {
   background: #0a1f44;
   color: #fff;
-  padding: 0.75rem;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -41,28 +52,25 @@
   opacity: 0.6;
 }
 
-/* PLANS */
+/* ===== PLAN CARDS ===== */
 .tracker-plans {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr; /* full width on mobile */
+  gap: 1rem;
 }
 
 .plan-card {
+  width: 100%;
+  padding: 1rem;
   border: 1px solid #eee;
   border-radius: 8px;
-  padding: 1.25rem;
   background: #fff;
+  box-sizing: border-box;
 }
 
 .plan-card h3 {
   color: #0a1f44;
   margin-bottom: 0.5rem;
-}
-
-.plan-card .dashcam {
-  color: #c1121f;
-  font-weight: 600;
 }
 
 .plan-card ul {
@@ -83,4 +91,67 @@
   padding: 0.6rem;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h3.success {
+  color: green;
+}
+
+.modal-content h3.error {
+  color: red;
+}
+
+.modal-content .btn-cancel {
+  margin-top: 1rem;
+  background: #0a1f44;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ===== MEDIA QUERIES FOR TABLET/DESKTOP ===== */
+@media (min-width: 768px) {
+  .tracker-section {
+    flex-direction: row; /* form left, cards right */
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .tracker-form {
+    flex: 1; /* form smaller */
+    max-width: 400px;
+  }
+
+  .tracker-plans {
+    flex: 2; /* plans take more space */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .tracker-plans {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

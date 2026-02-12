@@ -222,9 +222,13 @@
 }
 
 /* Mobile (1 column) */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cars-section {
-    /* padding: 0 16px; */
+    width: 100%;
+  }
+  .cars-container {
+    padding: 0 16px;
+
   }
 
   .cars-grid {
