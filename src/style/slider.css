@@ -1,0 +1,22 @@
+/* Custom Slick Slider Overrides for EBEST Hero */
+
+/* Hide default slick dots styling */
+.slick-dots li button:before {
+  display: none;
+}
+
+/* Ensure smooth transitions */
+.slick-slide {
+  transition: opacity 0.8s ease-in-out;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
+
+/* Fix slider height */
+.slick-slider,
+.slick-list,
+.slick-track {
+  height: 100%;
+}
