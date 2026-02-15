@@ -103,7 +103,7 @@
 .hero-slider-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   overflow: hidden;
 }
 
@@ -176,7 +176,7 @@
 /* Navigation Arrows */
 .hero-nav-arrow {
   position: absolute;
-  top: 40%;
+  top: 50%;
   transform: translateY(-50%);
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.1);
@@ -304,6 +304,7 @@
 
 /* Tablet breakpoint (640px and up) */
 @media (min-width: 640px) {
+
   .hero-cta-grid-mobile {
     display: none;
   }
@@ -321,6 +322,11 @@
 
 /* Desktop breakpoint (768px and up) */
 @media (min-width: 768px) {
+  .hero-slider-container {
+
+  height: 100vh;
+
+}
   .hero-brand-text {
     font-size: 3.75rem;
   }
@@ -383,7 +389,13 @@
 
 /* Large desktop breakpoint (1024px and up) */
 @media (min-width: 1024px) {
+  .hero-slider-container {
+
+  height: 100vh;
+
+}
   .hero-brand-text {
+
     font-size: 4.5rem;
   }
 
