@@ -28,12 +28,12 @@
   font-weight: 700;
   margin: 0 0 1rem;
   letter-spacing: -0.02em;
-  color: #0f172a; /* deep blue */
+  color: #0f172a;
 }
 
 .pricing-tagline {
   font-size: 1.125rem;
-  color: #4b5563; /* light gray for subtitle */
+  color: #4b5563; 
   line-height: 1.6;
   margin: 0;
 }
@@ -46,8 +46,8 @@
 }
 
 .pricing-card {
-  background: #f9fafb; /* light background for card */
-  border: 1px solid #e5e7eb; /* light gray border */
+  background: #f9fafb; 
+  border: 1px solid #e5e7eb; 
   border-radius: 16px;
   padding: 3rem 2.5rem 2.5rem;
   transition: all 0.3s ease;
@@ -64,11 +64,11 @@
 }
 
 .pricing-card.premium {
-  border-color: #0f172a; /* deep blue accent */
+  border-color: #0f172a; 
 }
 
 .pricing-card.advanced {
-  border-color: #0f172a; /* deep blue accent */
+  border-color: #0f172a; 
 }
 
 .pricing-badge {
@@ -76,7 +76,7 @@
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: #b72b30; /* red badge */
+  background: #b72b30; 
   color: #ffffff;
   padding: 0.5rem 1.5rem;
   border-radius: 20px;
@@ -112,7 +112,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
-  color: #0f172a; /* deep blue */
+  color: #0f172a; 
 }
 
 .pricing-amount {
@@ -151,14 +151,14 @@
 
 .features-list li {
   font-size: 0.9375rem;
-  color: #4b5563; /* light gray */
+  color: #4b5563; 
   line-height: 1.6;
 }
 
 .addon-note {
   margin-top: 1rem;
   font-size: 0.875rem;
-  color: #6b7280; /* light gray italic */
+  color: #6b7280; 
   font-style: italic;
 }
 
@@ -171,7 +171,7 @@
 
 .cta-button-service {
   width: 100%;
-  background: #0f172a; /* deep blue button */
+  background: #0f172a; 
   color: #ffffff;
   padding: 1rem 2rem;
   border: none;
@@ -186,7 +186,7 @@
 .cta-button-service:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.4);
-  background: #1e293b; /* slightly lighter deep blue */
+  background: #1e293b; 
 }
 
 .cta-button-service.secondary-service {
@@ -209,7 +209,7 @@
 
 .back-link-service {
   display: inline-block;
-  color: #dc2626; /* red accent */
+  color: #dc2626; 
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -219,7 +219,7 @@
 }
 
 .back-link-service:hover {
-  background: #fee2e2; /* very light red on hover */
+  background: #fee2e2;
 }
 .pricing-card {
   position: relative;
@@ -238,7 +238,6 @@
   z-index: 5;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .features-list ul {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -248,18 +247,7 @@
 @media (max-width: 768px) {
   .pricing-container {
     padding: 2rem 1rem;
-    .promo-badge {
-  position: absolute;
-  top: 12px;
-  right: 27%;
-  background: linear-gradient(135deg, #ff3b3b, #d60000);
-  color: #fff;
-  padding: 6px 14px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 50px;
-  z-index: 5;
-}
+
   }
 
   .company-name {

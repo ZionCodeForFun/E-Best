@@ -64,7 +64,7 @@ const Footer = () => {
         <div className="footer-col contact">
           <h4>Contact Us</h4>
           <p>
-            Euro 65,former Julius Berger compound, Berger yard bus stop Lagos,
+            Euro 65, former Julius Berger compound, Berger yard bus stop Lagos,
             Nigeria
           </p>
           <p>+234 8133369509</p>

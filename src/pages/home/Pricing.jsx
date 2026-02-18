@@ -130,16 +130,14 @@ export default function Pricing() {
               key={plan.id}
               className={`pricing-card ${plan.plan_name?.toLowerCase()}`}
             >
-              {/* PROMO BADGE */}
-              {plan.promo_badge && (
+         
                 <div className="promo-badge">
                   {plan.promo_badge}
                   {plan.discount_percent > 0 && (
-                    <span> • {plan.discount_percent}% OFF</span>
+                    <span>  {plan.discount_percent}% OFF</span>
                   )}
                 </div>
-              )}
-
+       
               <div className="pricing-badge">
                 {plan.plan_name?.toUpperCase()} PACKAGE
               </div>

@@ -33,7 +33,7 @@ const slides = [
 
 const ctaButtons = [
   { label: 'Shop Cars', path: '/car-page' },
-  { label: 'Buy Tracker', path: '/tracker-page' },
+  { label: 'GPS Tracker', path: '/tracker-page' },
   { label: 'Shop Accessories', path: '/car-accessories' },
   { label: 'Shop Parts', path: '/car-accessories' },
 ];

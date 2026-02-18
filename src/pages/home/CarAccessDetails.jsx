@@ -5,6 +5,7 @@ import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
 import "../../style/GlobalCarousel.css";
 import "../../style/CarAccessDetails.css";
 import "../../style/cta.css";
+import ContactModal from "../../components/ContactModal";
 
 export default function AccessoryDetail() {
   const { accessoryId } = useParams();
@@ -35,13 +36,16 @@ export default function AccessoryDetail() {
     fetchAccessory();
   }, [accessoryId]);
 
+  const [modalOpen, setModalOpen] = useState(false);
   const handleContactUs = () => {
-    const message = `Hello, I am interested in the accessory: ${accessory.name}. Could you provide more details?`;
-    const whatsappURL = `https://wa.me/+2348133369509?text=${encodeURIComponent(
-      message,
-    )}`;
-    window.open(whatsappURL, "_blank");
+    setModalOpen(true);
   };
+   const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
 
   if (loading) {
     return (
@@ -101,7 +105,7 @@ export default function AccessoryDetail() {
             <h1 className="accessory-detail__name">{accessory.name}</h1>
 
             <p className="accessory-detail__price">
-              ₦{accessory.price.toFixed(2)}
+              {formatPrice(accessory.price)}
             </p>
 
             <p className="accessory-detail__availability">
@@ -135,6 +139,12 @@ export default function AccessoryDetail() {
                 Contact Us
               </button>
             </div>
+
+            <ContactModal
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              phone={"+2348133369509"}
+            />
           </div>
         </div>
       </div>

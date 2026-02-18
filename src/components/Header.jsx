@@ -34,9 +34,7 @@ const Header = () => {
             <p data-text="Service" onClick={() => nav("/service")}>
               Service
             </p>
-            <p data-text="Service" onClick={() => nav("/pricing")}>
-              Pricing
-            </p>
+          
             <p data-text="Contact Us" onClick={() => nav("/contact")}>
               Contact Us
             </p>
@@ -63,7 +61,6 @@ const Header = () => {
           <p onClick={() =>{nav("/tracker-page"); setMenuOpen(false)}}>Trackers</p>
           <p onClick={() =>{nav("/car-accessories"); setMenuOpen(false)}}>Car Accessories</p>
           <p onClick={() =>{ nav("/service");setMenuOpen(false)}}>Service</p>
-          <p onClick={() =>{ nav("/pricing");setMenuOpen(false)}}>Pricing</p>
           <p onClick={() => {nav("/contact");setMenuOpen(false)}}>Contact Us</p>
         </nav>
       </div>

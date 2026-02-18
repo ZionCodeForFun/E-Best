@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { FaCar, FaTruck, FaVideo } from "react-icons/fa";
 import { GiAutoRepair } from "react-icons/gi";
 import { MdCarRepair, MdOutlineAutoAwesome } from "react-icons/md";
-import { RiSwapLine } from "react-icons/ri";
+import { RiGpsFill, RiSwapLine } from "react-icons/ri";
 
 export default function Services() {
   return (
@@ -25,6 +25,25 @@ export default function Services() {
         <section className="service-card">
           <div className="service-icon">
             <FaCar />
+          </div>
+          <h2>Car Sales</h2>
+          <p className="service-description">
+            Carefully selected brand new, foreign used, and Nigerian used
+            vehicles.
+          </p>
+        </section>
+        <section className="service-card">
+          <div className="service-icon">
+            <GiAutoRepair />
+          </div>
+          <h2>Premium Car Accessories & Parts</h2>
+          <p className="service-description">
+            Upgrade your style and replace with confidence all in one place.
+          </p>
+        </section>
+        <section className="service-card">
+          <div className="service-icon">
+            <RiGpsFill/> 
           </div>
           <h2>Vehicle Tracking & Smart Monitoring</h2>
           <p className="service-description">

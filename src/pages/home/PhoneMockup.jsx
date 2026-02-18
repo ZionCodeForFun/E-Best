@@ -40,18 +40,18 @@ export function PhoneMockup() {
 
               <div className="vehicle-stats">
                 <div className="stat-item">
-                  <MapPin size={16} className="stat-icon" />
+                  <MapPin size={16} className="stat-icons" />
                   <div className="stat-content">
-                    <p className="stat-label">Current Location</p>
-                    <p className="stat-value">Lekki, phase1</p>
+                    <p className="stat-labels">Current Location</p>
+                    <p className="stat-values">Lekki, phase1</p>
                   </div>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
-                  <Activity size={16} className="stat-icon" />
+                  <Activity size={16} className="stat-icons" />
                   <div className="stat-content">
-                    <p className="stat-label">Speed</p>
-                    <p className="stat-value">45 km/h</p>
+                    <p className="stat-labels">Speed</p>
+                    <p className="stat-values">45 km/h</p>
                   </div>
                 </div>
               </div>

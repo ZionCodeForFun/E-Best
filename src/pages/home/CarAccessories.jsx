@@ -7,6 +7,7 @@ import { superbase } from "../../SuperbaseClient";
 import "../../style/CarAsseccories.css";
 import "../../style/cta.css";
 import "../../style/skeleton.css";
+import ContactModal from "../../components/ContactModal";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -14,6 +15,8 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 export default function CarAccessories() {
   const [accessories, setAccessories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalItem, setModalItem] = useState(null);
   const navigate = useNavigate();
 
   const outerSliderRef = useRef(null);
@@ -78,7 +81,13 @@ export default function CarAccessories() {
     navigate("/car-accessories");
   };
 
-  // Show first 4 accessories in the slider
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
+
   const featuredAccessories = accessories.slice(0, 4);
 
   if (loading) {
@@ -170,7 +179,7 @@ export default function CarAccessories() {
                     {accessory.shortDescription}
                   </p>
                   <p className="home-accessories__card-price">
-                    ₦{accessory.price.toFixed(2)}
+                    {formatPrice(accessory.price)}
                   </p>
                   <div className="home-accessories-cart-cta-holder">
                     <button
@@ -186,11 +195,8 @@ export default function CarAccessories() {
                       className="home-accessories-cta-secondary"
                       onClick={(e) => {
                         e.stopPropagation();
-                        const message = `Hello, I am interested in the accessory: ${accessory.name}. Could you provide more details?`;
-                        const whatsappURL = `https://wa.me/+2348133369509?text=${encodeURIComponent(
-                          message,
-                        )}`;
-                        window.open(whatsappURL, "_blank");
+                        setModalItem(accessory);
+                        setModalOpen(true);
                       }}
                     >
                       Contact Us
@@ -202,6 +208,12 @@ export default function CarAccessories() {
           ))}
         </Slider>
       </div>
+
+      <ContactModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        phone={"+2348133369509"}
+      />
 
       <div style={{ textAlign: "center", marginTop: "50px" }}>
         <button

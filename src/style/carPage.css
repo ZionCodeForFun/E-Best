@@ -12,6 +12,7 @@
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-top: 5rem;
+  padding-bottom: 30px;
 }
 .carspage-header-inner {
   max-width: 1120px;

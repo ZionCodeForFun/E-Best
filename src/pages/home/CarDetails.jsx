@@ -6,16 +6,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
   ChevronLeft,
-  ChevronRight,
   MapPin,
   Gauge,
   Calendar,
   Fuel,
   Settings,
   MessageCircle,
-  ClipboardCheck,
-  Check,
-  X,
   AirVent,
   Armchair,
   Camera,
@@ -24,10 +20,11 @@ import {
   Bluetooth,
   Sun,
   Flame,
-
+  PhoneCall,
 } from "lucide-react";
 import "../../style/carDetails.css";
-import { IoColorPaletteOutline} from "react-icons/io5";
+import { IoColorPaletteOutline } from "react-icons/io5";
+import { GoHash } from "react-icons/go";
 
 const iconMap = {
   "air-vent": AirVent,
@@ -100,15 +97,12 @@ export default function CarDetailsPage() {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+
     beforeChange: (_, next) => setCurrentSlide(next),
     customPaging: (i) => <button className="slider-dot">{i + 1}</button>,
   };
-
-  const whatsappLink = `https://wa.me/2348133369509?text=${encodeURIComponent(
-    `Hello, I'm interested in the ${car.name} (ID: ${car.id}).`,
-  )}`;
+  const phone = "+2348133369509";
+  const telLink = `tel:${phone}`;
 
   const formatPrice = (price) =>
     new Intl.NumberFormat("en-NG", {
@@ -116,6 +110,29 @@ export default function CarDetailsPage() {
       currency: "NGN",
       minimumFractionDigits: 0,
     }).format(price);
+  const currentUrl = window.location.href;
+  const whatsappMessage = `
+Hello, I'm interested in this vehicle:
+
+${car.name}
+Price: ${formatPrice(car.price)}
+
+View details here:
+${currentUrl}
+`;
+
+  const whatsappLink = `https://wa.me/2348133369509?text=${encodeURIComponent(whatsappMessage)}`;
+  const RequestReoptMessage = `
+Hello, I'm interested in this vehicle, could you provide the inspection report?:
+
+${car.name}
+Price: ${formatPrice(car.price)}
+
+View details here:
+${currentUrl}
+`;
+
+  const whatsappLinkForReport = `https://wa.me/2348133369509?text=${encodeURIComponent(RequestReoptMessage)}`;
 
   return (
     <div className="car-details-page">
@@ -138,7 +155,7 @@ export default function CarDetailsPage() {
             </div>
           ))}
         </Slider>
-        <span className="car-badge" >
+        <span className={`car-badge ${conditionClasses[car.condition] || ""}`}>
           {car.condition}
         </span>
       </section>
@@ -164,7 +181,16 @@ export default function CarDetailsPage() {
               />
               <Spec icon={<Fuel />} label="Fuel Type" value={car.fuel} />
               <Spec icon={<MapPin />} label="Location" value={car.location} />
-              <Spec icon={<IoColorPaletteOutline style={{fontSize:25}} />} label="color" value={car.color} />
+              <Spec
+                icon={<IoColorPaletteOutline style={{ fontSize: 25 }} />}
+                label="Color"
+                value={car.color}
+              />
+              <Spec
+                icon={<GoHash style={{ fontSize: 25 }} />}
+                label="Lot"
+                value={car.lot}
+              />
             </div>
           </div>
 
@@ -178,87 +204,31 @@ export default function CarDetailsPage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary"
+                className="car-details-btn car-details-btn-primary"
               >
-                <MessageCircle className="icon" /> Contact on WhatsApp
+                <MessageCircle className="message-icon" /> Contact on WhatsApp
               </a>
-              <Link to={"/contact"}>
-                <button className="btn btn-outline">
-                  <ClipboardCheck className="icon" /> Book Inspection
+              <a href={telLink}>
+                <button className="car-details-btn car-details-btn-btn-outline">
+                  <PhoneCall className="phone-icon " /> Contact on phone
                 </button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Description */}
         <section className="card-section">
           <h2>Vehicle Description</h2>
           <p>{car.features}</p>
+          <a href={whatsappLinkForReport} target="_blank" rel="noopener noreferrer">
+            Request for inspection report?
+          </a>
         </section>
-
-        {/* <section className="card-section">
-          <h2>Key Features</h2>
-          <div className="car-features">
-            {car.features.map((f, i) => {
-              const Icon = iconMap[f.icon];
-              return (
-                <div
-                  key={i}
-                  className={`feature-card ${
-                    f.enabled ? "enabled" : "disabled"
-                  }`}
-                >
-                  {Icon && <Icon className="icon" />}
-                  <span>{f.name}</span>
-                  {f.enabled ? (
-                    <Check className="icon-check" />
-                  ) : (
-                    <X className="icon-x" />
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section> */}
-
-        {/* <section className="card-section">
-          <h2>Specifications</h2>
-          <table className="spec-table">
-            <tbody>
-              {Object.entries(car.specifications).map(
-                ([key, value], i) =>
-                  value && (
-                    <tr key={i}>
-                      <td>{formatKey(key)}</td>
-                      <td>{value}</td>
-                    </tr>
-                  ),
-              )}
-            </tbody>
-          </table>
-        </section> */}
-
-        {/* Safety Checks */}
-        {/* <section className="card-section">
-          <h2>Safety & Condition Report</h2>
-          <div className="safety-grid">
-            {Object.entries(car.safetyChecks).map(([key, value], i) => (
-              <div key={i} className="safety-card">
-                <div className={`safety-icon ${value ? "safe" : "unsafe"}`}>
-                  {value ? <Check /> : <X />}
-                </div>
-                <span>{formatKey(key)}</span>
-              </div>
-            ))}
-          </div>
-        </section> */}
       </div>
     </div>
   );
 }
 
-// Sub-components
 function Spec({ icon, label, value }) {
   return (
     <div className="spec">
@@ -268,26 +238,5 @@ function Spec({ icon, label, value }) {
         <p>{value}</p>
       </div>
     </div>
-  );
-}
-
-// Helpers
-function formatKey(str) {
-  return str.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
-}
-
-// Custom Arrows
-function CustomPrevArrow({ onClick }) {
-  return (
-    <button className="slick-prev" onClick={onClick} aria-label="Previous">
-      <ChevronLeft className="icon" />
-    </button>
-  );
-}
-function CustomNextArrow({ onClick }) {
-  return (
-    <button className="slick-next" onClick={onClick} aria-label="Next">
-      <ChevronRight className="icon" />
-    </button>
   );
 }

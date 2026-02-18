@@ -8,8 +8,11 @@ import { ChevronLeft } from "lucide-react";
 import { superbase } from "../../SuperbaseClient";
 import CustomSelectAccess from "../../common/CustomSelectAccess";
 import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
+import ContactModal from "../../components/ContactModal";
 export default function AccessoriesListing() {
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalItem, setModalItem] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -82,6 +85,12 @@ export default function AccessoriesListing() {
 
     return pages;
   };
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
 
   if (loading) {
     return (
@@ -127,7 +136,10 @@ export default function AccessoriesListing() {
           <ChevronLeft className="icon" />
         </Link>
         <div className="accessories-page__header">
-          <h1 className="accessories-page__title"> High-Performance Car Accessories & Parts</h1>
+          <h1 className="accessories-page__title">
+            {" "}
+            High-Performance Car Accessories & Parts
+          </h1>
         </div>
 
         {/* Search Bar */}
@@ -186,7 +198,7 @@ export default function AccessoriesListing() {
                   {accessory.shortDescription}
                 </p>
                 <p className="accessories-page__card-price">
-                  ₦{accessory.price.toFixed(2)}
+                  {formatPrice(accessory.price)}
                 </p>
                 <div className="accessories-page__card-actions cta-row">
                   <button
@@ -202,11 +214,8 @@ export default function AccessoriesListing() {
                     className="accessories-page__button accessories-page__button--secondary btn-outline"
                     onClick={(e) => {
                       e.stopPropagation();
-                      const message = `Hello, I am interested in the accessory: ${accessory.name}. Could you provide more details?`;
-                      const whatsappURL = `https://wa.me/+2348133369509?text=${encodeURIComponent(
-                        message,
-                      )}`;
-                      window.open(whatsappURL, "_blank");
+                      setModalItem(accessory);
+                      setModalOpen(true);
                     }}
                   >
                     Contact Us
@@ -216,6 +225,12 @@ export default function AccessoriesListing() {
             </div>
           ))}
         </div>
+
+        <ContactModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          phone={"+2348133369509"}
+        />
 
         <div className="accessories-page__pagination">
           <button

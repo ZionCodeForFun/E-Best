@@ -64,7 +64,7 @@ export function CarsSection() {
         </div>
         <div className="cta-container">
           <button className="view-more-btn" onClick={() => nav("/car-page")}>
-            View Automobile Inventory
+            View More Cars
             <MdKeyboardDoubleArrowRight />
           </button>
         </div>

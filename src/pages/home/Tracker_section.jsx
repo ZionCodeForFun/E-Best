@@ -1,6 +1,7 @@
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import "../../style/tracker-section.css";
 import { useNavigate } from "react-router-dom";
+import { PhoneMockup } from "./PhoneMockup";
 export function GPSTrackerSection() {
   const nav = useNavigate();
   const features = [
@@ -58,16 +59,8 @@ export function GPSTrackerSection() {
           </div>
 
           <div className="images-panel">
-            <div className="primary-image">
-              <img src={images[0].url} alt={images[0].alt} />
-            </div>
-            <div className="secondary-images">
-              {images.slice(1).map((image, index) => (
-                <div key={index} className="secondary-image">
-                  <img src={image.url} alt={image.alt} />
-                </div>
-              ))}
-            </div>
+        
+            <PhoneMockup/>
           </div>
         </div>
 
@@ -77,64 +70,7 @@ export function GPSTrackerSection() {
           </button>
         </div>
 
-        <div className="additional-info">
-          <h2>Why Choose Our GPS Tracking Solutions?</h2>
-          <div className="info-grid">
-            <div className="info-card">
-              <div className="info-icon">
-                <div className="inner-icon"></div>
-              </div>
-              <h3>24/7 Monitoring</h3>
-              <p>
-                Round-the-clock tracking and instant alerts for complete peace
-                of mind
-              </p>
-            </div>
-            <div className="info-card">
-              <div className="info-icon">
-                <div className="inner-icon"></div>
-              </div>
-              <h3>Professional Setup</h3>
-              <p>
-                Expert installation by certified technicians ensures optimal
-                performance
-              </p>
-            </div>
-            <div className="info-card">
-              <div className="info-icon">
-                <div className="inner-icon"></div>
-              </div>
-              <h3>Mobile Control</h3>
-              <p>
-                Manage your vehicle from anywhere using our intuitive mobile app
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="service-details">
-          <div className="service-card">
-            <h3>Installation Services</h3>
-            <ul>
-              <li>Same-day installation available</li>
-              <li>Certified technicians with 10+ years experience</li>
-              <li>Discreet installation for maximum security</li>
-              <li>Compatible with all vehicle makes and models</li>
-              <li>1-year warranty on all installations</li>
-            </ul>
-          </div>
-
-          <div className="service-card">
-            <h3>Monitoring Features</h3>
-            <ul>
-              <li>Live location updates every 10 seconds</li>
-              <li>Historical route playback up to 12 months</li>
-              <li>Instant SMS and email notifications</li>
-              <li>Multi-vehicle fleet management</li>
-              <li>Detailed reports and analytics</li>
-            </ul>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

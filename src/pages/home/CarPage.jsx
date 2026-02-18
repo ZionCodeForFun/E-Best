@@ -7,6 +7,7 @@ import "../../style/cta.css";
 import "../../style/skeleton.css";
 import { GetCars } from "../../components/api/Cars";
 import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
+import ContactModal from "../../components/ContactModal";
 import { useState, useEffect } from "react";
 export default function CarPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,6 +81,13 @@ export default function CarPage() {
       );
     }
     return pages;
+  };
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
+
+  const openContactModalFor = (car) => {
+    setSelectedCar(car);
+    setModalOpen(true);
   };
 
   if (loading) {
@@ -262,13 +270,7 @@ export default function CarPage() {
                   </Link>
                   <button
                     className="carspage-button carspage-button--secondary btn-outline"
-                    onClick={() => {
-                      const message = `Hello, I am interested in the vehicle: ${car.name}. Could you provide more details?`;
-                      const whatsappURL = `https://wa.me/+2348133369509?text=${encodeURIComponent(
-                        message,
-                      )}`;
-                      window.open(whatsappURL, "_blank");
-                    }}
+                    onClick={() => openContactModalFor(car)}
                   >
                     Contact Us
                   </button>
@@ -299,6 +301,11 @@ export default function CarPage() {
           </div>
         )}
       </div>
+      <ContactModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        phone={selectedCar ? "+2348133369509" : "+2348133369509"}
+      />
     </div>
   );
 }

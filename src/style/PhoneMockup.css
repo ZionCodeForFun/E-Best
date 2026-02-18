@@ -222,7 +222,7 @@
   flex: 1;
 }
 
-.stat-icon {
+.stat-icons {
   color: #d31716;
   flex-shrink: 0;
   margin-top: 2px;
@@ -233,7 +233,7 @@
   min-width: 0;
 }
 
-.stat-label {
+.stat-labels {
   font-size: 11px;
   color: #999;
   margin: 0 0 4px 0;
@@ -241,7 +241,7 @@
   letter-spacing: 0.5px;
 }
 
-.stat-value {
+.stat-values {
   font-size: 13px;
   font-weight: 600;
   color: #1a1a1a;
@@ -329,6 +329,17 @@
 
 /* Responsive adjustments */
 @media (min-width: 768px) {
+  .phone-mockup {
+    padding: 40px 0;
+   
+  }
+  
+  .phone-frame {
+    width: 300px;
+    height: 620px;
+  }
+}
+@media (max-width: 768px) {
   .phone-mockup {
     padding: 40px 0;
    

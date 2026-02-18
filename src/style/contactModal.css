@@ -1,0 +1,135 @@
+/* Contact Modal styles (unique namespace: ebest-contact-modal-*) */
+.ebest-contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  animation: ebest-contact-modal-fade 180ms ease-out;
+}
+
+@keyframes ebest-contact-modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ebest-contact-modal-container {
+  width: 90%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(11, 61, 145, 0.18);
+  padding: 20px 20px 24px;
+  position: relative;
+  transform: scale(0.98);
+  animation: ebest-contact-modal-pop 220ms cubic-bezier(0.2, 0.9, 0.3, 1)
+    forwards;
+}
+
+@keyframes ebest-contact-modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ebest-contact-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: #374151;
+  cursor: pointer;
+}
+
+.ebest-contact-modal-title {
+  margin: 8px 0 6px;
+  font-size: 20px;
+  color: #0b3d91; /* deep blue */
+  text-align: center;
+}
+
+.ebest-contact-modal-message {
+  color: #374151;
+  text-align: center;
+  margin: 0 0 18px;
+}
+
+.ebest-contact-modal-actions {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.ebest-contact-modal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  color: #fff;
+}
+
+.ebest-contact-modal-btn--call {
+  background: #0b3d91; /* deep blue */
+  border-color: #0b3d91;
+}
+
+.ebest-contact-modal-btn--wa {
+  background: #ffffff;
+  color: #0b3d91;
+  border-color: #d62828; /* red accent border */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04) inset;
+}
+
+.ebest-contact-modal-btn--wa:hover {
+  background: rgba(214, 40, 40, 0.06);
+}
+
+.ebest-contact-modal-btn--call:hover {
+  background: #08306b;
+}
+
+/* Desktop adjustments */
+@media (min-width: 640px) {
+  .ebest-contact-modal-actions {
+    flex-direction: column;
+  }
+  .ebest-contact-modal-container {
+    padding: 24px 24px 28px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .ebest-contact-modal-container {
+    width: 92%;
+    padding: 18px 14px 20px;
+  }
+  .ebest-contact-modal-btn {
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+}

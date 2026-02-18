@@ -115,9 +115,10 @@ export default function About() {
               <div className="service-icon-wrapper">
                 <RemoveFormattingIcon className="service-icon-about" />
               </div>
-              <h3 className="service-title">Car Accessories</h3>
+              <h3 className="service-title">Car Accessories/Parts</h3>
               <p className="service-description">
-               Our car accessories collection is designed to enhance the comfort, safety, and appearance of your automobile. From interior upgrades to exterior enhancements, we provide high-quality products that combine durability, style, and performance to meet your everyday driving needs.
+                Upgrade your style and replace with confidence all in one
+                place.{" "}
               </p>
             </div>
 
@@ -212,7 +213,7 @@ export default function About() {
               <div className="stat-icon-wrapper">
                 <Shield className="stat-icon" />
               </div>
-              <div className="stat-number">1,200+</div>
+              <div className="stat-number">10,000+</div>
               <p className="stat-label">Protected Vehicles</p>
             </div>
 
@@ -221,7 +222,7 @@ export default function About() {
               <div className="stat-icon-wrapper">
                 <CheckCircle className="stat-icon" />
               </div>
-              <div className="stat-number">320+</div>
+              <div className="stat-number">100+</div>
               <p className="stat-label">Recovered Vehicles</p>
             </div>
 
@@ -230,7 +231,7 @@ export default function About() {
               <div className="stat-icon-wrapper">
                 <Calendar className="stat-icon" />
               </div>
-              <div className="stat-number">2018</div>
+              <div className="stat-number">2022</div>
               <p className="stat-label">Year Founded</p>
             </div>
           </div>
@@ -258,13 +259,12 @@ export default function About() {
             Contact Us on WhatsApp
           </a>
         </div>
-          <div className="pricing-footer">
-                <Link to="/service" className="back-link-service">
-                  ← Back to home
-                </Link>
-              </div>
+        <div className="pricing-footer">
+          <Link to="/service" className="back-link-service">
+            ← Back to home
+          </Link>
+        </div>
       </section>
-
     </div>
   );
 }
