@@ -238,3 +238,19 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+.sold-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  font-size: 15px;
+}
+
+.sold-checkbox input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #d32f2f; /* red theme */
+}

@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import CustomSelect from "../../common/CustomSelect";
 import { Calendar, Gauge, Settings, Fuel, ChevronLeft } from "lucide-react";
 import "../../style/GlobalCarousel.css";
@@ -9,12 +8,13 @@ import { GetCars } from "../../components/api/Cars";
 import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
 import ContactModal from "../../components/ContactModal";
 import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 export default function CarPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-
+  const nav = useNavigate();
   const carsPerPage = 6;
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -198,7 +198,6 @@ export default function CarPage() {
               }}
             />
 
-            {/* YEAR */}
             <CustomSelect
               options={[...new Set(cars.map((c) => c.year))].sort(
                 (a, b) => b - a,
@@ -223,13 +222,22 @@ export default function CarPage() {
         <h2 className="carspage-section-title">Available Vehicles</h2>
         <div className="carspage-grid">
           {currentCars.map((car) => (
-            <div key={car.id} className="carspage-card">
+            <div
+              key={car.id}
+              className={`carspage-card ${car.isSold ? "sold" : ""}`}
+            >
               <div className="carspage-card-image-wrapper">
                 <ImageCarouselGlobal
                   images={Array.isArray(car.images) ? car.images : []}
                   altText={car.name}
                   containerClassName="carspage-carousel"
                 />
+                {car.isSold && (
+                  <div className="sold-overlay">
+                    <span>SOLD</span>
+                  </div>
+                )}
+
                 <span
                   className={`carspage-badge ${getConditionClass(car.condition)}`}
                 >
@@ -262,12 +270,13 @@ export default function CarPage() {
                   </div>
                 </div>
                 <div className="carspage-card-actions cta-row">
-                  <Link
-                    to={`/cars/${car.id}`}
+                  <button
+                    onClick={() => nav(`/cars/${car.id}`)}
                     className="carspage-button btn-primary"
+                    disabled={car.isSold}
                   >
-                    View Details
-                  </Link>
+                    {car.isSold ? "Unavailable" : "View Details"}
+                  </button>
                   <button
                     className="carspage-button carspage-button--secondary btn-outline"
                     onClick={() => openContactModalFor(car)}

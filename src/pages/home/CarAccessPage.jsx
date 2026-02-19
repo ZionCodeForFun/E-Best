@@ -175,7 +175,10 @@ export default function AccessoriesListing() {
         </div>
         <div className="accessories-page__grid">
           {currentAccessories.map((accessory) => (
-            <div key={accessory.id} className="accessories-page__card">
+            <div
+              key={accessory.id}
+              className={`accessories-page__card ${accessory.isSold ? "sold" : ""}`}
+            >
               <div className="accessories-page__card-image-wrapper">
                 <ImageCarouselGlobal
                   images={
@@ -184,10 +187,16 @@ export default function AccessoriesListing() {
                   altText={accessory.name}
                   containerClassName="accessories-page__carousel"
                 />
+
                 {accessory.badge && (
                   <span className="accessories-page__badge">
                     {accessory.badge}
                   </span>
+                )}
+                {accessory.isSold && (
+                  <div className="sold-overlay">
+                    <span>SOLD</span>
+                  </div>
                 )}
               </div>
               <div className="accessories-page__card-content">
@@ -207,8 +216,9 @@ export default function AccessoriesListing() {
                       e.stopPropagation();
                       handleCardClick(accessory.id);
                     }}
+                    disabled={accessory.isSold}
                   >
-                    View Details
+                    {accessory.isSold ? "Unavailable" : " View Details"}
                   </button>
                   <button
                     className="accessories-page__button accessories-page__button--secondary btn-outline"

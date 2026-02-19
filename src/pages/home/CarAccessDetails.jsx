@@ -14,7 +14,6 @@ export default function AccessoryDetail() {
   const [accessory, setAccessory] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch accessory from Supabase
   useEffect(() => {
     const fetchAccessory = async () => {
       setLoading(true);
@@ -40,7 +39,7 @@ export default function AccessoryDetail() {
   const handleContactUs = () => {
     setModalOpen(true);
   };
-   const formatPrice = (price) =>
+  const formatPrice = (price) =>
     new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
@@ -108,9 +107,15 @@ export default function AccessoryDetail() {
               {formatPrice(accessory.price)}
             </p>
 
-            <p className="accessory-detail__availability">
-              {accessory.availability}
-            </p>
+            <div>
+              <span>
+                {" "}
+                Lot
+               
+                
+              </span>
+              <p className="accessory-detail__availability">{accessory.lot}</p>
+            </div>
 
             <p className="accessory-detail__description">
               {accessory.description}

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "./adminStyles/Trackers.css";
+const formatNumberWithCommas = (value) => {
+  if (!value) return "";
+  const number = value.toString().replace(/,/g, "");
+  return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const Trackers = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
-  // FORM STATE
   const [form, setForm] = useState({
     plan_name: "",
     tracker_price: "",
@@ -20,14 +24,12 @@ const Trackers = () => {
     active: true,
   });
 
-  // MODAL STATE
   const [modal, setModal] = useState({
     open: false,
     type: "success",
     message: "",
   });
 
-  // ===== FETCH PLANS =====
   const fetchPlans = async () => {
     const { data, error } = await superbase
       .from("trackers_plans")
@@ -46,8 +48,8 @@ const Trackers = () => {
 
     try {
       const payload = {
-        tracker_price: form.tracker_price,
-        dashcam_price: form.dashcam_price,
+        tracker_price: Number(form.tracker_price.replace(/,/g, "")),
+        dashcam_price: Number(form.dashcam_price.replace(/,/g, "")),
         discount_percent: form.discount_percent || 0,
         promo_badge: form.promo_badge,
         promo_expiry: form.promo_expiry || new Date().toISOString(),
@@ -112,7 +114,12 @@ const Trackers = () => {
     }
   };
 
-  // ===== EDIT =====
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
   const handleEdit = (plan) => {
     setEditingId(plan.id);
     setForm({
@@ -149,34 +156,45 @@ const Trackers = () => {
           )}
 
           <input
-            type="number"
+            type="text"
             placeholder="Tracker Only Price (₦)"
             value={form.tracker_price}
-            onChange={(e) => setForm({ ...form, tracker_price: e.target.value })}
+            onChange={(e) => {
+              const rawValue = e.target.value.replace(/,/g, "");
+              if (!isNaN(rawValue)) {
+                setForm({
+                  ...form,
+                  tracker_price: formatNumberWithCommas(rawValue),
+                });
+              }
+            }}
             required
           />
 
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             placeholder="Tracker + Dashcam Price (₦)"
             value={form.dashcam_price}
-            onChange={(e) => setForm({ ...form, dashcam_price: e.target.value })}
+            onChange={(e) => {
+              const rawValue = e.target.value.replace(/,/g, "");
+              if (!isNaN(rawValue)) {
+                setForm({
+                  ...form,
+                  dashcam_price: formatNumberWithCommas(rawValue),
+                });
+              }
+            }}
           />
 
           <input
             type="number"
+            inputMode="numeric"
             placeholder="Discount % (optional)"
             value={form.discount_percent}
             onChange={(e) =>
               setForm({ ...form, discount_percent: e.target.value })
             }
-          />
-
-          <input
-            type="text"
-            placeholder="Promo Badge (optional)"
-            value={form.promo_badge}
-            onChange={(e) => setForm({ ...form, promo_badge: e.target.value })}
           />
 
           <input
@@ -226,7 +244,7 @@ const Trackers = () => {
               plan.discount_percent && plan.discount_percent > 0
                 ? Math.round(
                     plan.tracker_price -
-                      (plan.tracker_price * plan.discount_percent) / 100
+                      (plan.tracker_price * plan.discount_percent) / 100,
                   )
                 : plan.tracker_price;
 
@@ -234,7 +252,7 @@ const Trackers = () => {
               plan.discount_percent && plan.discount_percent > 0
                 ? Math.round(
                     plan.dashcam_price -
-                      (plan.dashcam_price * plan.discount_percent) / 100
+                      (plan.dashcam_price * plan.discount_percent) / 100,
                   )
                 : plan.dashcam_price;
 
@@ -250,11 +268,13 @@ const Trackers = () => {
                 ) : null}
 
                 <p>
-                  <strong>Tracker Only:</strong> ₦{discountedTrackerPrice}
+                  <strong>Tracker Only:</strong>{" "}
+                  {formatPrice(discountedTrackerPrice)}
                 </p>
 
                 <p>
-                  <strong>Tracker + Dashcam:</strong> ₦{discountedDashcamPrice}
+                  <strong>Tracker + Dashcam:</strong>{" "}
+                  {formatPrice(discountedDashcamPrice)}
                 </p>
 
                 <h4>Tracker Features:</h4>

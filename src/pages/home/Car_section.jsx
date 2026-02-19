@@ -7,7 +7,7 @@ export function CarsSection() {
   const { cars, loading } = GetCars();
   const nav = useNavigate();
   const randomCars = [...cars].sort(() => 0.5 - Math.random()).slice(0, 4);
-
+ 
   if (loading) {
     return (
       <section className="cars-section">
@@ -59,6 +59,7 @@ export function CarsSection() {
               name={car.name}
               year={car.year}
               price={car.price}
+              is_sold={car.isSold}
             />
           ))}
         </div>

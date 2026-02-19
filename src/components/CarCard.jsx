@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "../style/cta.css";
 import ContactModal from "./ContactModal";
 import { useState } from "react";
-export function CarCard({ images, name, year, price, id }) {
+export function CarCard({ images, name, year, price, id, is_sold }) {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+  //  const [is_sold, setIs_sold]= useState(false)
   let imageArray = [];
 
   if (Array.isArray(images)) {
@@ -14,10 +15,10 @@ export function CarCard({ images, name, year, price, id }) {
     try {
       imageArray = JSON.parse(images);
     } catch {
-      imageArray = [images]; 
+      imageArray = [images];
     }
   }
-   const formatPrice = (price) =>
+  const formatPrice = (price) =>
     new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
@@ -25,9 +26,14 @@ export function CarCard({ images, name, year, price, id }) {
     }).format(price);
 
   return (
-    <div className="car-card">
+    <div className={`car-card ${is_sold ? "sold" : ""}`}>
       <div className="car-card-image">
         <ImageCarousel images={imageArray} />
+        {is_sold && (
+          <div className="sold-overlay">
+            <span>SOLD</span>
+          </div>
+        )}
       </div>
       <div className="car-card-content">
         <h3 className="car-name">{name}</h3>
@@ -37,8 +43,9 @@ export function CarCard({ images, name, year, price, id }) {
           <button
             className="car-card-cta-primary"
             onClick={() => navigate(`/cars/${id}`)}
+            disabled={is_sold}
           >
-            View Details
+            {is_sold ? "Unavailable" : "View Details"}
           </button>
           <button
             className="car-card-cta-secondary"

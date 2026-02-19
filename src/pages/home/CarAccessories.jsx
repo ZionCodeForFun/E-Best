@@ -161,13 +161,20 @@ export default function CarAccessories() {
         <Slider {...sliderSettings} className="home-accessories__slider">
           {featuredAccessories.map((accessory) => (
             <div key={accessory.id}>
-              <div className="home-accessories__card">
+              <div
+                className={`home-accessories__card ${accessory.isSold ? "sold" : ""}`}
+              >
                 <div className="home-accessories__card-image-wrapper">
                   <ImageCarouselAccess images={accessory.images} />
                   {accessory.badge && (
                     <span className="home-accessories__badge">
                       {accessory.badge}
                     </span>
+                  )}
+                  {accessory.isSold && (
+                    <div className="sold-overlay">
+                      <span>SOLD</span>
+                    </div>
                   )}
                 </div>
 
@@ -188,8 +195,9 @@ export default function CarAccessories() {
                         e.stopPropagation();
                         handleCardClick(accessory.id);
                       }}
+                      disabled={accessory.isSold}
                     >
-                      View Details
+                      {accessory.isSold ? "Unavailable" : " View Details"}
                     </button>
                     <button
                       className="home-accessories-cta-secondary"

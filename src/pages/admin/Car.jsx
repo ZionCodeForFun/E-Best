@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "./adminStyles/car.css";
-
+const formatNumberWithCommas = (value) => {
+  if (!value) return "";
+  const number = value.toString().replace(/,/g, "");
+  return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Cars = () => {
   const fileInputRef = useRef(null);
   const [cars, setCars] = useState([]);
@@ -11,12 +15,16 @@ const Cars = () => {
   const [message, setMessage] = useState(null);
   const [existingImages, setExistingImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCars, setFilteredCars] = useState([]);
+  const [is_sold, setIs_sold] = useState(false);
 
   const emptyForm = {
     name: "",
     price: "",
     year: "",
     mileage: "",
+    lot: "",
     brand: "",
     color: "",
     transmission: "",
@@ -24,7 +32,10 @@ const Cars = () => {
     condition: "",
     location: "",
     features: "",
+    dealer_number: "",
+    dealer_name: "",
     images: [],
+    isSold: false,
   };
 
   const [form, setForm] = useState(() => {
@@ -47,6 +58,24 @@ const Cars = () => {
       .select("*")
       .order("created_at", { ascending: false });
     if (!error) setCars(data || []);
+    setFilteredCars(data || []);
+  };
+  const handleSearch = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+
+    if (!term) {
+      setFilteredCars(cars);
+      return;
+    }
+
+    const lower = term.toLowerCase();
+    const filtered = cars.filter(
+      (car) =>
+        (car.name && car.name.toLowerCase().includes(lower)) ||
+        (car.lot && car.lot.toString().includes(lower)),
+    );
+    setFilteredCars(filtered);
   };
 
   const uploadImages = async (files) => {
@@ -81,7 +110,12 @@ const Cars = () => {
 
         const { error } = await superbase
           .from("cars")
-          .update({ ...form, images: finalImages })
+          .update({
+            ...form,
+            price: Number(form.price),
+            isSold: is_sold,
+            images: finalImages,
+          })
           .eq("id", editingId);
         if (error) throw new Error(error.message);
         setMessage({ type: "success", text: "Car updated successfully!" });
@@ -89,9 +123,12 @@ const Cars = () => {
         const { error } = await superbase.from("cars").insert([
           {
             ...form,
+            price: Number(form.price),
+            isSold: is_sold,
             images: imageUrls || [],
           },
         ]);
+
         if (error) throw new Error(error.message);
         setMessage({ type: "success", text: "Car added successfully!" });
       }
@@ -110,7 +147,12 @@ const Cars = () => {
       setLoading(false);
     }
   };
-
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
   const handleEdit = (car) => {
     setEditingId(car.id);
     setForm({ ...car, images: [] });
@@ -148,7 +190,13 @@ const Cars = () => {
   return (
     <div className="admin-cars">
       <h1>Cars Management</h1>
-
+      <input
+        type="text"
+        placeholder="Search by Lot or Car Name..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="car-search"
+      />
       <form className="car-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -165,12 +213,18 @@ const Cars = () => {
           required
         />
         <input
-          type="number"
+          type="text"
           placeholder="Price (₦)"
-          value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
+          value={formatNumberWithCommas(form.price)}
+          onChange={(e) => {
+            const rawValue = e.target.value.replace(/,/g, "");
+            if (!isNaN(rawValue)) {
+              setForm({ ...form, price: rawValue });
+            }
+          }}
           required
         />
+
         <input
           type="number"
           placeholder="Year"
@@ -179,10 +233,17 @@ const Cars = () => {
           required
         />
         <input
-          type="text"
+          type="number"
           placeholder="Mileage"
           value={form.mileage}
           onChange={(e) => setForm({ ...form, mileage: e.target.value })}
+        />
+        <input
+          type="number"
+          placeholder="Lot Number(6 digits)"
+          value={form.lot}
+          onChange={(e) => setForm({ ...form, lot: e.target.value })}
+          required
         />
         <input
           type="text"
@@ -236,8 +297,18 @@ const Cars = () => {
           value={form.features}
           onChange={(e) => setForm({ ...form, features: e.target.value })}
         />
-
-        {/* IMAGE UPLOAD */}
+        <input
+          type="text"
+          placeholder="Dealer's Name (Optional)"
+          value={form.dealer_name}
+          onChange={(e) => setForm({ ...form, dealer_name: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Dealer's Number (Optional)"
+          value={form.dealer_number}
+          onChange={(e) => setForm({ ...form, dealer_number: e.target.value })}
+        />
         <input
           type="file"
           ref={fileInputRef}
@@ -251,8 +322,15 @@ const Cars = () => {
           }}
         />
         <small>{form.images.length} image(s) selected (max 10)</small>
+        <label className="sold-checkbox">
+          <input
+            type="checkbox"
+            checked={is_sold}
+            onChange={(e) => setIs_sold(e.target.checked)}
+          />
+          Mark as Sold
+        </label>
 
-        {/* PREVIEW */}
         <div className="image-previews">
           {previewImages.map((src, idx) => (
             <div key={idx} className="preview-wrapper">
@@ -279,7 +357,11 @@ const Cars = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Saving..." : editingId ? "Update Car" : "Add Car"}
           </button>
-          <button type="button" className="posting-cancel-btn" onClick={handleCancel}>
+          <button
+            type="button"
+            className="posting-cancel-btn"
+            onClick={handleCancel}
+          >
             Cancel
           </button>
         </div>
@@ -287,7 +369,7 @@ const Cars = () => {
 
       {/* LIST */}
       <div className="car-list">
-        {cars.map((car) => (
+        {filteredCars.map((car) => (
           <div key={car.id} className="car-card">
             <div className="car-images">
               {car.images.map((img, idx) => (
@@ -298,10 +380,10 @@ const Cars = () => {
             <p>
               <strong>Brand:</strong> {car.brand}
             </p>
-            <p className="price">₦{car.price}</p>
+            <p className="price">{formatPrice(car.price)}</p>
             <p>
               {car.year} | {car.mileage} | {car.color} | {car.transmission} |{" "}
-              {car.fuel}
+              {car.fuel} | {car.lot}
             </p>
             <p>{car.features}</p>
             <div className="actions">

@@ -459,3 +459,24 @@
 .custom-select-request-btn:hover {
   background-color: #1ebe57;
 }
+.carspage-card-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.sold-overlay {
+  position: absolute;
+  inset: 0; 
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sold-overlay span {
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}

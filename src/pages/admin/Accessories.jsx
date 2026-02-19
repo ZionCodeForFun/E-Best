@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "./adminStyles/Accessories.css";
-
+const formatNumberWithCommas = (value) => {
+  if (!value) return "";
+  const number = value.toString().replace(/,/g, "");
+  return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 const Accessories = () => {
   const fileInputRef = useRef(null);
 
@@ -10,11 +14,15 @@ const Accessories = () => {
     brand: "",
     type: "",
     price: "",
+    lot: "",
     description: "",
     shortDescription: "",
     badge: "",
+    dealer_name: "",
+    dealer_number: "",
     features: [],
     images: [],
+    isSold: false,
   };
 
   const [form, setForm] = useState(() => {
@@ -29,6 +37,10 @@ const Accessories = () => {
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPart, setFilteredPart] = useState([]);
+  const [is_sold, setIs_sold] = useState(false);
+
   const [modal, setModal] = useState({
     open: false,
     type: "success",
@@ -51,8 +63,26 @@ const Accessories = () => {
       .select("*")
       .order("created_at", { ascending: false });
     if (!error) setItems(data || []);
+    setFilteredPart(data || []);
   };
 
+  const handleSearch = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+
+    if (!term) {
+      setFilteredPart(items);
+      return;
+    }
+
+    const lower = term.toLowerCase();
+    const filtered = items.filter(
+      (items) =>
+        (items.name && items.name.toLowerCase().includes(lower)) ||
+        (items.lot && items.lot.toString().includes(lower)),
+    );
+    setFilteredPart(filtered);
+  };
   const uploadImages = async (files) => {
     const urls = [];
     for (let i = 0; i < Math.min(files.length, 5); i++) {
@@ -71,7 +101,6 @@ const Accessories = () => {
     return urls;
   };
 
-  // ===== FEATURE HANDLERS =====
   const addFeature = () => {
     if (!featureInput.trim()) return;
     setForm({
@@ -87,7 +116,6 @@ const Accessories = () => {
     setForm({ ...form, features: newFeatures });
   };
 
-  // ===== SUBMIT =====
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -100,7 +128,12 @@ const Accessories = () => {
 
         const { error } = await superbase
           .from("accessories")
-          .update({ ...form, images: finalImages })
+          .update({
+            ...form,
+            price: Number(form.price),
+            isSold: is_sold,
+            images: finalImages,
+          })
           .eq("id", editingId);
         if (error) throw new Error(error.message);
 
@@ -116,9 +149,12 @@ const Accessories = () => {
         const { error } = await superbase.from("accessories").insert([
           {
             ...form,
-            images: imageUrls,
+            price: Number(form.price),
+            isSold: is_sold,
+            images: imageUrls || [],
           },
         ]);
+
         if (error) throw new Error(error.message);
 
         setModal({
@@ -152,7 +188,13 @@ const Accessories = () => {
     localStorage.removeItem("adminAccessoryForm");
   };
 
-  // ===== DELETE =====
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
+
   const confirmDelete = async () => {
     if (!deleteId) return;
     await superbase.from("accessories").delete().eq("id", deleteId);
@@ -163,7 +205,13 @@ const Accessories = () => {
   return (
     <div className="admin-accessories">
       <h1>Accessories Management</h1>
-
+      <input
+        type="text"
+        placeholder="Search by Lot or Car Name..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="car-search"
+      />
       <form className="admin-accessories__form" onSubmit={handleSubmit}>
         <input
           placeholder="Accessory Name"
@@ -190,10 +238,22 @@ const Accessories = () => {
           <option value="Others">Others</option>
         </select>
         <input
-          type="number"
-          placeholder="Price (₦)"
-          value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
+          type="text"
+          value={formatNumberWithCommas(form.price)}
+          placeholder="Price(₦)"
+          onChange={(e) => {
+            const rawValue = e.target.value.replace(/,/g, "");
+            if (!isNaN(rawValue)) {
+              setForm({ ...form, price: rawValue });
+            }
+          }}
+          required
+        />
+
+        <input
+          placeholder="Lot Number (6 digits)"
+          value={form.lot}
+          onChange={(e) => setForm({ ...form, lot: e.target.value })}
           required
         />
         <input
@@ -202,6 +262,7 @@ const Accessories = () => {
           onChange={(e) =>
             setForm({ ...form, shortDescription: e.target.value })
           }
+          required
         />
         <textarea
           placeholder="Full Description"
@@ -212,6 +273,16 @@ const Accessories = () => {
           placeholder="Badge (e.g. Hot, New, Popular)"
           value={form.badge}
           onChange={(e) => setForm({ ...form, badge: e.target.value })}
+        />
+        <input
+          placeholder="Dealer's Name (Optional)"
+          value={form.dealer_name}
+          onChange={(e) => setForm({ ...form, dealer_name: e.target.value })}
+        />
+        <input
+          placeholder="Dealer's Number (Optional)"
+          value={form.dealer_number}
+          onChange={(e) => setForm({ ...form, dealer_number: e.target.value })}
         />
 
         {/* Features */}
@@ -241,7 +312,6 @@ const Accessories = () => {
             ))}
         </div>
 
-        {/* Image Upload */}
         <input
           type="file"
           ref={fileInputRef}
@@ -253,10 +323,18 @@ const Accessories = () => {
             setForm({ ...form, images: totalFiles });
             setPreviewImages(totalFiles.map((f) => URL.createObjectURL(f)));
           }}
+      
         />
         <small>{form.images.length} image(s) selected (max 5)</small>
 
-        {/* Preview */}
+        <label className="sold-checkbox">
+          <input
+            type="checkbox"
+            checked={is_sold}
+            onChange={(e) => setIs_sold(e.target.checked)}
+          />
+          Mark as Sold
+        </label>
         <div className="image-previews">
           {previewImages.map((src, idx) => (
             <div key={idx} className="preview-wrapper">
@@ -286,15 +364,18 @@ const Accessories = () => {
                 ? "Update Accessory"
                 : "Add Accessory"}
           </button>
-          <button type="button" className="posting-cancel-btn" onClick={handleCancel}>
+          <button
+            type="button"
+            className="posting-cancel-btn"
+            onClick={handleCancel}
+          >
             Cancel
           </button>
         </div>
       </form>
 
-      {/* List */}
       <div className="admin-accessories__list">
-        {items.map((item) => (
+        {filteredPart.map((item) => (
           <div key={item.id} className="admin-accessories__card">
             <div className="images">
               {item.images?.map((img, i) => (
@@ -303,6 +384,7 @@ const Accessories = () => {
             </div>
             <h4>{item.name}</h4>
             <p>{item.brand}</p>
+            <p>{item.lot}</p>
             <p className="type">{item.type}</p>
             <p className="short-description">{item.shortDescription}</p>
             <p className="badge">{item.badge}</p>
@@ -310,7 +392,7 @@ const Accessories = () => {
               {Array.isArray(item.features) &&
                 item.features.map((f, i) => <span key={i}>{f}</span>)}
             </div>
-            <p className="price">₦{item.price}</p>
+            <p className="price">{formatPrice(item.price)}</p>
             <button
               className="edit-btn"
               onClick={() => {
@@ -330,7 +412,6 @@ const Accessories = () => {
         ))}
       </div>
 
-      {/* DELETE MODAL */}
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -348,7 +429,6 @@ const Accessories = () => {
         </div>
       )}
 
-      {/* STATUS MODAL */}
       {modal.open && (
         <div className="modal-overlay">
           <div className="modal-content">

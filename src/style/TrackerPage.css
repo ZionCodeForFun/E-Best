@@ -6,32 +6,7 @@
   --ebest-light-gray: #f3f4f6;
   --ebest-white: #ffffff;
 }
-.back-home-track {
-  max-width: 1200px;
-  margin: 5rem 0  1.5rem 0 ;
-  padding: 0 1rem;
-  color: #1e3a8a;
 
-}
-
-.back-home-track-p, .icon {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: transparent;
-  border: none;
-  color: #1e3a70;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.25s ease;
-}
-
-.back-home-btn:hover {
-  color: #d31716;
-}
-
-/* Page Container */
 .ebest-page {
   min-height: 100vh;
   background-color: var(--ebest-white);
@@ -39,96 +14,7 @@
   margin-top: 5rem;
 }
 
-/* Header Section */
-.page-header {
-  text-align: center;
-  padding: 24px 20px 20px;
-  background: linear-gradient(180deg, var(--ebest-deep-blue) 0%, #2563eb 100%);
-  color: var(--ebest-white);
-}
 
-.brand-name {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.page-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.page-subtitle {
-  font-size: 14px;
-  font-weight: 400;
-  opacity: 0.95;
-  line-height: 1.4;
-  max-width: 320px;
-  margin: 0 auto;
-}
-
-/* Image Slider Section */
-.slider-section {
-  padding: 24px 0;
-  background-color: var(--ebest-light-gray);
-}
-
-.slider-container {
-  max-width: 390px;
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
-  width: calc(100% - 40px);
-}
-
-.image-slider {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  will-change: transform;
-}
-
-.slider-image {
-  min-width: 100%;
-  height: 220px;
-  flex-shrink: 0;
-}
-
-.slider-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.slider-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #cbd5e1;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.slider-dot.active {
-  background-color: var(--ebest-deep-blue);
-  width: 24px;
-  border-radius: 5px;
-}
-
-/* Trust Statistics Section */
 .stats-section {
   padding: 32px 20px;
   background: var(--ebest-white);

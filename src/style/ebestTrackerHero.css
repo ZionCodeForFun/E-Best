@@ -1,0 +1,430 @@
+/* EBEST Tracker Hero Section Styles */
+
+/* Container */
+.ebest-tracker-hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Slide Wrapper */
+.ebest-tracker-hero-slide-wrapper {
+  outline: none;
+}
+
+/* Individual Slide */
+.ebest-tracker-hero-slide {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Image */
+.ebest-tracker-hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Gradient Overlay */
+.ebest-tracker-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(11, 61, 145, 0.45) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+/* Content Container */
+.ebest-tracker-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Title */
+.ebest-tracker-hero-title {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
+/* Subtitle */
+.ebest-tracker-hero-subtitle {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: 0 0 3rem 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0.95;
+}
+
+/* Feature Blocks Container */
+.ebest-tracker-hero-features {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Feature Block */
+.ebest-tracker-hero-feature-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #0B3D91;
+  color: #ffffff;
+  padding: 1rem 1.75rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  flex: 0 1 auto;
+  min-width: 240px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ebest-tracker-hero-feature-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #D62828;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ebest-tracker-hero-feature-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+.ebest-tracker-hero-feature-block:hover::before {
+  opacity: 1;
+}
+
+/* Feature Icon */
+.ebest-tracker-hero-feature-icon {
+  width: 24px;
+  height: 24px;
+  color: #D62828;
+  flex-shrink: 0;
+}
+
+/* Feature Text */
+.ebest-tracker-hero-feature-text {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* Navigation Arrows */
+.ebest-tracker-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(11, 61, 145, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+
+.ebest-tracker-hero-arrow:hover {
+  background: rgba(214, 40, 40, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.ebest-tracker-hero-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.ebest-tracker-hero-arrow-prev {
+  left: 3rem;
+}
+
+.ebest-tracker-hero-arrow-next {
+  right: 3rem;
+}
+
+.ebest-tracker-hero-arrow-icon {
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+}
+
+/* Dots Container */
+.ebest-tracker-hero-dots-container {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ebest-tracker-hero-dots {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ebest-tracker-hero-dots li {
+  margin: 0;
+}
+
+.ebest-tracker-hero-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  display: block;
+}
+
+.ebest-tracker-hero-dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: scale(1.2);
+}
+
+.ebest-tracker-hero-dots li.slick-active .ebest-tracker-hero-dot {
+  background: #D62828;
+  border-color: #ffffff;
+  width: 40px;
+  border-radius: 8px;
+}
+
+/* Override default slick styles */
+.ebest-tracker-hero-container .slick-slider {
+  height: 100vh;
+}
+
+.ebest-tracker-hero-container .slick-list {
+  height: 100vh;
+}
+
+.ebest-tracker-hero-container .slick-track {
+  height: 100vh;
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .ebest-tracker-hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .ebest-tracker-hero-subtitle {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Feature blocks in 2x2 grid */
+  .ebest-tracker-hero-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 700px;
+  }
+
+  .ebest-tracker-hero-feature-block {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .ebest-tracker-hero-arrow {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ebest-tracker-hero-arrow-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ebest-tracker-hero-arrow-prev {
+    left: 2rem;
+  }
+
+  .ebest-tracker-hero-arrow-next {
+    right: 2rem;
+  }
+
+  .ebest-tracker-hero-dots-container {
+    bottom: 2.5rem;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .ebest-tracker-hero-container {
+    height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  .ebest-tracker-hero-slide {
+    height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  .ebest-tracker-hero-container .slick-slider,
+  .ebest-tracker-hero-container .slick-list,
+  .ebest-tracker-hero-container .slick-track {
+    height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  .ebest-tracker-hero-content {
+    padding: 0 1.5rem;
+    margin-top: 90px;
+  }
+
+  .ebest-tracker-hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .ebest-tracker-hero-subtitle {
+    font-size: 18px;
+    line-height: 1.7;
+    font-weight: 500;
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  /* Feature blocks stacked vertically */
+  .ebest-tracker-hero-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
+    padding-top: 100px;
+  }
+
+  .ebest-tracker-hero-feature-block {
+    min-width: unset;
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+
+  .ebest-tracker-hero-feature-text {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .ebest-tracker-hero-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ebest-tracker-hero-arrow-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ebest-tracker-hero-arrow-prev {
+    left: 1rem;
+  }
+
+  .ebest-tracker-hero-arrow-next {
+    right: 1rem;
+  }
+
+  .ebest-tracker-hero-dots-container {
+    bottom: 2rem;
+  }
+
+  .ebest-tracker-hero-dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .ebest-tracker-hero-dots {
+    gap: 10px;
+  }
+
+  .ebest-tracker-hero-dots li.slick-active .ebest-tracker-hero-dot {
+    width: 32px;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .ebest-tracker-hero-title {
+    font-size: 2rem;
+  }
+
+  .ebest-tracker-hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .ebest-tracker-hero-content {
+    padding: 0 1rem;
+  }
+
+  .ebest-tracker-hero-feature-block {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .ebest-tracker-hero-feature-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ebest-tracker-hero-feature-text {
+    font-size: 0.9rem;
+  }
+}

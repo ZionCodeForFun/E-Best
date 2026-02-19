@@ -26,16 +26,6 @@ import "../../style/carDetails.css";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { GoHash } from "react-icons/go";
 
-const iconMap = {
-  "air-vent": AirVent,
-  armchair: Armchair,
-  camera: Camera,
-  circle: Circle,
-  power: Power,
-  bluetooth: Bluetooth,
-  sun: Sun,
-  flame: Flame,
-};
 
 export default function CarDetailsPage() {
   const { carId } = useParams();

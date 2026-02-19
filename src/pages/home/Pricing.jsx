@@ -29,11 +29,25 @@ export default function Pricing() {
 
     fetchPlans();
   }, []);
+  const isPromoActive = (plan) => {
+    if (!plan?.promo_expiry) return false;
+
+    const now = new Date();
+    const expiry = new Date(plan.promo_expiry);
+
+    return now < expiry;
+  };
 
   const getFinalPrice = (price, discount) => {
     if (!discount || discount <= 0) return price;
     return Math.round(price - (price * discount) / 100);
   };
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+    }).format(price);
 
   if (loading) {
     return (
@@ -42,7 +56,6 @@ export default function Pricing() {
           <ChevronLeft className="icon" />
         </Link>
 
-        {/* HEADER SKELETON */}
         <div className="pricing-header-skeleton">
           <div className="skeleton-company-name"></div>
           <div className="skeleton-title"></div>
@@ -50,17 +63,14 @@ export default function Pricing() {
           <div className="skeleton-tagline"></div>
         </div>
 
-        {/* PRICING CARDS SKELETON */}
         <div className="pricing-skeleton-container">
           {[1, 2, 3].map((idx) => (
             <div
               key={idx}
               className={`pricing-card-skeleton ${["exclusive", "premium", "advanced"][idx - 1]}`}
             >
-              {/* Promo Badge Skeleton */}
               <div className="skeleton-badge"></div>
 
-              {/* TRACKER ONLY SECTION */}
               <div className="skeleton-option-row">
                 <div className="skeleton-option-header">
                   <div className="skeleton-heading"></div>
@@ -73,10 +83,8 @@ export default function Pricing() {
                 </div>
               </div>
 
-              {/* Divider */}
               <div className="skeleton-divider"></div>
 
-              {/* TRACKER + DASHCAM SECTION */}
               <div className="skeleton-option-row">
                 <div className="skeleton-option-header">
                   <div className="skeleton-heading"></div>
@@ -116,13 +124,20 @@ export default function Pricing() {
 
       <main className="pricing-content">
         {plans.map((plan) => {
-          const discountedTrackerPrice = getFinalPrice(
-            plan.tracker_price,
-            plan.discount_percent,
+          const promoActive = plan.discount_percent > 0 && isPromoActive(plan);
+
+          const finalTrackerPrice = formatPrice(
+            getFinalPrice(
+              plan.tracker_price,
+              promoActive ? plan.discount_percent : 0,
+            ),
           );
-          const discountedDashcamPrice = getFinalPrice(
-            plan.dashcam_price,
-            plan.discount_percent,
+
+          const finalDashcamPrice = formatPrice(
+            getFinalPrice(
+              plan.dashcam_price,
+              promoActive ? plan.discount_percent : 0,
+            ),
           );
 
           return (
@@ -130,14 +145,13 @@ export default function Pricing() {
               key={plan.id}
               className={`pricing-card ${plan.plan_name?.toLowerCase()}`}
             >
-         
+              {promoActive && (
                 <div className="promo-badge">
                   {plan.promo_badge}
-                  {plan.discount_percent > 0 && (
-                    <span>  {plan.discount_percent}% OFF</span>
-                  )}
+                  <span> {plan.discount_percent}% OFF</span>
                 </div>
-       
+              )}
+
               <div className="pricing-badge">
                 {plan.plan_name?.toUpperCase()} PACKAGE
               </div>
@@ -148,13 +162,12 @@ export default function Pricing() {
                   <div className="option-header">
                     <h2>Tracker Only</h2>
                     <div className="pricing-amount">
-                      {plan.discount_percent > 0 && (
+                      {promoActive && (
                         <span className="original-price">
-                          ₦{plan.tracker_price}
+                          {formatPrice(plan.tracker_price)}
                         </span>
                       )}
-                      <span className="currency">₦</span>
-                      <span className="price">{discountedTrackerPrice}</span>
+                      <span className="price">{finalTrackerPrice}</span>
                     </div>
                   </div>
                   <div className="features-list">
@@ -173,13 +186,12 @@ export default function Pricing() {
                   <div className="option-header">
                     <h2>Tracker + Dashcam</h2>
                     <div className="pricing-amount">
-                      {plan.discount_percent > 0 && (
+                      {promoActive && (
                         <span className="original-price">
-                          ₦{plan.dashcam_price}
+                          {formatPrice(plan.dashcam_price)}
                         </span>
                       )}
-                      <span className="currency">₦</span>
-                      <span className="price">{discountedDashcamPrice}</span>
+                      <span className="price">{finalDashcamPrice}</span>
                     </div>
                   </div>
                   <div className="features-list">

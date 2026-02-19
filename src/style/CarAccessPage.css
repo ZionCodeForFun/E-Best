@@ -39,7 +39,6 @@
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-
 }
 
 .accessories-page__card:hover {
@@ -181,7 +180,7 @@
 }
 
 .accessories-page__button {
-  background:  #154883;
+  background: #154883;
   color: #ffffff;
   border: none;
   padding: 14px 28px;
@@ -194,13 +193,13 @@
 }
 
 .accessories-page__button:hover {
-  background:  #154883;
+  background: #154883;
 }
 
 .accessories-page__button--secondary {
   background: #ffffff;
-  color:  #154883;
-  border: 2px solid  #154883;
+  color: #154883;
+  border: 2px solid #154883;
 }
 
 .accessories-page__button--secondary:hover {
@@ -237,8 +236,8 @@
 
 .accessories-page__pagination-button:hover:not(:disabled) {
   background: #f5f5f5;
-  border-color:  #154883;
-  color:  #154883;
+  border-color: #154883;
+  color: #154883;
 }
 
 .accessories-page__pagination-button:disabled {
@@ -247,9 +246,9 @@
 }
 
 .accessories-page__pagination-button--active {
-  background:  #154883;
+  background: #154883;
   color: #ffffff;
-  border-color:  #154883;
+  border-color: #154883;
 }
 
 .accessories-page__pagination-button--active:hover {
@@ -315,4 +314,27 @@
   .accessories-page__search-bar .custom-select-container {
     width: 200px;
   }
+}
+.accessories-page__card-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dark transparent overlay */
+.sold-overlay {
+  position: absolute;
+  inset: 0; /* top:0 left:0 right:0 bottom:0 */
+  background: rgba(0, 0, 0, 0.6); /* dark transparent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SOLD text */
+.sold-overlay span {
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
