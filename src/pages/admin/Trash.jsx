@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { superbase } from "../../SuperbaseClient";
-import "./adminStyles/Trash.css";
+import "./adminStyles/trash.css";
 
 const Trash = () => {
   const [trashedDealers, setTrashedDealers] = useState([]);
