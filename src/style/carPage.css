@@ -480,3 +480,11 @@
   letter-spacing: 4px;
   text-transform: uppercase;
 }
+.btn-disabled {
+  background: #999 !important;
+  color: #fff;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+  border: none;
+}
+

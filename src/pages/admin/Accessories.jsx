@@ -51,6 +51,16 @@ const Accessories = () => {
   useEffect(() => {
     localStorage.setItem("adminAccessoryForm", JSON.stringify(form));
   }, [form]);
+  useEffect(() => {
+    const lastRun = localStorage.getItem("lastCleanupAccessories");
+
+    const now = new Date().getTime();
+
+    if (!lastRun || now - lastRun > 24 * 60 * 60 * 1000) {
+      superbase.rpc("delete_old_sold_accessories");
+      localStorage.setItem("lastCleanupAccessories", now);
+    }
+  }, []);
 
   // Fetch accessories
   useEffect(() => {
@@ -61,6 +71,7 @@ const Accessories = () => {
     const { data, error } = await superbase
       .from("accessories")
       .select("*")
+      .is("deleted_at", null)
       .order("created_at", { ascending: false });
     if (!error) setItems(data || []);
     setFilteredPart(data || []);
@@ -79,7 +90,9 @@ const Accessories = () => {
     const filtered = items.filter(
       (items) =>
         (items.name && items.name.toLowerCase().includes(lower)) ||
-        (items.lot && items.lot.toString().includes(lower)),
+        (items.lot && items.lot.toString().includes(lower)) ||
+        (items.dealer_number &&
+          items.dealer_number.toLowerCase().includes(lower)),
     );
     setFilteredPart(filtered);
   };
@@ -132,6 +145,7 @@ const Accessories = () => {
             ...form,
             price: Number(form.price),
             isSold: is_sold,
+            sold_at: is_sold ? new Date().toISOString() : null,
             images: finalImages,
           })
           .eq("id", editingId);
@@ -197,9 +211,30 @@ const Accessories = () => {
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await superbase.from("accessories").delete().eq("id", deleteId);
-    setDeleteId(null);
-    fetchAccessories();
+
+    try {
+      const { error } = await superbase
+        .from("accessories")
+        .update({ deleted_at: new Date().toISOString() }) // soft delete
+        .eq("id", deleteId);
+
+      if (error) throw error;
+
+      setDeleteId(null);
+      fetchAccessories();
+      setModal({
+        open: true,
+        type: "success",
+        message: "Accessory moved to trash",
+      });
+    } catch (err) {
+      console.error(err.message);
+      setModal({
+        open: true,
+        type: "error",
+        message: "Failed to delete accessory",
+      });
+    }
   };
 
   return (
@@ -207,7 +242,7 @@ const Accessories = () => {
       <h1>Accessories Management</h1>
       <input
         type="text"
-        placeholder="Search by Lot or Car Name..."
+        placeholder="Search by Lot, Phone or Car Name..."
         value={searchTerm}
         onChange={handleSearch}
         className="car-search"
@@ -323,7 +358,6 @@ const Accessories = () => {
             setForm({ ...form, images: totalFiles });
             setPreviewImages(totalFiles.map((f) => URL.createObjectURL(f)));
           }}
-      
         />
         <small>{form.images.length} image(s) selected (max 5)</small>
 
@@ -377,22 +411,55 @@ const Accessories = () => {
       <div className="admin-accessories__list">
         {filteredPart.map((item) => (
           <div key={item.id} className="admin-accessories__card">
-            <div className="images">
-              {item.images?.map((img, i) => (
-                <img key={i} src={img} alt={`${item.name}-${i}`} />
-              ))}
+            <div className="card-content">
+              <div className="images">
+                {item.images?.map((img, i) => (
+                  <img key={i} src={img} alt={`${item.name}-${i}`} />
+                ))}
+              </div>
+              <h2>{item.name}</h2>
+              <p>
+                <strong>Brand: </strong>
+                {item.brand}
+              </p>
+              <p className="price">{formatPrice(item.price)}</p>
+              <p>
+                <strong>Dealer's Name: </strong>
+                {item.dealer_name ? item.dealer_name : "E-Best"}
+              </p>
+              <p>
+                <strong>Dealer's Number: </strong>
+                {item.dealer_number ? item.dealer_number : "08133369509"}
+              </p>
+              <p>
+                <strong>Lot Number: </strong>
+                {item.lot}
+              </p>
+              <p className="type">
+                <strong>Type: </strong>
+                {item.type}
+              </p>
+              <p className="badge">
+                <strong>badge: </strong>
+                {item.badge}
+              </p>
+              <p className="short-description">
+                <strong>Short Discriptions: </strong>
+                {item.shortDescription}
+              </p>
+              <p>
+                <strong>Features: </strong>
+                {item.features}
+              </p>
+              <p className="short-description">
+                <strong>Full Discriptions: </strong>
+                {item.description}
+              </p>
+              <div className="features-list">
+                {Array.isArray(item.features) &&
+                  item.features.map((f, i) => <span key={i}>{f}</span>)}
+              </div>
             </div>
-            <h4>{item.name}</h4>
-            <p>{item.brand}</p>
-            <p>{item.lot}</p>
-            <p className="type">{item.type}</p>
-            <p className="short-description">{item.shortDescription}</p>
-            <p className="badge">{item.badge}</p>
-            <div className="features-list">
-              {Array.isArray(item.features) &&
-                item.features.map((f, i) => <span key={i}>{f}</span>)}
-            </div>
-            <p className="price">{formatPrice(item.price)}</p>
             <button
               className="edit-btn"
               onClick={() => {
@@ -406,7 +473,7 @@ const Accessories = () => {
               Edit
             </button>
             <button className="delete-btn" onClick={() => setDeleteId(item.id)}>
-              Delete
+              Trash
             </button>
           </div>
         ))}
@@ -415,11 +482,11 @@ const Accessories = () => {
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Delete Accessory?</h3>
-            <p>This action cannot be undone.</p>
+            <h3>Trash Accessory?</h3>
+            <p>Accessories will be move to Trash.</p>
             <div className="modal-actions">
               <button className="modal-danger" onClick={confirmDelete}>
-                Delete
+                Trash
               </button>
               <button className="btn-cancel" onClick={() => setDeleteId(null)}>
                 Cancel

@@ -272,7 +272,9 @@ export default function CarPage() {
                 <div className="carspage-card-actions cta-row">
                   <button
                     onClick={() => nav(`/cars/${car.id}`)}
-                    className="carspage-button btn-primary"
+                    className={`carspage-button btn-primary ${
+                      car.isSold ? "btn-disabled" : ""
+                    }`}
                     disabled={car.isSold}
                   >
                     {car.isSold ? "Unavailable" : "View Details"}

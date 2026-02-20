@@ -42,8 +42,17 @@ const Cars = () => {
     const saved = localStorage.getItem("adminCarForm");
     return saved ? JSON.parse(saved) : emptyForm;
   });
+  useEffect(() => {
+    const lastRun = localStorage.getItem("lastCleanup");
 
-  // Persist form unless canceled
+    const now = new Date().getTime();
+
+    if (!lastRun || now - lastRun > 24 * 60 * 60 * 1000) {
+      superbase.rpc("delete_old_sold_cars");
+      localStorage.setItem("lastCleanup", now);
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("adminCarForm", JSON.stringify(form));
   }, [form]);
@@ -56,6 +65,7 @@ const Cars = () => {
     const { data, error } = await superbase
       .from("cars")
       .select("*")
+      .is("deleted_at", null)
       .order("created_at", { ascending: false });
     if (!error) setCars(data || []);
     setFilteredCars(data || []);
@@ -73,7 +83,8 @@ const Cars = () => {
     const filtered = cars.filter(
       (car) =>
         (car.name && car.name.toLowerCase().includes(lower)) ||
-        (car.lot && car.lot.toString().includes(lower)),
+        (car.lot && car.lot.toString().includes(lower)) ||
+        (car.dealer_number && car.dealer_number.toLowerCase().includes(lower)),
     );
     setFilteredCars(filtered);
   };
@@ -114,6 +125,7 @@ const Cars = () => {
             ...form,
             price: Number(form.price),
             isSold: is_sold,
+            sold_at: is_sold ? new Date().toISOString() : null,
             images: finalImages,
           })
           .eq("id", editingId);
@@ -163,21 +175,22 @@ const Cars = () => {
 
   const handleDelete = async () => {
     if (!deleteCarId) return;
+
     try {
       const { error } = await superbase
         .from("cars")
-        .delete()
+        .update({ deleted_at: new Date().toISOString() }) // soft delete
         .eq("id", deleteCarId);
+
       if (error) throw new Error(error.message);
-      setMessage({ type: "success", text: "Car deleted successfully!" });
+
+      setMessage({ type: "success", text: "Car moved to trash!" });
       setDeleteCarId(null);
-      fetchCars();
+      fetchCars(); // refresh the list
     } catch (err) {
       setMessage({ type: "error", text: err.message });
     }
   };
-
-  // Cancel / Reset Form
   const handleCancel = () => {
     setForm(emptyForm);
     setEditingId(null);
@@ -192,7 +205,7 @@ const Cars = () => {
       <h1>Cars Management</h1>
       <input
         type="text"
-        placeholder="Search by Lot or Car Name..."
+        placeholder="Search by Lot, Phone or Car Name..."
         value={searchTerm}
         onChange={handleSearch}
         className="car-search"
@@ -371,25 +384,60 @@ const Cars = () => {
       <div className="car-list">
         {filteredCars.map((car) => (
           <div key={car.id} className="car-card">
-            <div className="car-images">
-              {car.images.map((img, idx) => (
-                <img key={idx} src={img} alt={`${car.name}-${idx}`} />
-              ))}
+            <div className="card-content">
+              <div className="car-images">
+                {car.images.map((img, idx) => (
+                  <img key={idx} src={img} alt={`${car.name}-${idx}`} />
+                ))}
+              </div>
+              <h3>{car.name}</h3>
+              <p>
+                <strong>Brand:</strong> {car.brand}
+              </p>
+              <p className="price">{formatPrice(car.price)}</p>
+              <div>
+                <p>
+                  <strong>Dealer's Name: </strong>
+                  {car.dealer_name ? car.dealer_name : "E-Best"}
+                </p>
+                <p>
+                  <strong>Dealer's Number: </strong>
+                  {car.dealer_number ? car.dealer_number : "08133369509"}
+                </p>
+                <p>
+                  <strong>Year: </strong>
+                  {car.year}
+                </p>
+                <p>
+                  <strong>Lot Number: </strong>
+                  {car.lot}
+                </p>
+                <p>
+                  <strong>Transmission: </strong>
+                  {car.transmission}
+                </p>
+                <p>
+                  <strong>Mileage: </strong>
+                  {car.mileage}
+                </p>
+                <p>
+                  <strong>Fuel Type: </strong>
+                  {car.fuel}
+                </p>
+                <p>
+                  <strong>color: </strong>
+                  {car.color}
+                </p>
+
+                <p></p>
+                <strong>Description: </strong>
+                {car.features}
+              </div>
             </div>
-            <h3>{car.name}</h3>
-            <p>
-              <strong>Brand:</strong> {car.brand}
-            </p>
-            <p className="price">{formatPrice(car.price)}</p>
-            <p>
-              {car.year} | {car.mileage} | {car.color} | {car.transmission} |{" "}
-              {car.fuel} | {car.lot}
-            </p>
-            <p>{car.features}</p>
             <div className="actions">
               <button onClick={() => handleEdit(car)}>Edit</button>
               <button className="danger" onClick={() => setDeleteCarId(car.id)}>
-                Delete
+                Trash
               </button>
             </div>
           </div>
@@ -400,11 +448,11 @@ const Cars = () => {
       {deleteCarId && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Delete Car?</h3>
-            <p>This cannot be undone.</p>
+            <h3>Trash Car?</h3>
+            <p>Car wwill be Move to trash.</p>
             <div className="modal-actions">
               <button className="modal-danger" onClick={handleDelete}>
-                Delete
+                Trash
               </button>
               <button
                 className="btn-cancel"

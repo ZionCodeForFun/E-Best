@@ -41,7 +41,7 @@ export function CarCard({ images, name, year, price, id, is_sold }) {
         <p className="car-price">{formatPrice(price)}</p>
         <div className="car-card-actions">
           <button
-            className="car-card-cta-primary"
+            className={`car-card-cta-primary ${is_sold ? "btn-disabled" : ""}`}
             onClick={() => navigate(`/cars/${id}`)}
             disabled={is_sold}
           >

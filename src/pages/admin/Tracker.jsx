@@ -258,7 +258,8 @@ const Trackers = () => {
 
             return (
               <div key={plan.id} className="plan-card">
-                <h3>{plan.plan_name}</h3>
+                 <h3>{plan.plan_name}</h3>
+                 <div className="card-content">
 
                 {plan.discount_percent > 0 && plan.promo_badge ? (
                   <p className="promo-badge">
@@ -290,6 +291,7 @@ const Trackers = () => {
                     <li key={i}>{f}</li>
                   ))}
                 </ul>
+               </div>
 
                 <button onClick={() => handleEdit(plan)}>Edit</button>
               </div>

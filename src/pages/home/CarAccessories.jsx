@@ -190,7 +190,7 @@ export default function CarAccessories() {
                   </p>
                   <div className="home-accessories-cart-cta-holder">
                     <button
-                      className="home-accessories-cta-btn-primary"
+                      className={`home-accessories-cta-btn-primary ${accessory.isSold? "btn-disabled" : ""}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleCardClick(accessory.id);

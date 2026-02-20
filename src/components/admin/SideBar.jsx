@@ -43,6 +43,20 @@ const AdminSidebar = ({ isOpen, onClose }) => {
           >
             Accessories
           </NavLink>
+          <NavLink
+            to="/admin/dealer-admin"
+            className="admin-sidebar__link"
+            onClick={onClose}
+          >
+            Dealers
+          </NavLink>
+          <NavLink
+            to="/admin/trash"
+            className="admin-sidebar__link"
+            onClick={onClose}
+          >
+            Trash
+          </NavLink>
         </nav>
       </aside>
     </>

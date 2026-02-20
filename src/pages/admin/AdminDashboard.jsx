@@ -7,6 +7,7 @@ const AdminDashboard = () => {
     cars: 0,
     trackers: 0,
     accessories: 0,
+    dealers: 0,
   });
 
   const [loading, setLoading] = useState(true);
@@ -18,21 +19,27 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     setLoading(true);
 
-    const [{ count: cars }, { count: trackers }, { count: accessories }] =
-      await Promise.all([
-        superbase.from("cars").select("*", { count: "exact", head: true }),
+    const [
+      { count: cars },
+      { count: trackers },
+      { count: accessories },
+      { count: dealers },
+    ] = await Promise.all([
+      superbase.from("cars").select("*", { count: "exact", head: true }),
 
-        superbase.from("trackers_plans").select("*", { count: "exact", head: true }),
+      superbase
+        .from("trackers_plans")
+        .select("*", { count: "exact", head: true }),
 
-        superbase
-          .from("accessories")
-          .select("*", { count: "exact", head: true }),
-      ]);
+      superbase.from("accessories").select("*", { count: "exact", head: true }),
+      superbase.from("dealers").select("*", { count: "exact", head: true }),
+    ]);
 
     setStats({
       cars: cars || 0,
       trackers: trackers || 0,
       accessories: accessories || 0,
+      dealers: dealers || 0,
     });
 
     setLoading(false);
@@ -62,6 +69,10 @@ const AdminDashboard = () => {
           <h3>Accessories</h3>
           <span>{loading ? "—" : `${stats.accessories} Items`}</span>
         </div>
+        <div className="admin-stat-card">
+          <h3>Dealers</h3>
+          <span>{loading ? "—" : `${stats.dealers} Dealers`}</span>
+        </div>
       </div>
 
       {/* ACTIONS */}
@@ -80,6 +91,12 @@ const AdminDashboard = () => {
           onClick={() => nav("/admin/accessories")}
         >
           Manage Accessories
+        </button>
+        <button
+          className="admin-action-btn"
+          onClick={() => nav("/admin/dealer-admin")}
+        >
+          Dealers
         </button>
       </div>
     </div>

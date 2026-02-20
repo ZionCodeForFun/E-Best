@@ -211,7 +211,7 @@ export default function AccessoriesListing() {
                 </p>
                 <div className="accessories-page__card-actions cta-row">
                   <button
-                    className="accessories-page__button btn-primary"
+                    className={`accessories-page__button btn-primary ${accessory.isSold ? "btn-disabled" : ""}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleCardClick(accessory.id);

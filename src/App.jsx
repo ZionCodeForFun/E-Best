@@ -23,6 +23,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Cars from "./pages/admin/Car";
 import CarAccessPage from "./pages/home/CarAccessPage";
 import AccessoryDetail from "./pages/home/CarAccessDetails";
+import DealersAdmin from "./pages/admin/DealerAdmin";
+import Trash from "./pages/admin/Trash";
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -66,10 +68,28 @@ const AppWrapper = () => {
           }
         />
         <Route
+          path="/admin/dealer-admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <DealersAdmin />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/admin/trackers"
           element={
             <ProtectedRoute>
               <AdminLayout>{<Trackers />}</AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/trash"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>{<Trash />}</AdminLayout>
             </ProtectedRoute>
           }
         />
