@@ -13,7 +13,7 @@ import {
   Calendar,
   RemoveFormattingIcon,
 } from "lucide-react";
-import "../../style/about.css";
+import "../style/about.css";
 
 import { useNavigate, Link } from "react-router-dom";
 export default function About() {

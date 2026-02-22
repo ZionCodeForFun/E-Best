@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, Shield, CarFront, Calendar } from "lucide-react";
-import "../../style/TrackerPage.css";
-import "../../style/pricing.css";
-import "../../style/skeleton.css";
+import "../style/TrackerPage.css";
+import "../style/pricing.css";
+import "../style/skeleton.css";
 import { useNavigate, Link } from "react-router-dom";
-import { superbase } from "../../SuperbaseClient";
+import { superbase } from "../SuperbaseClient";
 import { HowItWorks } from "./HowItWork";
-import EbestTrackerHero from "../../components/EbestTrackerHero";
+import EbestTrackerHero from "../components/EbestTrackerHero";
 function TrackerPage() {
   const [plans, setPlans] = useState([]);
   const [loadingPlans, setLoadingPlans] = useState(true);

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router";
-import "../../style/GlobalCarousel.css";
-import "../../style/CarAccessPage.css";
-import "../../style/cta.css";
-import "../../style/skeleton.css";
+import "../style/GlobalCarousel.css";
+import "../style/CarAccessPage.css";
+import "../style/cta.css";
+import "../style/skeleton.css";
 import { ChevronLeft } from "lucide-react";
-import { superbase } from "../../SuperbaseClient";
-import CustomSelectAccess from "../../common/CustomSelectAccess";
-import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
-import ContactModal from "../../components/ContactModal";
+import { superbase } from "../SuperbaseClient";
+import CustomSelectAccess from "../common/CustomSelectAccess";
+import ImageCarouselGlobal from "../components/ImageCarouselGlobal";
+import ContactModal from "../components/ContactModal";
 export default function AccessoriesListing() {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);

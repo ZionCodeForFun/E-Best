@@ -1,5 +1,5 @@
 import { Radio, Wrench, Smartphone, ArrowRight } from 'lucide-react';
-import '../../style/howItWork.css'
+import '../style/howItWork.css'
 import { useNavigate } from 'react-router-dom';
 const steps = [
   {

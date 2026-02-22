@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { superbase } from "../../SuperbaseClient";
-import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
-import "../../style/GlobalCarousel.css";
-import "../../style/CarAccessDetails.css";
-import "../../style/cta.css";
-import ContactModal from "../../components/ContactModal";
+import { superbase } from "../SuperbaseClient";
+import ImageCarouselGlobal from "../components/ImageCarouselGlobal";
+import "../style/GlobalCarousel.css";
+import "../style/CarAccessDetails.css";
+import "../style/cta.css";
+import ContactModal from "../components/ContactModal";
 
 export default function AccessoryDetail() {
   const { accessoryId } = useParams();
@@ -108,12 +108,7 @@ export default function AccessoryDetail() {
             </p>
 
             <div>
-              <span>
-                {" "}
-                Lot
-               
-                
-              </span>
+              <span> Lot</span>
               <p className="accessory-detail__availability">{accessory.lot}</p>
             </div>
 

@@ -1,12 +1,12 @@
-import CustomSelect from "../../common/CustomSelect";
+import CustomSelect from "../common/CustomSelect";
 import { Calendar, Gauge, Settings, Fuel, ChevronLeft } from "lucide-react";
-import "../../style/GlobalCarousel.css";
-import "../../style/carPage.css";
-import "../../style/cta.css";
-import "../../style/skeleton.css";
-import { GetCars } from "../../components/api/Cars";
-import ImageCarouselGlobal from "../../components/ImageCarouselGlobal";
-import ContactModal from "../../components/ContactModal";
+import "../style/GlobalCarousel.css";
+import "../style/carPage.css";
+import "../style/cta.css";
+import "../style/skeleton.css";
+import { GetCars } from "../components/api/Cars";
+import ImageCarouselGlobal from "../components/ImageCarouselGlobal";
+import ContactModal from "../components/ContactModal";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 export default function CarPage() {

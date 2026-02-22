@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router";
 import { useState, useEffect } from "react";
-import { superbase } from "../../SuperbaseClient";
+import { superbase } from "../SuperbaseClient";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -22,10 +22,9 @@ import {
   Flame,
   PhoneCall,
 } from "lucide-react";
-import "../../style/carDetails.css";
+import "../style/carDetails.css";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { GoHash } from "react-icons/go";
-
 
 export default function CarDetailsPage() {
   const { carId } = useParams();
@@ -210,7 +209,11 @@ ${currentUrl}
         <section className="card-section">
           <h2>Vehicle Description</h2>
           <p>{car.features}</p>
-          <a href={whatsappLinkForReport} target="_blank" rel="noopener noreferrer">
+          <a
+            href={whatsappLinkForReport}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Request for inspection report?
           </a>
         </section>

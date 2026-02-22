@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
-import "../../style/pricing.css";
-import "../../style/skeleton.css";
+import "../style/pricing.css";
+import "../style/skeleton.css";
 import { useNavigate, Link } from "react-router-dom";
-import { superbase } from "../../SuperbaseClient";
+import { superbase } from "../SuperbaseClient";
 
 export default function Pricing() {
   const nav = useNavigate();

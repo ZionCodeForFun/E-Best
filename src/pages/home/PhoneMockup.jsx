@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapPin, Navigation, Activity, Bell } from 'lucide-react';
 import '../../style/PhoneMockup.css';
-
+import map from '../../assets/gps.jpg'
 export function PhoneMockup() {
   return (
     <div className="phone-mockup">
@@ -17,7 +17,7 @@ export function PhoneMockup() {
             </div>
 
             <div className="map-preview">
-              <div className="map-overlay">
+              <div className="map-overlay" style={{backgroundImage:`url(${map})`}}>
                 <div className="map-grid"></div>
                 <div className="vehicle-marker">
                   <Navigation size={20} />
