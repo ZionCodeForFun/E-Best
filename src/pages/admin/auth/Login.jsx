@@ -7,11 +7,12 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMsg("");
-     setLoading(true)
+    setLoading(true);
     try {
       const { data, error } = await superbase.auth.signInWithPassword({
         email,
@@ -20,21 +21,25 @@ const LoginPage = () => {
 
       if (error) throw error;
 
-        const { data: adminData } = await superbase
-      .from("admins")
-      .select("*")
-      .eq("email", email)
-      .single();
+      const user = data.user;
 
-    if (!adminData) {
-      await superbase.auth.signOut();
-      setErrorMsg("Access denied.");
-      return;
-    }
-      setLoading(false)
-      navigate("/admin"); 
+      const { data: adminData } = await superbase
+        .from("admins")
+        .select("*")
+        .eq("email", user.email)
+        .single();
+
+      if (!adminData) {
+        await superbase.auth.signOut();
+        setErrorMsg("Access denied.");
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      navigate("/admin");
     } catch (error) {
       setErrorMsg(error.message || "Login failed");
+      setLoading(false);
     }
   };
 
@@ -62,13 +67,13 @@ const LoginPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#0a1f44", // deep blue background
+        backgroundColor: "#0a1f44", 
         padding: "1rem",
       }}
     >
       <div
         style={{
-          backgroundColor: "#ffffff", // form white
+          backgroundColor: "#ffffff", 
           borderRadius: "12px",
           maxWidth: "400px",
           width: "100%",
@@ -142,6 +147,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
+            disabled={loading}
             style={{
               marginTop: "1rem",
               padding: "0.75rem",
@@ -161,7 +167,7 @@ const LoginPage = () => {
               (e.currentTarget.style.backgroundColor = "#e63946")
             }
           >
-            {loading? "Logging..." : "Login"}
+            {loading ? "Logging..." : "Login"}
           </button>
         </form>
 

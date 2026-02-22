@@ -1,16 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { superbase } from "../../../SuperbaseClient";
 
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const { data: listener } = superbase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === "PASSWORD_RECOVERY") {
+          console.log("User is recovering password");
+        }
+      },
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
   const handleReset = async (e) => {
     e.preventDefault();
 
-    const { error } = await superbase.auth.updateUser({ password: newPassword });
+    const { error } = await superbase.auth.updateUser({
+      password: newPassword,
+    });
 
     if (error) {
       setMessage(error.message);
@@ -19,6 +35,10 @@ const ResetPassword = () => {
       setTimeout(() => navigate("/login"), 2000);
     }
   };
+  if (newPassword !== confirmPassword) {
+    setMessage("Passwords do not match");
+    return;
+  }
 
   return (
     <div
@@ -69,8 +89,23 @@ const ResetPassword = () => {
             </label>
             <input
               type="password"
+              placeholder="New Password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              required
+              style={{
+                padding: "0.75rem",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+                fontSize: "1rem",
+                marginBottom:"15px"
+              }}
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
               style={{
                 padding: "0.75rem",
@@ -87,7 +122,7 @@ const ResetPassword = () => {
               marginTop: "1rem",
               padding: "0.75rem",
               borderRadius: "8px",
-              backgroundColor: "#e63946", // accent red
+              backgroundColor: "#e63946",
               color: "#fff",
               fontWeight: "bold",
               fontSize: "1rem",
@@ -95,8 +130,12 @@ const ResetPassword = () => {
               border: "none",
               transition: "background 0.2s",
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#d62839")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#e63946")}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "#d62839")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "#e63946")
+            }
           >
             Update Password
           </button>
@@ -105,7 +144,7 @@ const ResetPassword = () => {
         {message && (
           <p
             style={{
-              color: "#e63946",
+              color: message.includes("successfully") ? "green" : "#e63946",
               marginTop: "1rem",
               textAlign: "center",
             }}
