@@ -8,6 +8,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ const LoginPage = () => {
   };
 
   const handleForgotPassword = async () => {
+      if (resetLoading) return;
     if (!email) {
       setErrorMsg("Please enter your email to reset password");
       return;
@@ -58,6 +60,7 @@ const LoginPage = () => {
     } else {
       setErrorMsg("Check your email for password reset link");
     }
+    setTimeout(() => setResetLoading(false), 60000);
   };
 
   return (
@@ -67,13 +70,13 @@ const LoginPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#0a1f44", 
+        backgroundColor: "#0a1f44",
         padding: "1rem",
       }}
     >
       <div
         style={{
-          backgroundColor: "#ffffff", 
+          backgroundColor: "#ffffff",
           borderRadius: "12px",
           maxWidth: "400px",
           width: "100%",
@@ -173,6 +176,7 @@ const LoginPage = () => {
 
         <button
           onClick={handleForgotPassword}
+          disabled={resetLoading}
           style={{
             marginTop: "1rem",
             background: "transparent",
@@ -187,7 +191,7 @@ const LoginPage = () => {
             textAlign: "center",
           }}
         >
-          Forgot Password?
+          {resetLoading ? "this button disabled for 60s" : "Forgot Password?"}
         </button>
 
         {errorMsg && (

@@ -9,20 +9,37 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { data: listener } = superbase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === "PASSWORD_RECOVERY") {
-          console.log("User is recovering password");
-        }
-      },
-    );
+    const handleSession = async () => {
+      const { data, error } = await superbase.auth.getSession();
+
+      if (error) {
+        console.log(error.message);
+      }
+
+      console.log("Session:", data.session);
+    };
+
+    handleSession();
+
+    const {
+      data: { subscription },
+    } = superbase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        console.log("Recovery mode active");
+      }
+    });
 
     return () => {
-      listener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
   const handleReset = async (e) => {
     e.preventDefault();
+
+    if (newPassword !== confirmPassword) {
+      setMessage("Passwords do not match");
+      return;
+    }
 
     const { error } = await superbase.auth.updateUser({
       password: newPassword,
@@ -31,14 +48,10 @@ const ResetPassword = () => {
     if (error) {
       setMessage(error.message);
     } else {
-      setMessage("Password updated successfully. Redirecting to login...");
+      setMessage("Password updated successfully. Redirecting...");
       setTimeout(() => navigate("/login"), 2000);
     }
   };
-  if (newPassword !== confirmPassword) {
-    setMessage("Passwords do not match");
-    return;
-  }
 
   return (
     <div
@@ -98,7 +111,7 @@ const ResetPassword = () => {
                 borderRadius: "8px",
                 border: "1px solid #ccc",
                 fontSize: "1rem",
-                marginBottom:"15px"
+                marginBottom: "15px",
               }}
             />
             <input
