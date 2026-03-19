@@ -206,7 +206,9 @@
 
 @media (max-width: 768px) {
   .home-accessories {
-    padding: 30px 16px;
+    padding: 30px 27px  30px 10px ;
+  
+   
   }
 
   .home-accessories__slider-container {
