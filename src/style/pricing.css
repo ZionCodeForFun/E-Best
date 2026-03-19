@@ -207,20 +207,7 @@
   text-align: center;
 }
 
-.back-link-service {
-  display: inline-block;
-  color: #dc2626; 
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
 
-.back-link-service:hover {
-  background: #fee2e2;
-}
 .pricing-card {
   position: relative;
 }

@@ -40,9 +40,7 @@ export function GPSTrackerSection() {
         <h2 className="section-title">
           GPS Tracker & Dash Cam Installation & Services
         </h2>
-        <p className="section-subtitle">
-          Real-time GPS tracking, dash cameras & professional installation
-        </p>
+     
         <div className="two-columns">
           <div className="features-panel">
             <h2 className="features-title">Features & Benefits</h2>

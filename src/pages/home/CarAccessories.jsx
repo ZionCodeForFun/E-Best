@@ -149,12 +149,9 @@ export default function CarAccessories() {
     <div className="home-accessories">
       <div className="home-accessories__header">
         <h2 className="home-accessories__title">
-          Quality Car Accessories & Parts You Can Trust
+          Featured Car Accessories & Parts
         </h2>
-        <p className="home-accessories__subtitle">
-          Shop trusted car accessories and durable spare parts at unbeatable
-          prices
-        </p>
+    
       </div>
 
       <div className="home-accessories__slider-container">

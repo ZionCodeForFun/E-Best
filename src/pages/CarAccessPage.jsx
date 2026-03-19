@@ -136,10 +136,10 @@ export default function AccessoriesListing() {
           <ChevronLeft className="icon" />
         </Link>
         <div className="accessories-page__header">
-          <h1 className="accessories-page__title">
-            {" "}
-            High-Performance Car Accessories & Parts
-          </h1>
+          <p className="accessories-page__title">
+            Shop trusted car accessories and durable spare parts at unbeatable
+          prices
+          </p>
         </div>
 
         {/* Search Bar */}

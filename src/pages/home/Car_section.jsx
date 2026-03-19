@@ -44,11 +44,8 @@ export function CarsSection() {
     <section className="cars-section">
       <div className="cars-container">
         <div className="cars-top-title">
-          <h2 className="section-title">Our Automotive Collection</h2>
-          <p className="car-section-subtitle">
-            Browse quality automobiles available for immediate purchase,
-            carefully selected to match your needs and budget.
-          </p>
+          <h2 className="section-title">Featured Vehicles</h2>
+        
         </div>
         <div className="cars-grid">
           {randomCars.map((car) => (

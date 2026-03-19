@@ -6,6 +6,7 @@ import "../style/GlobalCarousel.css";
 import "../style/CarAccessDetails.css";
 import "../style/cta.css";
 import ContactModal from "../components/ContactModal";
+import { ChevronLeft } from "lucide-react";
 
 export default function AccessoryDetail() {
   const { accessoryId } = useParams();
@@ -64,7 +65,7 @@ export default function AccessoryDetail() {
             className="accessory-detail__back-button"
             onClick={() => navigate("/car-accessories")}
           >
-            ← Back to Accessories
+            <ChevronLeft/> Back to Accessories
           </button>
           <h1>Accessory not found</h1>
         </div>
@@ -81,7 +82,7 @@ export default function AccessoryDetail() {
           className="accessory-detail__back-button"
           onClick={() => navigate("/car-accessories")}
         >
-          ← Back to Accessories
+         <ChevronLeft/>  Back to Accessories
         </button>
 
         <div className="accessory-detail__content">

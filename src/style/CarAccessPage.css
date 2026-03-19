@@ -19,8 +19,8 @@
 
 .accessories-page__title {
   font-size: 42px;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-weight: 600;
+  color: #4b5563;
   margin: 0;
 }
 
@@ -156,9 +156,9 @@
 }
 
 .accessories-page__card-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
   margin: 0 0 10px 0;
 }
 
@@ -173,9 +173,9 @@
 }
 
 .accessories-page__card-price {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #16447e;
   margin: 0 0 20px 0;
 }
 
@@ -275,7 +275,9 @@
   }
 
   .accessories-page__title {
-    font-size: 32px;
+    font-size: 1rem;
+     margin-top: 4px;
+     font-weight: 400;
   }
 
   .accessories-page__grid {

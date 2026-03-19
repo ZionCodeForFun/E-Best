@@ -6,7 +6,6 @@ import { useState } from "react";
 export function CarCard({ images, name, year, price, id, is_sold }) {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
-  //  const [is_sold, setIs_sold]= useState(false)
   let imageArray = [];
 
   if (Array.isArray(images)) {

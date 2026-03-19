@@ -12,6 +12,7 @@ import {
   TrendingUp,
   Calendar,
   RemoveFormattingIcon,
+  ChevronLeft,
 } from "lucide-react";
 import "../style/about.css";
 
@@ -28,10 +29,8 @@ export default function About() {
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-title-about">
-            Driving Security, Mobility & Smart Automotive Solutions
-          </h1>
-          <div className="hero-divider"></div>
+        
+       
           <p className="hero-subtitle-about">
             E-BEST provides reliable vehicle tracking, quality car sales,
             flexible car swaps, and advanced dash cam installations tailored for
@@ -261,7 +260,7 @@ export default function About() {
         </div>
         <div className="pricing-footer">
           <Link to="/service" className="back-link-service">
-            ← Back to home
+           <ChevronLeft/>  Back to home
           </Link>
         </div>
       </section>

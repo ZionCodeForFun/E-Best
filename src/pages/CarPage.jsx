@@ -154,7 +154,6 @@ export default function CarPage() {
             <ChevronLeft className="icon" />
           </Link>
           <div className="carpage-title-holder">
-            <h1 className="carspage-title">Premium Cars Collection</h1>
             <p className="carspage-subtitle">
               Browse top quality cars with verified details, competitive
               pricing, and trusted performance, all in one place.
@@ -174,7 +173,7 @@ export default function CarPage() {
               value={selectedMake}
               onChange={(value) => {
                 setSelectedMake(value);
-                setSelectedModel(""); // reset model when make changes
+                setSelectedModel(""); 
                 setCurrentPage(1);
               }}
             />
@@ -210,12 +209,7 @@ export default function CarPage() {
               }}
             />
 
-            <button
-              className="carspage-search-btn"
-              onClick={() => setCurrentPage(1)}
-            >
-              Search
-            </button>
+         
           </div>
         </div>
 

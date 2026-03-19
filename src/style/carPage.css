@@ -6,7 +6,10 @@
 .goback2 {
   margin-top: 6rem !important ;
 }
-
+.icon{
+  
+  color: #16447e  ;
+}
 /* Header */
 .carspage-header {
   background-color: white;
@@ -24,7 +27,7 @@
 }
 .carspage-title {
   font-size: 2rem;
-  color: #151922;
+  color: #151922 !important;
   margin: 0;
 }
 .carspage-subtitle {
@@ -220,7 +223,7 @@
 }
 .carspage-card-price {
   font-size: 1.5rem;
-  color: #1e3a8a;
+  color: #16447e;
   margin-bottom: 16px;
 }
 
