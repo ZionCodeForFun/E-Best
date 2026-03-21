@@ -357,3 +357,28 @@ padding: 10px 15px;
   cursor: pointer;
   accent-color: #d32f2f; /* red theme */
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 20px 0;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border: none;
+  background: #0a1f44;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: bold;
+}

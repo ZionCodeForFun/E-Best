@@ -18,7 +18,8 @@ const Cars = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCars, setFilteredCars] = useState([]);
   const [is_sold, setIs_sold] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+const carsPerPage = 6;
   const emptyForm = {
     name: "",
     price: "",
@@ -69,11 +70,12 @@ const Cars = () => {
       .order("created_at", { ascending: false });
     if (!error) setCars(data || []);
     setFilteredCars(data || []);
+    setCurrentPage(1)
   };
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-
+ setCurrentPage(1);
     if (!term) {
       setFilteredCars(cars);
       return;
@@ -88,7 +90,11 @@ const Cars = () => {
     );
     setFilteredCars(filtered);
   };
+const indexOfLastCar = currentPage * carsPerPage;
+const indexOfFirstCar = indexOfLastCar - carsPerPage;
+const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
 
+const totalPages = Math.ceil(filteredCars.length / carsPerPage);
   const uploadImages = async (files) => {
     const urls = [];
     for (let i = 0; i < Math.min(files.length, 10); i++) {
@@ -145,7 +151,6 @@ const Cars = () => {
         setMessage({ type: "success", text: "Car added successfully!" });
       }
 
-      // Reset form
       setForm(emptyForm);
       setEditingId(null);
       setExistingImages([]);
@@ -382,7 +387,7 @@ const Cars = () => {
 
       {/* LIST */}
       <div className="car-list">
-        {filteredCars.map((car) => (
+        {currentCars.map((car) => (
           <div key={car.id} className="car-card">
             <div className="card-content">
               <div className="car-images">
@@ -443,7 +448,25 @@ const Cars = () => {
           </div>
         ))}
       </div>
+<div className="pagination">
+  <button
+    onClick={() => setCurrentPage((prev) => prev - 1)}
+    disabled={currentPage === 1}
+  >
+    Prev
+  </button>
 
+  <span>
+    Page {currentPage} of {totalPages || 1}
+  </span>
+
+  <button
+    onClick={() => setCurrentPage((prev) => prev + 1)}
+    disabled={currentPage === totalPages || totalPages === 0}
+  >
+    Next
+  </button>
+</div>
       {/* DELETE CONFIRM */}
       {deleteCarId && (
         <div className="modal-overlay">

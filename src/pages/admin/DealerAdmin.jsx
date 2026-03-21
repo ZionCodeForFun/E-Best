@@ -10,6 +10,8 @@ const DealersAdmin = () => {
   const [message, setMessage] = useState(null);
   const [search, setSearch] = useState("");
   const [deleteId, setDeleteId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+const dealersPerPage = 6;
   const emptyForm = {
     name: "",
     email: "",
@@ -75,6 +77,7 @@ const DealersAdmin = () => {
       );
 
       setDealers(dealersWithCounts);
+      setCurrentPage(1);
     } catch (err) {
       console.error("Error fetching dealers:", err.message);
     }
@@ -178,7 +181,21 @@ const DealersAdmin = () => {
     setMessage({ type: "error", text: err.message });
   }
 };
+const filteredDealers = dealers.filter((dealer) => {
+  const query = search.toLowerCase();
+  return (
+    dealer.name?.toLowerCase().includes(query) ||
+    dealer.phone_number?.toLowerCase().includes(query)
+  );
+});
+const indexOfLastDealer = currentPage * dealersPerPage;
+const indexOfFirstDealer = indexOfLastDealer - dealersPerPage;
+const currentDealers = filteredDealers.slice(
+  indexOfFirstDealer,
+  indexOfLastDealer
+);
 
+const totalPages = Math.ceil(filteredDealers.length / dealersPerPage);
   return (
     <div className="admin-dealers">
       <h1>Dealers Management</h1>
@@ -267,16 +284,8 @@ const DealersAdmin = () => {
       </form>
 
       <div className="dealer-list">
-        {dealers.length === 0 && <p>No dealers found</p>}
-        {dealers
-          .filter((dealer) => {
-            const query = search.toLowerCase();
-            return (
-              dealer.name?.toLowerCase().includes(query) ||
-              dealer.phone_number?.toLowerCase().includes(query)
-            );
-          })
-          .map((dealer) => (
+     
+         {currentDealers.map((dealer) => (
             <div key={dealer.id} className="dealer-card">
               <img
                 src={dealer.profile_image || "/default-avatar.png"}
@@ -318,7 +327,25 @@ const DealersAdmin = () => {
             </div>
           ))}
       </div>
+<div className="pagination">
+  <button
+    onClick={() => setCurrentPage((prev) => prev - 1)}
+    disabled={currentPage === 1}
+  >
+    Prev
+  </button>
 
+  <span>
+    Page {currentPage} of {totalPages || 1}
+  </span>
+
+  <button
+    onClick={() => setCurrentPage((prev) => prev + 1)}
+    disabled={currentPage === totalPages || totalPages === 0}
+  >
+    Next
+  </button>
+</div>
       {message && (
         <div className="modal-overlay">
           <div className="modal-content">

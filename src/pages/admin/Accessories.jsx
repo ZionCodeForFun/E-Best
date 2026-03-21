@@ -40,7 +40,8 @@ const Accessories = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPart, setFilteredPart] = useState([]);
   const [is_sold, setIs_sold] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   const [modal, setModal] = useState({
     open: false,
     type: "success",
@@ -75,27 +76,32 @@ const Accessories = () => {
       .order("created_at", { ascending: false });
     if (!error) setItems(data || []);
     setFilteredPart(data || []);
+    setCurrentPage(1);
   };
 
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-
+    setCurrentPage(1);
     if (!term) {
       setFilteredPart(items);
       return;
     }
-
     const lower = term.toLowerCase();
     const filtered = items.filter(
       (items) =>
         (items.name && items.name.toLowerCase().includes(lower)) ||
-        (items.lot && items.lot.toString().includes(lower)) ||
-        (items.dealer_number &&
-          items.dealer_number.toLowerCase().includes(lower)),
-    );
-    setFilteredPart(filtered);
-  };
+      (items.lot && items.lot.toString().includes(lower)) ||
+      (items.dealer_number &&
+        items.dealer_number.toLowerCase().includes(lower)),
+      );
+      setFilteredPart(filtered);
+    };
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredPart.slice(indexOfFirstItem, indexOfLastItem);
+
+    const totalPages = Math.ceil(filteredPart.length / itemsPerPage);
   const uploadImages = async (files) => {
     const urls = [];
     for (let i = 0; i < Math.min(files.length, 5); i++) {
@@ -409,7 +415,7 @@ const Accessories = () => {
       </form>
 
       <div className="admin-accessories__list">
-        {filteredPart.map((item) => (
+        {currentItems.map((item) => (
           <div key={item.id} className="admin-accessories__card">
             <div className="card-content">
               <div className="images">
@@ -478,7 +484,25 @@ const Accessories = () => {
           </div>
         ))}
       </div>
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
 
+        <span>
+          Page {currentPage} of {totalPages || 1}
+        </span>
+
+        <button
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Next
+        </button>
+      </div>
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-content">
