@@ -26,6 +26,7 @@ export default function CarAccessories() {
       const { data, error } = await superbase
         .from("accessories")
         .select("*")
+        .is("deleted_at", null)
         .order("created_at", { ascending: false });
 
       if (error) {
@@ -151,7 +152,6 @@ export default function CarAccessories() {
         <h2 className="home-accessories__title">
           Featured Car Accessories & Parts
         </h2>
-    
       </div>
 
       <div className="home-accessories__slider-container">
@@ -187,7 +187,7 @@ export default function CarAccessories() {
                   </p>
                   <div className="home-accessories-cart-cta-holder">
                     <button
-                      className={`home-accessories-cta-btn-primary ${accessory.isSold? "btn-disabled" : ""}`}
+                      className={`home-accessories-cta-btn-primary ${accessory.isSold ? "btn-disabled" : ""}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleCardClick(accessory.id);

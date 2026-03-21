@@ -217,14 +217,9 @@ body {
   background: #d32f2f;
 }
 
-/* Extra Safety */
-img,
-button,
-div {
-  max-width: 100%;
-}
 
-/* Responsive Fix */
+
+
 @media (max-width: 768px) {
   .trash-page {
     padding: 0.75rem;

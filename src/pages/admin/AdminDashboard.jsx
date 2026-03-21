@@ -25,14 +25,24 @@ const AdminDashboard = () => {
       { count: accessories },
       { count: dealers },
     ] = await Promise.all([
-      superbase.from("cars").select("*", { count: "exact", head: true }),
+      superbase
+        .from("cars")
+        .select("*", { count: "exact", head: true })
+        .is("deleted_at", null),
 
       superbase
         .from("trackers_plans")
         .select("*", { count: "exact", head: true }),
+      
 
-      superbase.from("accessories").select("*", { count: "exact", head: true }),
-      superbase.from("dealers").select("*", { count: "exact", head: true }),
+      superbase
+        .from("accessories")
+        .select("*", { count: "exact", head: true })
+        .is("deleted_at", null),
+      superbase
+        .from("dealers")
+        .select("*", { count: "exact", head: true })
+        .is("deleted_at", null),
     ]);
 
     setStats({

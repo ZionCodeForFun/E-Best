@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { superbase } from "../../SuperbaseClient"; 
+import { superbase } from "../../SuperbaseClient";
 
 export function GetCars() {
   const [cars, setCars] = useState([]);
@@ -14,6 +14,7 @@ export function GetCars() {
       const { data, error } = await superbase
         .from("cars")
         .select("*")
+        .is("deleted_at", null)
         .order("created_at", { ascending: false });
 
       if (error) throw error;

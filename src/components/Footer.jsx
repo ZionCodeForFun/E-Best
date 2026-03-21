@@ -2,7 +2,7 @@ import "../style/footer.css";
 import logo from "../assets/logo.png";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { BsWhatsapp } from "react-icons/bs";
+import { BsTiktok, BsWhatsapp } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const nav = useNavigate();
@@ -10,13 +10,16 @@ const Footer = () => {
     window.open("https://wa.me/8133369509", "_blank");
   };
   const handlefaceBook = () => {
-    window.open("https://www.facebook.com/share/17aaAP7Tis/", "_blank");
+    window.open("https://www.facebook.com/share/1Ab4iu3F5p/?mibextid=wwXIfr", "_blank");
   };
   const handleInsta = () => {
-    window.open("https://wa.me/8133369509", "_blank");
+    window.open("https://www.instagram.com/e_bestautozone?igsh=OGpwcGJwMWNheHdo&utm_source=qr", "_blank");
   };
   const handleEmaiL = () => {
     window.open("mailto:ebestglobalresourcesltd@gmail.com", "_blank");
+  };
+  const handleTictok = () => {
+    window.open("https://www.tiktok.com/@e_best010?_t=ZS-90FOIUoITHp&_r=1", "_blank");
   };
 
   return (
@@ -74,9 +77,12 @@ const Footer = () => {
             >
               <FaFacebook />
             </a>{" "}
-            <a>
+            <a onClick={handleInsta}>
               <FaInstagram />
             </a>{" "}
+            <a onClick={handleTictok}>
+              <BsTiktok />
+            </a>
             <a onClick={handleEmaiL}>
               <MdEmail />
             </a>

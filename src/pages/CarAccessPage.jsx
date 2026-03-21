@@ -26,6 +26,7 @@ export default function AccessoriesListing() {
       const { data, error } = await superbase
         .from("accessories")
         .select("*")
+        .is("deleted_at", null)
         .order("name", { ascending: true });
 
       if (error) {
@@ -138,7 +139,7 @@ export default function AccessoriesListing() {
         <div className="accessories-page__header">
           <p className="accessories-page__title">
             Shop trusted car accessories and durable spare parts at unbeatable
-          prices
+            prices
           </p>
         </div>
 
