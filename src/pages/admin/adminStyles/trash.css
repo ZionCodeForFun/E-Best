@@ -1,8 +1,19 @@
+/* Global Fix */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
 /* Trash Page Container */
 .trash-page {
-  padding: 2rem;
+  padding: 1rem;
   min-height: 100vh;
   background: #f7f8fa;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .trash-page h1 {
@@ -21,9 +32,10 @@
 /* Trash Grid */
 .trash-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 /* Trash Card */
@@ -36,6 +48,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 }
 
 .trash-card h3 {
@@ -50,12 +63,39 @@
   color: #555;
 }
 
+/* Images */
+.trash-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+/* Image Group */
+.trash-image-group {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 5px;
+}
+
+.trash-image-group img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
 /* Trash Card Actions */
 .trash-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .trash-actions button {
@@ -66,8 +106,9 @@
   cursor: pointer;
   font-size: 0.9rem;
   color: #fff;
-  background: #0a1f44; /* deep blue for restore */
+  background: #0a1f44;
   transition: background 0.2s;
+  max-width: 100%;
 }
 
 .trash-actions button:hover {
@@ -89,6 +130,7 @@
   align-items: center;
   gap: 1rem;
   margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .trash-pagination button {
@@ -99,6 +141,7 @@
   color: #fff;
   cursor: pointer;
   transition: background 0.2s;
+  max-width: 100%;
 }
 
 .trash-pagination button:disabled {
@@ -123,6 +166,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 1rem;
 }
 
 /* Modal Content */
@@ -131,7 +175,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   max-width: 400px;
-  width: 90%;
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -152,6 +196,7 @@
   font-size: 0.95rem;
   flex: 1;
   margin-top: 0.25rem;
+  max-width: 100%;
 }
 
 .trash-modal-content button.btn-cancel {
@@ -171,31 +216,26 @@
 .trash-modal-content button.btn-danger:hover {
   background: #d32f2f;
 }
-.trash-image {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin: 10px 0;
+
+/* Extra Safety */
+img,
+button,
+div {
+  max-width: 100%;
 }
 
-.trash-image-group {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  margin: 10px 0;
-}
-
-.trash-image-group img {
-  width: 80px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 6px;
-}
 /* Responsive Fix */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .trash-page {
+    padding: 0.75rem;
+  }
+
   .trash-grid {
     grid-template-columns: 1fr;
+  }
+
+  .trash-card {
+    width: 100%;
   }
 
   .trash-actions {
