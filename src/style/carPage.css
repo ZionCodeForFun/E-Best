@@ -48,7 +48,7 @@
 }
 .carspage-grid {
   display: grid;
-  grid-template-columns: 1fr;
+   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 .carspage-pagination {
@@ -213,7 +213,7 @@
   padding: 16px;
 }
 .carspage-card-name {
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   margin-bottom: 4px;
 }
 .carspage-card-brand {
@@ -222,7 +222,7 @@
   margin-bottom: 12px;
 }
 .carspage-card-price {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #16447e;
   margin-bottom: 16px;
 }
@@ -233,7 +233,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   margin-bottom: 16px;
-  font-size: 0.875rem;
+  font-size: 0.70rem;
   color: #374151;
 }
 .carspage-spec {
@@ -260,6 +260,7 @@
   text-decoration: none;
   transition: background-color 0.3s;
   flex: 1;
+   font-size: 0.8rem;
 }
 
 .carspage-button:hover {

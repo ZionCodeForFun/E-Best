@@ -6,7 +6,6 @@ import "../style/cta.css";
 import "../style/skeleton.css";
 import { GetCars } from "../components/api/Cars";
 import ImageCarouselGlobal from "../components/ImageCarouselGlobal";
-import ContactModal from "../components/ContactModal";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 export default function CarPage() {
@@ -25,7 +24,7 @@ export default function CarPage() {
     const matchMake = selectedMake ? car.brand === selectedMake : true;
     const matchModel = selectedModel ? car.model === selectedModel : true;
     const matchYear = selectedYear
-      ? String(car.year) === String(selectedYear)
+    ? String(car.year) === String(selectedYear)
       : true;
 
     return matchMake && matchModel && matchYear;
@@ -82,13 +81,8 @@ export default function CarPage() {
     }
     return pages;
   };
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedCar, setSelectedCar] = useState(null);
 
-  const openContactModalFor = (car) => {
-    setSelectedCar(car);
-    setModalOpen(true);
-  };
+
 
   if (loading) {
     return (
@@ -273,12 +267,7 @@ export default function CarPage() {
                   >
                     {car.isSold ? "Unavailable" : "View Details"}
                   </button>
-                  <button
-                    className="carspage-button carspage-button--secondary btn-outline"
-                    onClick={() => openContactModalFor(car)}
-                  >
-                    Contact Us
-                  </button>
+              
                 </div>
               </div>
             </div>
@@ -306,11 +295,7 @@ export default function CarPage() {
           </div>
         )}
       </div>
-      <ContactModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        phone={selectedCar ? "+2348133369509" : "+2348133369509"}
-      />
+ 
     </div>
   );
 }

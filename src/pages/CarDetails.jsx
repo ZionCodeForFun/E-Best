@@ -209,6 +209,7 @@ ${currentUrl}
         <section className="card-section">
           <h2>Vehicle Description</h2>
           <p>{car.features}</p>
+       
           <a
             href={whatsappLinkForReport}
             target="_blank"

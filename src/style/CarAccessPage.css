@@ -39,6 +39,7 @@
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
+
 }
 
 .accessories-page__card:hover {
@@ -156,7 +157,7 @@
 }
 
 .accessories-page__card-name {
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #111827;
   margin: 0 0 10px 0;
@@ -173,7 +174,7 @@
 }
 
 .accessories-page__card-price {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #16447e;
   margin: 0 0 20px 0;
@@ -281,8 +282,9 @@
   }
 
   .accessories-page__grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .accessories-page__card-image-wrapper {

@@ -8,11 +8,9 @@ import { ChevronLeft } from "lucide-react";
 import { superbase } from "../SuperbaseClient";
 import CustomSelectAccess from "../common/CustomSelectAccess";
 import ImageCarouselGlobal from "../components/ImageCarouselGlobal";
-import ContactModal from "../components/ContactModal";
 export default function AccessoriesListing() {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalItem, setModalItem] = useState(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -221,27 +219,13 @@ export default function AccessoriesListing() {
                   >
                     {accessory.isSold ? "Unavailable" : " View Details"}
                   </button>
-                  <button
-                    className="accessories-page__button accessories-page__button--secondary btn-outline"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setModalItem(accessory);
-                      setModalOpen(true);
-                    }}
-                  >
-                    Contact Us
-                  </button>
+                
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <ContactModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          phone={"+2348133369509"}
-        />
 
         <div className="accessories-page__pagination">
           <button

@@ -53,7 +53,6 @@ const dealersPerPage = 6;
               total_listed: 0,
             };
 
-          // Count cars
           const { count: carsCount } = await superbase
             .from("cars")
             .select("*", { count: "exact", head: true })

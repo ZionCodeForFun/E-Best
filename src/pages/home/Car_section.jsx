@@ -6,7 +6,7 @@ import "../../style/skeleton.css";
 export function CarsSection() {
   const { cars, loading } = GetCars();
   const nav = useNavigate();
-  const randomCars = [...cars].sort(() => 0.5 - Math.random()).slice(0, 4);
+  const randomCars = [...cars].sort(() => 0.5 - Math.random()).slice(0, 6);
  
   if (loading) {
     return (
@@ -20,7 +20,7 @@ export function CarsSection() {
             <div className="skeleton-tagline" style={{ width: "400px" }}></div>
           </div>
           <div className="product-cards-skeleton" style={{ marginTop: "2rem" }}>
-            {[1, 2, 3, 4].map((idx) => (
+            {[1, 2, 3, 4,5,6].map((idx) => (
               <div key={idx} className="product-card-skeleton">
                 <div className="skeleton-image-wrapper"></div>
                 <div className="skeleton-card-content">

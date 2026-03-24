@@ -7,7 +7,6 @@ import { superbase } from "../../SuperbaseClient";
 import "../../style/CarAsseccories.css";
 import "../../style/cta.css";
 import "../../style/skeleton.css";
-import ContactModal from "../../components/ContactModal";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -15,11 +14,18 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 export default function CarAccessories() {
   const [accessories, setAccessories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalItem, setModalItem] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
   const navigate = useNavigate();
 
   const outerSliderRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const fetchAccessories = async () => {
@@ -59,19 +65,18 @@ export default function CarAccessories() {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
     ],
-    ref: outerSliderRef,
   };
 
   const handleCardClick = (id) => {
@@ -153,13 +158,13 @@ export default function CarAccessories() {
           Featured Car Accessories & Parts
         </h2>
       </div>
-
-      <div className="home-accessories__slider-container">
-        <Slider {...sliderSettings} className="home-accessories__slider">
+      {isMobile ? (
+        <div className="home-accessories__grid">
           {featuredAccessories.map((accessory) => (
             <div key={accessory.id}>
               <div
                 className={`home-accessories__card ${accessory.isSold ? "sold" : ""}`}
+                onClick={() => handleCardClick(accessory.id)}
               >
                 <div className="home-accessories__card-image-wrapper">
                   <ImageCarouselAccess images={accessory.images} />
@@ -185,6 +190,7 @@ export default function CarAccessories() {
                   <p className="home-accessories__card-price">
                     {formatPrice(accessory.price)}
                   </p>
+
                   <div className="home-accessories-cart-cta-holder">
                     <button
                       className={`home-accessories-cta-btn-primary ${accessory.isSold ? "btn-disabled" : ""}`}
@@ -194,32 +200,69 @@ export default function CarAccessories() {
                       }}
                       disabled={accessory.isSold}
                     >
-                      {accessory.isSold ? "Unavailable" : " View Details"}
-                    </button>
-                    <button
-                      className="home-accessories-cta-secondary"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setModalItem(accessory);
-                        setModalOpen(true);
-                      }}
-                    >
-                      Contact Us
+                      {accessory.isSold ? "Unavailable" : "View Details"}
                     </button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-        </Slider>
-      </div>
+        </div>
+      ) : (
+        <div className="home-accessories__slider-container">
+          <Slider
+            {...sliderSettings}
+           
+            className="home-accessories__slider"
+          >
+            {featuredAccessories.map((accessory) => (
+              <div key={accessory.id}>
+                <div
+                  className={`home-accessories__card ${accessory.isSold ? "sold" : ""}`}
+                >
+                  <div className="home-accessories__card-image-wrapper">
+                    <ImageCarouselAccess images={accessory.images} />
+                    {accessory.badge && (
+                      <span className="home-accessories__badge">
+                        {accessory.badge}
+                      </span>
+                    )}
+                    {accessory.isSold && (
+                      <div className="sold-overlay">
+                        <span>SOLD</span>
+                      </div>
+                    )}
+                  </div>
 
-      <ContactModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        phone={"+2348133369509"}
-      />
-
+                  <div className="home-accessories__card-content">
+                    <h3 className="home-accessories__card-name">
+                      {accessory.name}
+                    </h3>
+                    <p className="home-accessories__card-description">
+                      {accessory.shortDescription}
+                    </p>
+                    <p className="home-accessories__card-price">
+                      {formatPrice(accessory.price)}
+                    </p>
+                    <div className="home-accessories-cart-cta-holder">
+                      <button
+                        className={`home-accessories-cta-btn-primary ${accessory.isSold ? "btn-disabled" : ""}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCardClick(accessory.id);
+                        }}
+                        disabled={accessory.isSold}
+                      >
+                        {accessory.isSold ? "Unavailable" : " View Details"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
       <div style={{ textAlign: "center", marginTop: "50px" }}>
         <button
           className="home-accessories__button"

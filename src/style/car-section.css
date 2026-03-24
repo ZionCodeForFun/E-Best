@@ -96,7 +96,7 @@
   gap: 10px;
 }
 .car-card-cta-primary {
-  width: 50%;
+  width: 100%;
   background-color: #154883;
   color: #ffffff;
   border: none;
@@ -234,9 +234,11 @@
 
   }
 
+
+
   .cars-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .section-title {
@@ -259,6 +261,38 @@
   .view-more-btn {
     padding: 14px 36px;
     font-size: 1rem;
+  }
+    .car-name {
+    font-size: 0.95rem;
+  }
+
+  .car-year {
+    font-size: 0.75rem;
+  }
+
+  .car-price {
+    font-size: 1rem;
+    margin: 6px 0 10px 0;
+  }
+
+  .car-card-content {
+    padding: 8px;
+  }
+
+  .car-card-image {
+    height: 160px;
+  }
+
+  .carousel-image {
+    height: 160px !important;
+  }
+
+  .car-card-actions {
+    height: 34px;
+  }
+
+  .car-card-cta-primary {
+    font-size: 0.8rem;
   }
 }
 .car-card-image {

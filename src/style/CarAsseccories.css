@@ -128,7 +128,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
-  width: 50%;
+  width: 100%;
 }
 .home-accessories__button {
   padding: 16px 48px;
@@ -203,59 +203,45 @@
   color: #ffffff;
   opacity: 1;
 }
-
 @media (max-width: 768px) {
   .home-accessories {
-    padding: 30px 27px  30px 10px ;
-  
-   
+    padding: 30px 10px;
   }
 
   .home-accessories__slider-container {
     padding: 0;
   }
 
-  .home-accessories__slider {
-    margin: 0 -10px;
-  }
-
-  .home-accessories__slider {
-    margin: 0 -10px;
-    display: block; /* ensure slider doesn't use flex layout on small screens */
-  }
-
-  /* Make each slick slide take full width on mobile so cards stack vertically */
-  .home-accessories__slider .slick-slide {
-    display: block !important;
-    width: 100% !important;
-    padding: 0 8px;
-    box-sizing: border-box;
-  }
-
   .home-accessories__card {
-    margin: 0 10px 16px; /* add bottom spacing between stacked cards */
-    width: 100%;
-    box-sizing: border-box;
+    margin: 0 6px;
   }
 
   .home-accessories__card-image-wrapper {
-    height: 200px;
+    height: 160px;
   }
 
-  .home-accessories__card-actions {
-    display: flex;
-    gap: 8px;
+  .home-accessories__card-name {
+    font-size: 0.95rem;
   }
 
-  .home-accessories__title {
-    font-size: 24px;
+  .home-accessories__card-description {
+    font-size: 12px;
   }
 
-  .home-accessories__subtitle {
-    font-size: 14px;
+  .home-accessories__card-price {
+    font-size: 1rem;
   }
 
-  /* Hide previous/next arrows on mobile, use dots instead */
+  .home-accessories-cart-cta-holder {
+    height: 34px;
+  }
+
+  .home-accessories-cta-btn-primary {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  /* Hide arrows on mobile */
   .home-accessories__slider-container .slick-prev,
   .home-accessories__slider-container .slick-next {
     display: none;
@@ -406,4 +392,16 @@
   cursor: not-allowed !important;
   opacity: 0.7;
   border: none;
+}
+.home-accessories__slider .slick-track {
+  display: flex !important;
+}
+
+.home-accessories__slider .slick-slide {
+  height: auto !important;
+}
+.home-accessories__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
