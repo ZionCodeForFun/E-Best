@@ -185,6 +185,7 @@ export default function AccessoriesListing() {
                   }
                   altText={accessory.name}
                   loading="lazy"
+                    showArrows={false}
                   containerClassName="accessories-page__carousel"
                 />
 

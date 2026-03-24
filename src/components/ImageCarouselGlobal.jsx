@@ -4,6 +4,7 @@ export default function ImageCarouselGlobal({
   images = [],
   altText = "Image",
   containerClassName = "carousel-wrapper",
+  showArrows = true,
 }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -65,23 +66,26 @@ export default function ImageCarouselGlobal({
           className="carousel-image"
         />
       </div>
-
       {hasMultipleImages && (
         <>
-          <button
-            className="carousel-button carousel-button--prev"
-            onClick={handlePrevImage}
-            aria-label="Previous image"
-          >
-            ❮
-          </button>
-          <button
-            className="carousel-button carousel-button--next"
-            onClick={handleNextImage}
-            aria-label="Next image"
-          >
-            ❯
-          </button>
+          {showArrows && (
+            <>
+              <button
+                className="carousel-button carousel-button--prev"
+                onClick={handlePrevImage}
+                aria-label="Previous image"
+              >
+                ❮
+              </button>
+              <button
+                className="carousel-button carousel-button--next"
+                onClick={handleNextImage}
+                aria-label="Next image"
+              >
+                ❯
+              </button>
+            </>
+          )}
 
           <div className="carousel-dots">
             {images.map((_, index) => (
