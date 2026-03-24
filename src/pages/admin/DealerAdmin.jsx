@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "../admin/adminStyles/DealerAdmin.css";
-
+import imageCompression from "browser-image-compression";
 const DealersAdmin = () => {
   const fileInputRef = useRef(null);
   const [dealers, setDealers] = useState([]);
@@ -11,7 +11,7 @@ const DealersAdmin = () => {
   const [search, setSearch] = useState("");
   const [deleteId, setDeleteId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-const dealersPerPage = 6;
+  const dealersPerPage = 6;
   const emptyForm = {
     name: "",
     email: "",
@@ -87,19 +87,34 @@ const dealersPerPage = 6;
   }, []);
 
   const uploadImage = async (file) => {
-    const fileName = `${Date.now()}-${file.name}`;
-    const filePath = `dealers/${fileName}`;
-    const { error } = await superbase.storage
-      .from("dealers-images")
-      .upload(filePath, file, { upsert: true });
-    if (error) throw new Error(error.message);
+    try {
+      // compress image
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 0.15,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+        fileType: "image/webp",
+      });
 
-    const { data } = superbase.storage
-      .from("dealers-images")
-      .getPublicUrl(filePath);
-    return data.publicUrl;
+      const fileName = `${Date.now()}-${file.name.split(".")[0]}.webp`;
+      const filePath = `dealers/${fileName}`;
+
+      const { error } = await superbase.storage
+        .from("dealers-images")
+        .upload(filePath, compressedFile, { upsert: true });
+
+      if (error) throw new Error(error.message);
+
+      const { data } = superbase.storage
+        .from("dealers-images")
+        .getPublicUrl(filePath);
+
+      return data.publicUrl;
+    } catch (err) {
+      console.error("Dealer image compression error:", err);
+      throw err;
+    }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -163,38 +178,38 @@ const dealersPerPage = 6;
   };
 
   const handleDelete = async () => {
-  if (!deleteId) return;
+    if (!deleteId) return;
 
-  try {
-    const { error } = await superbase
-      .from("dealers")
-      .update({ deleted_at: new Date().toISOString() }) // soft delete
-      .eq("id", deleteId);
+    try {
+      const { error } = await superbase
+        .from("dealers")
+        .update({ deleted_at: new Date().toISOString() }) // soft delete
+        .eq("id", deleteId);
 
-    if (error) throw new Error(error.message);
+      if (error) throw new Error(error.message);
 
-    setMessage({ type: "success", text: "Dealer moved to trash!" });
-    setDeleteId(null);
-    fetchDealers();
-  } catch (err) {
-    setMessage({ type: "error", text: err.message });
-  }
-};
-const filteredDealers = dealers.filter((dealer) => {
-  const query = search.toLowerCase();
-  return (
-    dealer.name?.toLowerCase().includes(query) ||
-    dealer.phone_number?.toLowerCase().includes(query)
+      setMessage({ type: "success", text: "Dealer moved to trash!" });
+      setDeleteId(null);
+      fetchDealers();
+    } catch (err) {
+      setMessage({ type: "error", text: err.message });
+    }
+  };
+  const filteredDealers = dealers.filter((dealer) => {
+    const query = search.toLowerCase();
+    return (
+      dealer.name?.toLowerCase().includes(query) ||
+      dealer.phone_number?.toLowerCase().includes(query)
+    );
+  });
+  const indexOfLastDealer = currentPage * dealersPerPage;
+  const indexOfFirstDealer = indexOfLastDealer - dealersPerPage;
+  const currentDealers = filteredDealers.slice(
+    indexOfFirstDealer,
+    indexOfLastDealer,
   );
-});
-const indexOfLastDealer = currentPage * dealersPerPage;
-const indexOfFirstDealer = indexOfLastDealer - dealersPerPage;
-const currentDealers = filteredDealers.slice(
-  indexOfFirstDealer,
-  indexOfLastDealer
-);
 
-const totalPages = Math.ceil(filteredDealers.length / dealersPerPage);
+  const totalPages = Math.ceil(filteredDealers.length / dealersPerPage);
   return (
     <div className="admin-dealers">
       <h1>Dealers Management</h1>
@@ -283,68 +298,65 @@ const totalPages = Math.ceil(filteredDealers.length / dealersPerPage);
       </form>
 
       <div className="dealer-list">
-     
-         {currentDealers.map((dealer) => (
-            <div key={dealer.id} className="dealer-card">
-              <img
-                src={dealer.profile_image || "/default-avatar.png"}
-                alt={dealer.name}
-                className="dealer-image"
-              />
-              <h3>{dealer.name}</h3>
-              <p>
-                <strong>Email</strong>: {dealer.email || "N/A"}
-              </p>
-              <p>
-                <strong>Phone</strong>: {dealer.phone_number}
-              </p>
-              <p>
-                <strong> Location</strong>: {dealer.city}, {dealer.state}
-              </p>
-              <p>
-                <strong>Cars Listed</strong>: {dealer.cars_listed}
-              </p>
-              <p>
-                <strong>Accessories Listed</strong>: {dealer.accessories_listed}
-              </p>
-              <p>
-                <strong>Total Items: {dealer.total_listed}</strong>
-              </p>
-              <p>
-                <strong>Status</strong>:{" "}
-                {dealer.is_active ? "Active" : "Inactive"}
-              </p>
-              <div className="dealer-actions">
-                <button onClick={() => handleEdit(dealer)}>Edit</button>
-                <button
-                  onClick={() => setDeleteId(dealer.id)}
-                  className="danger"
-                >
-                  Trash
-                </button>
-              </div>
+        {currentDealers.map((dealer) => (
+          <div key={dealer.id} className="dealer-card">
+            <img
+              src={dealer.profile_image || "/default-avatar.png"}
+              alt={dealer.name}
+              loading="lazy"
+              className="dealer-image"
+            />
+            <h3>{dealer.name}</h3>
+            <p>
+              <strong>Email</strong>: {dealer.email || "N/A"}
+            </p>
+            <p>
+              <strong>Phone</strong>: {dealer.phone_number}
+            </p>
+            <p>
+              <strong> Location</strong>: {dealer.city}, {dealer.state}
+            </p>
+            <p>
+              <strong>Cars Listed</strong>: {dealer.cars_listed}
+            </p>
+            <p>
+              <strong>Accessories Listed</strong>: {dealer.accessories_listed}
+            </p>
+            <p>
+              <strong>Total Items: {dealer.total_listed}</strong>
+            </p>
+            <p>
+              <strong>Status</strong>:{" "}
+              {dealer.is_active ? "Active" : "Inactive"}
+            </p>
+            <div className="dealer-actions">
+              <button onClick={() => handleEdit(dealer)}>Edit</button>
+              <button onClick={() => setDeleteId(dealer.id)} className="danger">
+                Trash
+              </button>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
-<div className="pagination">
-  <button
-    onClick={() => setCurrentPage((prev) => prev - 1)}
-    disabled={currentPage === 1}
-  >
-    Prev
-  </button>
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
 
-  <span>
-    Page {currentPage} of {totalPages || 1}
-  </span>
+        <span>
+          Page {currentPage} of {totalPages || 1}
+        </span>
 
-  <button
-    onClick={() => setCurrentPage((prev) => prev + 1)}
-    disabled={currentPage === totalPages || totalPages === 0}
-  >
-    Next
-  </button>
-</div>
+        <button
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Next
+        </button>
+      </div>
       {message && (
         <div className="modal-overlay">
           <div className="modal-content">

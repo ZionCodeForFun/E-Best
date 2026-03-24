@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "./adminStyles/Accessories.css";
+import imageCompression from "browser-image-compression";
 const formatNumberWithCommas = (value) => {
   if (!value) return "";
   const number = value.toString().replace(/,/g, "");
@@ -91,35 +92,53 @@ const Accessories = () => {
     const filtered = items.filter(
       (items) =>
         (items.name && items.name.toLowerCase().includes(lower)) ||
-      (items.lot && items.lot.toString().includes(lower)) ||
-      (items.dealer_number &&
-        items.dealer_number.toLowerCase().includes(lower)),
-      );
-      setFilteredPart(filtered);
-    };
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredPart.slice(indexOfFirstItem, indexOfLastItem);
+        (items.lot && items.lot.toString().includes(lower)) ||
+        (items.dealer_number &&
+          items.dealer_number.toLowerCase().includes(lower)),
+    );
+    setFilteredPart(filtered);
+  };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredPart.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(filteredPart.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredPart.length / itemsPerPage);
   const uploadImages = async (files) => {
     const urls = [];
+
     for (let i = 0; i < Math.min(files.length, 5); i++) {
       const file = files[i];
-      const fileName = `${Date.now()}-${file.name}`;
-      const filePath = `accessories/${fileName}`;
-      const { error } = await superbase.storage
-        .from("accessories")
-        .upload(filePath, file, { upsert: false });
-      if (error) continue;
-      const { data } = superbase.storage
-        .from("accessories")
-        .getPublicUrl(filePath);
-      if (data && data.publicUrl) urls.push(data.publicUrl);
+
+      try {
+        // 🔥 compress image
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 0.2,
+          maxWidthOrHeight: 1200,
+          useWebWorker: true,
+          fileType: "image/webp",
+        });
+
+        const fileName = `${Date.now()}-${file.name.split(".")[0]}.webp`;
+        const filePath = `accessories/${fileName}`;
+
+        const { error } = await superbase.storage
+          .from("accessories")
+          .upload(filePath, compressedFile, { upsert: false });
+
+        if (error) continue;
+
+        const { data } = superbase.storage
+          .from("accessories")
+          .getPublicUrl(filePath);
+
+        if (data?.publicUrl) urls.push(data.publicUrl);
+      } catch (err) {
+        console.error("Compression error:", err);
+      }
     }
+
     return urls;
   };
-
   const addFeature = () => {
     if (!featureInput.trim()) return;
     setForm({
@@ -139,11 +158,17 @@ const Accessories = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      let imageUrls = form.images.length ? await uploadImages(form.images) : [];
+      let imageUrls = null;
 
+      if (form.images.length) {
+        imageUrls = await uploadImages(form.images);
+      }
       if (editingId) {
-        let finalImages = existingImages;
-        if (form.images.length) finalImages = await uploadImages(form.images);
+        let finalImages = [...existingImages];
+
+        if (imageUrls && imageUrls.length) {
+          finalImages = [...existingImages, ...imageUrls].slice(0, 5);
+        }
 
         const { error } = await superbase
           .from("accessories")
@@ -360,7 +385,7 @@ const Accessories = () => {
           accept="image/*"
           onChange={(e) => {
             const newFiles = Array.from(e.target.files);
-            const totalFiles = [...form.images, ...newFiles].slice(0, 5); // limit to 5
+            const totalFiles = [...form.images, ...newFiles].slice(0, 5); 
             setForm({ ...form, images: totalFiles });
             setPreviewImages(totalFiles.map((f) => URL.createObjectURL(f)));
           }}
@@ -420,7 +445,12 @@ const Accessories = () => {
             <div className="card-content">
               <div className="images">
                 {item.images?.map((img, i) => (
-                  <img key={i} src={img} alt={`${item.name}-${i}`} />
+                  <img
+                    key={i}
+                    src={img}
+                    alt={`${item.name}-${i}`}
+                    loading="lazy"
+                  />
                 ))}
               </div>
               <h2>{item.name}</h2>

@@ -24,7 +24,7 @@ export default function CarPage() {
     const matchMake = selectedMake ? car.brand === selectedMake : true;
     const matchModel = selectedModel ? car.model === selectedModel : true;
     const matchYear = selectedYear
-    ? String(car.year) === String(selectedYear)
+      ? String(car.year) === String(selectedYear)
       : true;
 
     return matchMake && matchModel && matchYear;
@@ -81,8 +81,6 @@ export default function CarPage() {
     }
     return pages;
   };
-
-
 
   if (loading) {
     return (
@@ -167,7 +165,7 @@ export default function CarPage() {
               value={selectedMake}
               onChange={(value) => {
                 setSelectedMake(value);
-                setSelectedModel(""); 
+                setSelectedModel("");
                 setCurrentPage(1);
               }}
             />
@@ -202,8 +200,6 @@ export default function CarPage() {
                 setCurrentPage(1);
               }}
             />
-
-         
           </div>
         </div>
 
@@ -218,6 +214,7 @@ export default function CarPage() {
                 <ImageCarouselGlobal
                   images={Array.isArray(car.images) ? car.images : []}
                   altText={car.name}
+                  loading="lazy"
                   containerClassName="carspage-carousel"
                 />
                 {car.isSold && (
@@ -267,7 +264,6 @@ export default function CarPage() {
                   >
                     {car.isSold ? "Unavailable" : "View Details"}
                   </button>
-              
                 </div>
               </div>
             </div>
@@ -295,7 +291,6 @@ export default function CarPage() {
           </div>
         )}
       </div>
- 
     </div>
   );
 }

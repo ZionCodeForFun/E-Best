@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { superbase } from "../../SuperbaseClient";
 import "./adminStyles/car.css";
+import imageCompression from "browser-image-compression";
 const formatNumberWithCommas = (value) => {
   if (!value) return "";
   const number = value.toString().replace(/,/g, "");
@@ -19,7 +20,7 @@ const Cars = () => {
   const [filteredCars, setFilteredCars] = useState([]);
   const [is_sold, setIs_sold] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-const carsPerPage = 6;
+  const carsPerPage = 6;
   const emptyForm = {
     name: "",
     price: "",
@@ -70,12 +71,12 @@ const carsPerPage = 6;
       .order("created_at", { ascending: false });
     if (!error) setCars(data || []);
     setFilteredCars(data || []);
-    setCurrentPage(1)
+    setCurrentPage(1);
   };
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
- setCurrentPage(1);
+    setCurrentPage(1);
     if (!term) {
       setFilteredCars(cars);
       return;
@@ -90,26 +91,44 @@ const carsPerPage = 6;
     );
     setFilteredCars(filtered);
   };
-const indexOfLastCar = currentPage * carsPerPage;
-const indexOfFirstCar = indexOfLastCar - carsPerPage;
-const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
+  const indexOfLastCar = currentPage * carsPerPage;
+  const indexOfFirstCar = indexOfLastCar - carsPerPage;
+  const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
 
-const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+  const totalPages = Math.ceil(filteredCars.length / carsPerPage);
   const uploadImages = async (files) => {
     const urls = [];
+
     for (let i = 0; i < Math.min(files.length, 10); i++) {
       const file = files[i];
-      const fileName = `${Date.now()}-${file.name}`;
-      const filePath = `cars/${fileName}`;
-      const { error } = await superbase.storage
-        .from("cars-images")
-        .upload(filePath, file, { upsert: false });
-      if (error) continue;
-      const { data } = superbase.storage
-        .from("cars-images")
-        .getPublicUrl(filePath);
-      if (data && data.publicUrl) urls.push(data.publicUrl);
+
+      try {
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 0.2, // 200KB
+          maxWidthOrHeight: 1200,
+          useWebWorker: true,
+          fileType: "image/webp",
+        });
+
+        const fileName = `${Date.now()}-${file.name.split(".")[0]}.webp`;
+        const filePath = `cars/${fileName}`;
+
+        const { error } = await superbase.storage
+          .from("cars-images")
+          .upload(filePath, compressedFile, { upsert: false });
+
+        if (error) continue;
+
+        const { data } = superbase.storage
+          .from("cars-images")
+          .getPublicUrl(filePath);
+
+        if (data?.publicUrl) urls.push(data.publicUrl);
+      } catch (err) {
+        console.error("Compression error:", err);
+      }
     }
+
     return urls;
   };
 
@@ -117,14 +136,18 @@ const totalPages = Math.ceil(filteredCars.length / carsPerPage);
     e.preventDefault();
     setLoading(true);
     try {
-      let imageUrls = form.images.length
-        ? await uploadImages(form.images)
-        : null;
+      let imageUrls = null;
+
+      if (form.images.length) {
+        imageUrls = await uploadImages(form.images);
+      }
 
       if (editingId) {
-        let finalImages = existingImages;
-        if (form.images.length) finalImages = await uploadImages(form.images);
+        let finalImages = [...existingImages];
 
+        if (imageUrls && imageUrls.length) {
+          finalImages = [...existingImages, ...imageUrls].slice(0, 7);
+        }
         const { error } = await superbase
           .from("cars")
           .update({
@@ -334,12 +357,12 @@ const totalPages = Math.ceil(filteredCars.length / carsPerPage);
           accept="image/*"
           onChange={(e) => {
             const newFiles = Array.from(e.target.files);
-            const totalFiles = [...form.images, ...newFiles].slice(0, 10);
+            const totalFiles = [...form.images, ...newFiles].slice(0, 7);
             setForm({ ...form, images: totalFiles });
             setPreviewImages(totalFiles.map((f) => URL.createObjectURL(f)));
           }}
         />
-        <small>{form.images.length} image(s) selected (max 10)</small>
+        <small>{form.images.length} image(s) selected (max 7)</small>
         <label className="sold-checkbox">
           <input
             type="checkbox"
@@ -392,7 +415,12 @@ const totalPages = Math.ceil(filteredCars.length / carsPerPage);
             <div className="card-content">
               <div className="car-images">
                 {car.images.map((img, idx) => (
-                  <img key={idx} src={img} alt={`${car.name}-${idx}`} />
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`${car.name}-${idx}`}
+                    loading="lazy"
+                  />
                 ))}
               </div>
               <h3>{car.name}</h3>
@@ -448,25 +476,25 @@ const totalPages = Math.ceil(filteredCars.length / carsPerPage);
           </div>
         ))}
       </div>
-<div className="pagination">
-  <button
-    onClick={() => setCurrentPage((prev) => prev - 1)}
-    disabled={currentPage === 1}
-  >
-    Prev
-  </button>
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
 
-  <span>
-    Page {currentPage} of {totalPages || 1}
-  </span>
+        <span>
+          Page {currentPage} of {totalPages || 1}
+        </span>
 
-  <button
-    onClick={() => setCurrentPage((prev) => prev + 1)}
-    disabled={currentPage === totalPages || totalPages === 0}
-  >
-    Next
-  </button>
-</div>
+        <button
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Next
+        </button>
+      </div>
       {/* DELETE CONFIRM */}
       {deleteCarId && (
         <div className="modal-overlay">

@@ -184,6 +184,7 @@ export default function AccessoriesListing() {
                     Array.isArray(accessory.images) ? accessory.images : []
                   }
                   altText={accessory.name}
+                  loading="lazy"
                   containerClassName="accessories-page__carousel"
                 />
 
@@ -219,13 +220,11 @@ export default function AccessoriesListing() {
                   >
                     {accessory.isSold ? "Unavailable" : " View Details"}
                   </button>
-                
                 </div>
               </div>
             </div>
           ))}
         </div>
-
 
         <div className="accessories-page__pagination">
           <button
