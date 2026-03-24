@@ -299,11 +299,18 @@
   .accessories-page__button {
     padding: 10px 12px;
     font-size: 14px;
-    flex: 1;
+    
   }
 
   .accessories-page__search-bar .custom-select-container {
     width: 100%;
+  }
+}
+@media (max-width: 480px){
+  .accessories-page__button  {
+    padding: 10px 12px;
+    font-size: 12px;
+ 
   }
 }
 .accessories-page__search-bar {
